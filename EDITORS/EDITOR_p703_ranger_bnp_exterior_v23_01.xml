@@ -1,0 +1,1201 @@
+<Root>
+	<ProjectSettings LayerStates="Y:\CGI Production\p703_ranger\2023\PDM\1_masterfile\exterior\layerstates" MaterialLibrary="Y:\CGI Production\p703_ranger\2023.75\BnP\Exterior\Max\material_library\p703_materials_2021_relinked_v3.mat" MaterialPriority="1" ZoneStates="Y:\CGI Production\p703_ranger\2023\PDM\1_masterfile\exterior\zonestates" />
+	<ChaosCloudSettings VrScene="Z:\bnp\build\p703\MY2300\ext\3d\max\scenes\.vrscenes\p703_ranger_bnp_exterior_v20" />
+	<OutputSettings />
+	<JARVISSettings>
+		<Descriptions>
+			<Description Description="RR FLR MATS-PREMIUM" FeatureCode="BBICM" />
+			<Description Description="LESS POWER POINT PLUG - REAR" FeatureCode="J3FAA" />
+			<Description Description="6 SPD MAN TRANS-MT88" FeatureCode="TR-GP" />
+			<Description Description="LESS ENGR TRIM PACK-NO CONTENT" FeatureCode="A4VAA" />
+			<Description Description="LESS HEATED WASHER JETS" FeatureCode="CFGAA" />
+			<Description Description="DOOR HANDLES-INSIDE CHROME" FeatureCode="BCFAJ" />
+			<Description Description="LESS SIDE AUXILIARY STEP" FeatureCode="BPLAA" />
+			<Description Description="LESS MPH ENGINE GOVERNOR" FeatureCode="DCFAA" />
+			<Description Description="20 X 8.0 ALUMINUM WHEEL" FeatureCode="D2FCX" />
+			<Description Description="MOLDED GEAR SHIFT KNOB" FeatureCode="CAEAC" />
+			<Description Description="WHEEL PACK 9" FeatureCode="J4YAJ" />
+			<Description Description="BASE GVM RATING" FeatureCode="AA7AB" />
+			<Description Description="HIGH MOUNTED STOP LAMP" FeatureCode="JDDAB" />
+			<Description Description="DUAL NOTE ELECTRIC HORN" FeatureCode="HIAAC" />
+			<Description Description="GLOVE BOX LID" FeatureCode="B5LAC" />
+			<Description Description="LESS WINDOWS TINT" FeatureCode="B2GAA" />
+			<Description Description="STEP BAR-TUB/ACCENT COLOR" FeatureCode="BPLAR" />
+			<Description Description="255/70 R17 A/T" FeatureCode="D3KGR" />
+			<Description Description="LESS MARKETING BODY CODE" FeatureCode="YZVAA" />
+			<Description Description="LESS DRIVER ASSISTANCE PACKAGE" FeatureCode="DBCAA" />
+			<Description Description="FREQUENCY - 433 MHZ" FeatureCode="CB7AC" />
+			<Description Description="LESS SECOND UNIT BODY" FeatureCode="A9CAA" />
+			<Description Description="DAY/NIGHT INSIDE MIRROR" FeatureCode="BSBAB" />
+			<Description Description="P703M RANGER" FeatureCode="VL#RB" />
+			<Description Description="KEYLESS ENTRY/START-PASSIVE" FeatureCode="CBGAL" />
+			<Description Description="FRONT SEAT PACK 7" FeatureCode="BW1AH" />
+			<Description Description="EXT DOOR HANDLE-SELF COLOURED" FeatureCode="CAAAE" />
+			<Description Description="LESS BEDLINER" FeatureCode="YBRAA" />
+			<Description Description="REAR SPLASH GUARDS" FeatureCode="A1KAB" />
+			<Description Description="SHIP TO STS" FeatureCode="AASBY" />
+			<Description Description="LESS REAR SEAT BELTS" FeatureCode="CPCAA" />
+			<Description Description="CAR AND LIGHT TRUCK TIRES" FeatureCode="ST1" />
+			<Description Description="SEAT ADJUSTER-PASSENGER" FeatureCode="BYQ" />
+			<Description Description="SPECIAL PURPOSE VEHICLE" FeatureCode="AAE" />
+			<Description Description="SPEED AUDIBLE WARNING DEVICE" FeatureCode="HLI" />
+			<Description Description="TAILLAMPS" FeatureCode="JDA" />
+			<Description Description="ENGINE FUEL CAPABILITY" FeatureCode="GBV" />
+			<Description Description="BED DIVIDER" FeatureCode="A5C" />
+			<Description Description="SPECIAL ORDER PAINT" FeatureCode="AB7" />
+			<Description Description="KEYLESS ENTRY/START SYSTEM" FeatureCode="CBG" />
+			<Description Description="ELECTRICAL OUTLET" FeatureCode="J3A" />
+			<Description Description="HEADLAMP CONTROL" FeatureCode="JED" />
+			<Description Description="ROOF/BED RACK - MARKETING" FeatureCode="YEE" />
+			<Description Description="RF INTR ASSIST HANDLE-FRT" FeatureCode="BCS" />
+			<Description Description="AIR COMPRESSOR - ACCESSORY" FeatureCode="YF7" />
+			<Description Description="WARNING LABELS-MIRROR" FeatureCode="AEQ" />
+			<Description Description="SUNVISORS-PASS   E" FeatureCode="BCB" />
+			<Description Description="MANUAL 6-WAY DRV SEAT ADJUSTER" FeatureCode="BYPAE" />
+			<Description Description="LESS RR SEAT BELT PRE-TENSIONR" FeatureCode="CP4AA" />
+			<Description Description="LESS SPECIAL EQUIPMENT PACKAGE" FeatureCode="AALAA" />
+			<Description Description="LESS DEALER INSTALLED OPTION" FeatureCode="YDIAA" />
+			<Description Description="DRIVER ASSISTANCE PACKAGE" FeatureCode="DBCAB" />
+			<Description Description="SYNC IV" FeatureCode="IEVAQ" />
+			<Description Description="LESS PROTECTION PACKAGE 2" FeatureCode="YRQAA" />
+			<Description Description="18 X 7.5 ALLOY WHEEL" FeatureCode="D2UFA" />
+			<Description Description="STOLEN VEHICLE RECOVERY SYSTEM" FeatureCode="HNTAB" />
+			<Description Description="MILITARY PACKAGE" FeatureCode="AAECB" />
+			<Description Description="LANE KEEPING AID" FeatureCode="HLNAB" />
+			<Description Description="LESS TRAILER TOWING HITCH" FeatureCode="C1NAA" />
+			<Description Description="FROZEN WHITE" FeatureCode="PN3GZ" />
+			<Description Description="POWER 10-WAY PASS SEAT ADJUST" FeatureCode="BYQAM" />
+			<Description Description="LESS WINTER PACK" FeatureCode="J4KAA" />
+			<Description Description="POWER POINT PLUG - REAR" FeatureCode="J3FAB" />
+			<Description Description="DU PWR/HEAT/FOLD/PUD LMP/SIG " FeatureCode="BSHCF" />
+			<Description Description="AUXILIARY GRILLE LIGHTS" FeatureCode="JB4AH" />
+			<Description Description="TONNEAU COVER - POWER ROLL TOP" FeatureCode="CHBAP" />
+			<Description Description="HEATED WASHER JETS-W'SHIELD" FeatureCode="CFGAB" />
+			<Description Description="BELTMINDER-DRIVER &amp; PASSENGER" FeatureCode="CP9AG" />
+			<Description Description="MANUAL AIR CONDITIONER" FeatureCode="AC--B" />
+			<Description Description="FRONT/SIDE/REAR VIEW CAMERA" FeatureCode="J3KAH" />
+			<Description Description="INTERIOR TRIM PACK 2" FeatureCode="ABBBB" />
+			<Description Description="EBONY HEADLINER" FeatureCode="BBZBK" />
+			<Description Description="INFLATABLE KNEE BOLSTER-PASS" FeatureCode="CN9" />
+			<Description Description="WINDOW DEFLECTORS" FeatureCode="YE5" />
+			<Description Description="TPO/ORDER CODE SUPER FAMILY" FeatureCode="YZA" />
+			<Description Description="ENGINE FUEL-RON" FeatureCode="GBW" />
+			<Description Description="HORNS-ELECTRICAL" FeatureCode="HIA" />
+			<Description Description="FREQUENCY" FeatureCode="CB7" />
+			<Description Description="GLOVE BOX LID" FeatureCode="B5L" />
+			<Description Description="STORAGE/TOOL BOX" FeatureCode="A5D" />
+			<Description Description="GEARSHIFT KNOB" FeatureCode="CAE" />
+			<Description Description="WINDOWS-FRONT SIDE" FeatureCode="B2C" />
+			<Description Description="CAB STYLE-LT TRK" FeatureCode="CA#" />
+			<Description Description="DEALER ACCESSORY 20" FeatureCode="ZJL" />
+			<Description Description="BRAKE CONTROL VALVE" FeatureCode="FDD" />
+			<Description Description="FRONT SEAT TYPE" FeatureCode="FS-" />
+			<Description Description="DIVERSITY ANTENNA" FeatureCode="ICH" />
+			<Description Description="POWER PACKAGE" FeatureCode="YPV" />
+			<Description Description="POWER DISTRIBUTION BOX-FRT" FeatureCode="JZQ" />
+			<Description Description="LIGHT TRUCK WHEELBASES" FeatureCode="AA5" />
+			<Description Description="AIR FILTER PURIFIER" FeatureCode="G1F" />
+			<Description Description="LESS DEALER ACCESSORY 2" FeatureCode="ZJ2AA" />
+			<Description Description="PEPSI BLUE" FeatureCode="PSTLP" />
+			<Description Description="SYNC IV #2" FeatureCode="IEVAR" />
+			<Description Description="LESS TACHOGRAPH" FeatureCode="HDKAA" />
+			<Description Description="130KPH ENGINE GOVERNOR" FeatureCode="DCFAT" />
+			<Description Description="PROTECTION PACKAGE - UNDERBODY" FeatureCode="YRQAB" />
+			<Description Description="REAR SEAT BELT PRE-TENSIONER" FeatureCode="CP4AB" />
+			<Description Description="LESS POWER CONVERTOR" FeatureCode="HUKAA" />
+			<Description Description="AM/FM/DAB ANTENNA" FeatureCode="ICDAX" />
+			<Description Description="ONE WAY TIPPER CONVERSION ALMN" FeatureCode="AGAAY" />
+			<Description Description="LESS ROOF HEADER LIGHTS" FeatureCode="JCGAA" />
+			<Description Description="LESS ADD A/C REGIST IN CONSOLE" FeatureCode="G1NAA" />
+			<Description Description="LANE CHANGE WARNING AND AID" FeatureCode="HLNAC" />
+			<Description Description="MARKETING LEVEL 1" FeatureCode="ABML1" />
+			<Description Description="LESS TRANSIT COATING" FeatureCode="CJFAA" />
+			<Description Description="SPARE WHEEL-17&quot; CONVENT STEEL" FeatureCode="D17AZ" />
+			<Description Description="FRONT FOG LAMPS #2" FeatureCode="JBKAF" />
+			<Description Description="WINTER PACK 1" FeatureCode="J4KAB" />
+			<Description Description="TECHNOLOGY PACKAGE 68" FeatureCode="J4WDE" />
+			<Description Description="LESS SEAT-SPECIAL COVERS" FeatureCode="BW2AA" />
+			<Description Description="LESS DEALER ACCESSORY 12" FeatureCode="ZJCAA" />
+			<Description Description="LESS AUXILIARY HEATER" FeatureCode="GZAAA" />
+			<Description Description="LESS TAILGATE" FeatureCode="A7AAA" />
+			<Description Description="CAB ROLL OVER BAR-PLASTIC" FeatureCode="A9IAQ" />
+			<Description Description="CARGO LIGHT" FeatureCode="JCGAR" />
+			<Description Description="GRILLE-SELF COLOR #1" FeatureCode="BLDCX" />
+			<Description Description="LESS FOG LAMP BEZEL" FeatureCode="JB3AA" />
+			<Description Description="FUEL TANK GUARD" FeatureCode="GBLAB" />
+			<Description Description="LIFT/DECKLID HANDLE-SELF-COLOR" FeatureCode="CACAF" />
+			<Description Description="WHEELARCH FLARES - LARGE" FeatureCode="BMCAT" />
+			<Description Description="ICE FEATURE PACK 20" FeatureCode="ICFAW" />
+			<Description Description="BLACK WHEELLIP MOLDING" FeatureCode="BMCAC" />
+			<Description Description="BATTERY MANAGEMENT SYSTEM" FeatureCode="A5YAC" />
+			<Description Description="VINYL CONSOLE MATERIAL" FeatureCode="B5YAG" />
+			<Description Description="BLIND SPOT DETECTION 2" FeatureCode="HLLAD" />
+			<Description Description="LESS FRONT FLOOR MATS" FeatureCode="BBHAA" />
+			<Description Description="SECOND ROW SEATING" FeatureCode="BYB" />
+			<Description Description="FUNCTIONAL UPGRADE PACK" FeatureCode="ABJ" />
+			<Description Description="SPECIALTY PACKAGES" FeatureCode="J4W" />
+			<Description Description="MK CB-BODY STYLE/WHL MOULDINGS" FeatureCode="YKH" />
+			<Description Description="PLANT BUILD REQUIREMENTS" FeatureCode="AAG" />
+			<Description Description="INSTRUMENTATION-TYPE" FeatureCode="HCA" />
+			<Description Description="MANUAL REGEN INITIATION" FeatureCode="A6Y" />
+			<Description Description="AMENITIES PACKAGE" FeatureCode="YQZ" />
+			<Description Description="INBOUND MODIFICATION CENTRE" FeatureCode="AE1" />
+			<Description Description="AIR REGISTER" FeatureCode="G1G" />
+			<Description Description="FIRE EXTINGUISHER" FeatureCode="AHK" />
+			<Description Description="EXTERIOR DRESS UP PACK" FeatureCode="AAX" />
+			<Description Description="WINDOWS-REAR SIDE" FeatureCode="B2D" />
+			<Description Description="DEALER ACCESSORY 21" FeatureCode="ZJM" />
+			<Description Description="SVO LABEL" FeatureCode="AB9" />
+			<Description Description="PASS AIR BAG DEACTIVATION" FeatureCode="CPQ" />
+			<Description Description="DRV SEAT BACK MTD MAP POCKET" FeatureCode="BU6" />
+			<Description Description="GEARSHIFT" FeatureCode="CAW" />
+			<Description Description="THERMOMETER-OUTSIDE TEMP" FeatureCode="HJE" />
+			<Description Description="LIGHT KIT" FeatureCode="YD3" />
+			<Description Description="FRT FENDER AIR INTAKE" FeatureCode="A3P" />
+			<Description Description="BATTERIES" FeatureCode="HTA" />
+			<Description Description="INTERIOR LIGHTING-AMBIENT LED" FeatureCode="JCBAM" />
+			<Description Description="18 X 7.5 ALLOY WHEEL STYLE 2" FeatureCode="D2UFC" />
+			<Description Description="2 RADIO SPEAKERS" FeatureCode="IDBAB" />
+			<Description Description="CLEAN FUEL MARKETS" FeatureCode="GBWAF" />
+			<Description Description="LESS SPARE ACCESSORY SWITCHES" FeatureCode="JZJAA" />
+			<Description Description="SOFT RIDE SUSPENSION" FeatureCode="DWAAK" />
+			<Description Description="LESS TONNEAU COVER" FeatureCode="CHBAA" />
+			<Description Description="ELECTRIC REAR WINDOW DEFROSTER" FeatureCode="B3NAB" />
+			<Description Description="2ND ROW A/C REGISTER IN CONSOL" FeatureCode="G1NAB" />
+			<Description Description="FOG LAMP BEZEL" FeatureCode="JB3AB" />
+			<Description Description="7.0 X 16&quot; STEEL WHEEL" FeatureCode="D2XCA" />
+			<Description Description="LESS ENGINE COVER - UNDER HOOD" FeatureCode="C7SAA" />
+			<Description Description="LESS DEALER ACCESSORY 4" FeatureCode="ZJ4AA" />
+			<Description Description="LESS CAMERA 2" FeatureCode="J3LAA" />
+			<Description Description="RR BUMPER-PAINTED ACCENT COLOR" FeatureCode="CLMHN" />
+			<Description Description="LESS HEATED STEERING WHEELS" FeatureCode="GTBAA" />
+			<Description Description="KPH SPEEDOMETER" FeatureCode="HDHAL" />
+			<Description Description="TPO CONSOLE MATERIAL" FeatureCode="B5YAH" />
+			<Description Description="3.0L 4V DOHC V6 TC DSL-LION B" FeatureCode="EN-BF" />
+			<Description Description="RETAIL/STOCK" FeatureCode="YZKAA" />
+			<Description Description="LESS LIGHTING PACKAGES" FeatureCode="JBWAA" />
+			<Description Description="SILVERTON(S.AFRICA)PLANT BLD" FeatureCode="AAGBQ" />
+			<Description Description="TAILGATE/DECKLID - SOFT CLOSE" FeatureCode="A7FAH" />
+			<Description Description="SHIP TO ASH CARROSSERIE BV" FeatureCode="AASCN" />
+			<Description Description="TAILGATE-ASSISTED CONVENTIONAL" FeatureCode="A7AA1" />
+			<Description Description="LIGHTING PACKAGE LEVEL B" FeatureCode="JBWAR" />
+			<Description Description="STEP BAR" FeatureCode="BPLAD" />
+			<Description Description="LESS DEALER ACCESSORY 14" FeatureCode="ZJEAA" />
+			<Description Description="12 AUX POWER POINT-REAR" FeatureCode="J3FAD" />
+			<Description Description="P/UP FUN IN HD/PED FOAM IN BMP" FeatureCode="CKZAB" />
+			<Description Description="WHEEL PACK 12" FeatureCode="J4YAM" />
+			<Description Description="REAR FOG LAMPS" FeatureCode="JDJAB" />
+			<Description Description="LESS ROLL BAR" FeatureCode="A9IAA" />
+			<Description Description="GLOVE BOX LID-DAMPED" FeatureCode="B5LAF" />
+			<Description Description="FRT BMP-PLASTIC-BODY COLOR" FeatureCode="CLFGF" />
+			<Description Description="LESS KIT-TIRE REPAIR SERVICE" FeatureCode="AHTAA" />
+			<Description Description="AIR BAG RESTRAINT-DRIVER" FeatureCode="CPGAB" />
+			<Description Description="LESS WIRELESS CHARGING" FeatureCode="IEXAA" />
+			<Description Description="VINYL FLOOR COVERING" FeatureCode="BBGAK" />
+			<Description Description="FRONT THROW IN CARPET FLR MATS" FeatureCode="BBHAB" />
+			<Description Description="LESS CARGO BOX" FeatureCode="YADAA" />
+			<Description Description="TAILGATE - CONVENTIONAL" FeatureCode="A7AAB" />
+			<Description Description="PWR FRT W'DOWS ONE TOUCH UP/DN" FeatureCode="B2CAF" />
+			<Description Description="POLLEN FILTER W/O CARBON FLTR" FeatureCode="G1FAF" />
+			<Description Description="GREAT BRITAIN" FeatureCode="WAEGB" />
+			<Description Description="OLIVE MAT GREEN NATO" FeatureCode="PSTRR" />
+			<Description Description="LESS SPARE TIRE LOCK" FeatureCode="D1ZAA" />
+			<Description Description="VEHICLE LINE/LEVEL  LT TRK" FeatureCode="VL#" />
+			<Description Description="HIGH MNT STOP LAMP" FeatureCode="JDD" />
+			<Description Description="CELL PHONE INTERFACE SYSTEM" FeatureCode="IEP" />
+			<Description Description="GVM RATING-KG" FeatureCode="AA7" />
+			<Description Description="DRIVE-CAR/LT TRK" FeatureCode="DR-" />
+			<Description Description="BLIND SPOT INFORMATION SYSTEM" FeatureCode="HLL" />
+			<Description Description="SEAT BELTS-TYPE" FeatureCode="CPA" />
+			<Description Description="SPLASH GUARDS-REAR" FeatureCode="A1K" />
+			<Description Description="UTILITY PACKAGE" FeatureCode="ADQ" />
+			<Description Description="SECURITY SYSTEMS" FeatureCode="HNA" />
+			<Description Description="BUMPER-FRONT" FeatureCode="CLF" />
+			<Description Description="MIRROR-INTERIOR REAR VIEW" FeatureCode="BSB" />
+			<Description Description="ICE (FROST) WARNING " FeatureCode="HBGAB" />
+			<Description Description="HEADLINER - LIGHT LIMESTONE" FeatureCode="BBZBN" />
+			<Description Description="TRAILER TOW HITCH-13 PIN SOCKT" FeatureCode="C1NAD" />
+			<Description Description="LESS DEALER ACCESSORY 6" FeatureCode="ZJ6AA" />
+			<Description Description="LESS TAILGATE LOCK" FeatureCode="A7EAA" />
+			<Description Description="HEATED STEERING WHEELS" FeatureCode="GTBAB" />
+			<Description Description="BELTMINDER FRONT/REAR" FeatureCode="CP9AJ" />
+			<Description Description="OPEN STYLE FRONT AXLE" FeatureCode="EGKAD" />
+			<Description Description="RAIN SENSITIVE W'SHLD  WIPERS" FeatureCode="CFFAN" />
+			<Description Description="ELECTROCHROMIC INSIDE MIRROR" FeatureCode="BSBAF" />
+			<Description Description="LESS REVERSE PARKING AID" FeatureCode="HNKAA" />
+			<Description Description="DARK GREEN" FeatureCode="PSTRB" />
+			<Description Description="2022 JOB #2 PROGRAM CONTROL" FeatureCode="AD6BN" />
+			<Description Description="3.73 FINAL DRIVE RATIO" FeatureCode="EGAJB" />
+			<Description Description="LESS SEAT TRACK/ANCHOR-REAR" FeatureCode="BWGAA" />
+			<Description Description="4 RADIO SPEAKERS" FeatureCode="IDBAC" />
+			<Description Description="LESS COMPRESSOR" FeatureCode="G3GAA" />
+			<Description Description="EBONY" FeatureCode="000ZH" />
+			<Description Description="WIRELESS CHARGING" FeatureCode="IEXAB" />
+			<Description Description="120KPH ENGINE GOVERNOR" FeatureCode="DCFAE" />
+			<Description Description="FRNT BUMP-BODY COLR/LWR ACCENT" FeatureCode="CLFKS" />
+			<Description Description="LESS ACTIVE GRILLESHUTTER " FeatureCode="BLHAA" />
+			<Description Description="STRG WHL-SPRT LEA CONT/STITCHD" FeatureCode="GTABN" />
+			<Description Description="LESS DEALER ACCESSORY 16" FeatureCode="ZJGAA" />
+			<Description Description="INFLATABLE KNEE BOLSTER DRIVER" FeatureCode="CP8AB" />
+			<Description Description="ENGINE COVER - UNDER HOOD" FeatureCode="C7SAB" />
+			<Description Description="ROLL BAR" FeatureCode="A9IAB" />
+			<Description Description="SPARE TIRE LOCK" FeatureCode="D1ZAB" />
+			<Description Description="LESS ROOF RACK" FeatureCode="BLYAA" />
+			<Description Description="PRIVACY GLASS" FeatureCode="B2GAE" />
+			<Description Description="OVERHEAD CONSOLE" FeatureCode="B5VAB" />
+			<Description Description="STEERING WHEEL - VINYL" FeatureCode="GTAEF" />
+			<Description Description="COLLISION MITIGATION SYS #2" FeatureCode="FBFAC" />
+			<Description Description="FRT BUMPER-MOLDED IN COLOR" FeatureCode="CLFHJ" />
+			<Description Description="TACHOGRAPH - PREP PACK" FeatureCode="HDKAC" />
+			<Description Description="ICE FEATURE PACK 44" FeatureCode="ICFBK" />
+			<Description Description="TECHNOLOGY PACKAGE 70" FeatureCode="J4WDG" />
+			<Description Description="LESS DRIVER PACK" FeatureCode="J5TAA" />
+			<Description Description="SULFUR YELLOW" FeatureCode="PSTBE" />
+			<Description Description="FX4+ SERIES" FeatureCode="SE#JB" />
+			<Description Description="WHEEL PACK" FeatureCode="J4Y" />
+			<Description Description="DOOR HANDLES-INSIDE" FeatureCode="BCF" />
+			<Description Description="POWER POINT PLUG" FeatureCode="J3E" />
+			<Description Description="TAILGATE LINER/SEAL" FeatureCode="YBQ" />
+			<Description Description="AIR CONDITIONING-PFC" FeatureCode="AC-" />
+			<Description Description="MARKETING BODY CODE-2017 S/FMY" FeatureCode="YZU" />
+			<Description Description="MULTI FUNCTION DISPLAY" FeatureCode="HJG" />
+			<Description Description="MARKETING ITEMS #6" FeatureCode="AGJ" />
+			<Description Description="LOAD BOX BED LINER" FeatureCode="A9S" />
+			<Description Description="MLDGS-EXT MID BODYSIDE" FeatureCode="BMB" />
+			<Description Description="PORTABLE SPEAKER" FeatureCode="YFL" />
+			<Description Description="BRAKE TYPE" FeatureCode="FBA" />
+			<Description Description="DEPLOYABLE BONNET" FeatureCode="A3R" />
+			<Description Description="AUTOMATED PARKING SYSTEM" FeatureCode="HNS" />
+			<Description Description="GVWS" FeatureCode="AAZ" />
+			<Description Description="INTERIOR LIGHT GROUP" FeatureCode="JCB" />
+			<Description Description="SECOND UNIT BODY COVERS" FeatureCode="A9B" />
+			<Description Description="ISOFIX HARD POINT ATTACHMENT" FeatureCode="CPS" />
+			<Description Description="WASHER/WIPER-WINDSHIELD" FeatureCode="CFF" />
+			<Description Description="SEAT TEMP CNTRL- TOTAL VEHICLE" FeatureCode="A4D" />
+			<Description Description="LESS LOAD REST" FeatureCode="BD2AA" />
+			<Description Description="LESS SALES BADGE" FeatureCode="AB5AA" />
+			<Description Description="SPARE WHEEL-16&quot; CONVENT STEEL" FeatureCode="D17AL" />
+			<Description Description="LESS VERSION PACKAGES" FeatureCode="AACAA" />
+			<Description Description="DEEP ORANGE" FeatureCode="PSVAS" />
+			<Description Description="HEADLAMPS - LEVEL 1" FeatureCode="JBBAE" />
+			<Description Description="3 PT SEAT BELT- EUROPN REGULTN" FeatureCode="CPAAG" />
+			<Description Description="LESS EXTERIOR LIGHT PACK" FeatureCode="ABWAA" />
+			<Description Description="DOOR TRIM PNL INSERT-PLASTIC" FeatureCode="BCLEX" />
+			<Description Description="THATCHAM CATEGORY 1 ALARM" FeatureCode="HNAAG" />
+			<Description Description="LESS FRONT BUMPER LIP" FeatureCode="CM3AA" />
+			<Description Description="BLIND SPT MNITRING W/TRAILERNG" FeatureCode="HLLAG" />
+			<Description Description="LESS REMOTE STARTER" FeatureCode="DEEAA" />
+			<Description Description="FUNCTIONAL UPGRADE PACK 2" FeatureCode="ABJBB" />
+			<Description Description="LESS CARGO AREA COVER" FeatureCode="BDCAA" />
+			<Description Description="70MPH ENGINE GOVERNOR" FeatureCode="DCFAF" />
+			<Description Description="REVERSE PARKING AID" FeatureCode="HNKAB" />
+			<Description Description="LESS RR COMPT DUCT" FeatureCode="G1CAA" />
+			<Description Description="FRONT THROW IN RUBBER FLR MATS" FeatureCode="BBHAD" />
+			<Description Description="LESS CARGO BOX PWR POINT PLUG" FeatureCode="J3PAA" />
+			<Description Description="TECHNOLOGY PACKAGE 71" FeatureCode="J4WDH" />
+			<Description Description="ACTIVE GRILLESHUTTER " FeatureCode="BLHAB" />
+			<Description Description="255/55 R20 A/S TYRE" FeatureCode="D3ICL" />
+			<Description Description="SHIP TO RICARDO SPCL VEHICLES" FeatureCode="AASCP" />
+			<Description Description="CONQUER GREY" FeatureCode="PN4GD" />
+			<Description Description="REAR SEAT ANCHOR -FIXED" FeatureCode="BWGAB" />
+			<Description Description="6 RADIO SPEAKERS" FeatureCode="IDBAD" />
+			<Description Description="LESS OUTSIDE TIE DOWN HOOKS" FeatureCode="A9MAA" />
+			<Description Description="LESS REAR TOWING HOOKS" FeatureCode="C1VAA" />
+			<Description Description="SCND CLLSON MTGR/PST IMPAC BRK" FeatureCode="FDPAB" />
+			<Description Description="TAILGATE LOCK" FeatureCode="A7EAB" />
+			<Description Description="8.0 X 17 ALLOY WHEEL #2" FeatureCode="D2YGW" />
+			<Description Description="SECOND UNIT BODY" FeatureCode="A9C" />
+			<Description Description="POWER POINT PLUG - REAR" FeatureCode="J3F" />
+			<Description Description="HEATED WASHER JETS-W SHIELD" FeatureCode="CFG" />
+			<Description Description="EMISSION REQUIREMENTS-MFC" FeatureCode="DGA" />
+			<Description Description="DRIVER ASSISTANCE PACKAGE" FeatureCode="DBC" />
+			<Description Description="BEDLINER" FeatureCode="YBR" />
+			<Description Description="LANE KEEPING AID" FeatureCode="HLN" />
+			<Description Description="MLDGS-EXT WHEELLIP" FeatureCode="BMC" />
+			<Description Description="BATTERY MONITOR SENSOR" FeatureCode="A5Y" />
+			<Description Description="SEAT BELTS-REAR" FeatureCode="CPC" />
+			<Description Description="MARKETING LEVELS" FeatureCode="ABM" />
+			<Description Description="STOLEN VEHICLE RECOVERY SYSTEM" FeatureCode="HNT" />
+			<Description Description="GOVERNOR-ENGINE MPH" FeatureCode="DCF" />
+			<Description Description="ENGINEERED TRIM PACKS" FeatureCode="A4V" />
+			<Description Description="STEP- SIDE AUXILIARY" FeatureCode="BPL" />
+			<Description Description="WINDOWS-TINT" FeatureCode="B2G" />
+			<Description Description="LESS SPECIAL ORDER PAINT" FeatureCode="AB7AA" />
+			<Description Description="FRONT BUMPER LIP" FeatureCode="CM3AB" />
+			<Description Description="HEADLAMPS - LEVEL 2" FeatureCode="JBBAF" />
+			<Description Description="7.0 X 16&quot; ALLOY WHEEL " FeatureCode="D2XD6" />
+			<Description Description="RR BUMPER-STEP BODY COLOR" FeatureCode="CLMHQ" />
+			<Description Description="DR ENTRY REM CONTR UNIT-2 FOBS" FeatureCode="CBFAJ" />
+			<Description Description="CONSOLE-FLOOR-FULL W/ ARMREST" FeatureCode="B5WAL" />
+			<Description Description="EXT MIRROR FINISH-BODY COLOR" FeatureCode="BSLAC" />
+			<Description Description="100KPH/62MPH ENGINE GOVERNOR" FeatureCode="DCFAG" />
+			<Description Description="LESS ROOF/BED RACK" FeatureCode="YEEAA" />
+			<Description Description="LESS AIR COMPRESSOR ACCESSORY" FeatureCode="YF7AA" />
+			<Description Description="LESS BED DIVIDER" FeatureCode="A5CAA" />
+			<Description Description="TRAFFIC BLUE" FeatureCode="PSTJN" />
+			<Description Description="STANDARD GREEN GLASS WNDSCRN" FeatureCode="B2RAJ" />
+			<Description Description="LESS SPD AUDIBLE WARN DEVICE" FeatureCode="HLIAA" />
+			<Description Description="POWER DOOR DEAD LOCKS" FeatureCode="CBAAD" />
+			<Description Description="EXT DOOR HANDLE-ACCENT COLOR" FeatureCode="CAAAK" />
+			<Description Description="INCOMPLETE-SHIP TO MSRT" FeatureCode="AASCQ" />
+			<Description Description="LESS ELECTRICAL OUTLET" FeatureCode="J3AAA" />
+			<Description Description="FUNCTIONAL UPGRADE PACK 3" FeatureCode="ABJBC" />
+			<Description Description="LESS SPECIAL PURPOSE VEHICLE" FeatureCode="AAEAA" />
+			<Description Description="ID PLATE-UK" FeatureCode="A2XAC" />
+			<Description Description="LESS WARNING LABEL-MIRROR" FeatureCode="AEQAA" />
+			<Description Description="LESS KEYLESS ENTRY SYSTEM" FeatureCode="CBGAA" />
+			<Description Description="FRT FENDER GILL-PAINTED" FeatureCode="A2RAF" />
+			<Description Description="WHEEL PACK 14" FeatureCode="J4YAP" />
+			<Description Description="CARGO BOX POWER POINT PLUG" FeatureCode="J3PAB" />
+			<Description Description="LOAD REST" FeatureCode="BD2AB" />
+			<Description Description="I/P CUP HOLDER" FeatureCode="B5Q" />
+			<Description Description="TONNEAU/CAP COVER - MARKETING" FeatureCode="YBS" />
+			<Description Description="AXLE DIFFERENTIAL-REAR" FeatureCode="EGJ" />
+			<Description Description="HOT WEATHER GROUP" FeatureCode="ACQ" />
+			<Description Description="EXTERIOR HEADBOARD" FeatureCode="A9D" />
+			<Description Description="MRKT FUEL TANK" FeatureCode="YBB" />
+			<Description Description="SPEEDOMETERS" FeatureCode="HDH" />
+			<Description Description="FLEET VERSION PACK" FeatureCode="J7B" />
+			<Description Description="APPEARANCE PACKAGES" FeatureCode="YPJ" />
+			<Description Description="VEHICLE STAGE" FeatureCode="BAS" />
+			<Description Description="BUMPER-FRONT PUSH BAR" FeatureCode="CLI" />
+			<Description Description="STARTER - STOP/START SYSTEM" FeatureCode="DECAU" />
+			<Description Description="LESS EXTERIOR DRESS UP PACKAGE" FeatureCode="AAXAA" />
+			<Description Description="LT265/70R 17 A/T OWL" FeatureCode="D3KFE" />
+			<Description Description="LESS INBOUND MODIFICATION CENT" FeatureCode="AE1AA" />
+			<Description Description="360 LIGHTING" FeatureCode="ABWAT" />
+			<Description Description="20 X 8.0 ALUMINUM SPARE WHEEL" FeatureCode="D17CC" />
+			<Description Description="LESS BATTERY" FeatureCode="HTAAA" />
+			<Description Description="LESS MANUAL REGEN INITIATION" FeatureCode="A6YAA" />
+			<Description Description="TONNEAU COVER PREPARATION" FeatureCode="CHBAE" />
+			<Description Description="SPECIAL ORDER PAINT" FeatureCode="AB7AB" />
+			<Description Description="EXT MIRROR FINISH-CHROME" FeatureCode="BSLAD" />
+			<Description Description="LOCKING FUEL CAP" FeatureCode="GBTAC" />
+			<Description Description="ROOF RAILS" FeatureCode="BLYA3" />
+			<Description Description="LESS TPO/ORDER CODE " FeatureCode="YZBAA" />
+			<Description Description="LESS REAR SIDE WINDOW" FeatureCode="B2DAA" />
+			<Description Description="TECHNOLOGY PACKAGE 72" FeatureCode="J4WDJ" />
+			<Description Description="BED DIVIDER" FeatureCode="A5CAB" />
+			<Description Description="ABS AND ESP+" FeatureCode="FEAAM" />
+			<Description Description="FRONT FOG LAMPS-LED" FeatureCode="JBKAK" />
+			<Description Description="AECS NO SMS/ROLL DETECT 2G" FeatureCode="HKSAD" />
+			<Description Description="LESS FRT FENDER AIR INTAKE" FeatureCode="A3PAA" />
+			<Description Description="LESS DEALER ACCESSORY 21" FeatureCode="ZJMAA" />
+			<Description Description="LESS SVO APPLICATION/LABEL" FeatureCode="AB9AA" />
+			<Description Description="LESS SECOND ROW SEATING" FeatureCode="BYBAA" />
+			<Description Description="REAR FLOOR DUCTS" FeatureCode="G1CAC" />
+			<Description Description="TECHNOLOGY PACKAGE 19" FeatureCode="J4WBD" />
+			<Description Description="LESS AMENITIES PACKAGE" FeatureCode="YQZAA" />
+			<Description Description="LESS MK CB-BDY STYLE/WHL MOULD" FeatureCode="YKHAA" />
+			<Description Description="LESS FIRE EXTINGUISHER" FeatureCode="AHKAA" />
+			<Description Description="90KPH/56MPH ENGINE GOVERNOR" FeatureCode="DCFAH" />
+			<Description Description="TAILGATE LCK - PWR W/O LCK CYL" FeatureCode="A7EAD" />
+			<Description Description="LS DRV ST BACK MTD MAP POCKET" FeatureCode="BU6AA" />
+			<Description Description="2.0L CR TC DSL PANTHER J" FeatureCode="EN-P0" />
+			<Description Description="INTERIOR TRIM PACK 8" FeatureCode="ABBBH" />
+			<Description Description="TAILLAMPS-LEVEL 1" FeatureCode="JDAAB" />
+			<Description Description="LESS LIGHT KIT" FeatureCode="YD3AA" />
+			<Description Description="FRT ROOF INTR ASSIST HANDLE" FeatureCode="BCSAB" />
+			<Description Description="SUNVISOR,SINGLE-PASS" FeatureCode="BCBAB" />
+			<Description Description="POWER 8-WAY DRIVER SEAT ADJUST" FeatureCode="BYPAK" />
+			<Description Description="DEALER INSTALLED OPTION" FeatureCode="YDI" />
+			<Description Description="ENGINE-CAR/LT TRK" FeatureCode="EN-" />
+			<Description Description="TRAILER TOWING HITCH" FeatureCode="C1N" />
+			<Description Description="SPECIAL EQUIPMENT PACKAGES" FeatureCode="AAL" />
+			<Description Description="HEADLAMPS-DESIGN" FeatureCode="JBB" />
+			<Description Description="PROTECTION PACKAGE 2" FeatureCode="YRQ" />
+			<Description Description="FRT FENDER GILL" FeatureCode="A2R" />
+			<Description Description="AXLE DIFFERENTIAL-FRONT" FeatureCode="EGK" />
+			<Description Description="REAR SEAT BELT PRE-TENSIONER" FeatureCode="CP4" />
+			<Description Description="FUEL TANK GUARD" FeatureCode="GBL" />
+			<Description Description="WINTER PACK" FeatureCode="J4K" />
+			<Description Description="VP MODIFICATION CENTRE" FeatureCode="AE1AB" />
+			<Description Description="ELECTRICAL OUTLET #2" FeatureCode="J3AAC" />
+			<Description Description="TIE DOWN RAIL WITH ROPE HOOKS" FeatureCode="A9MAD" />
+			<Description Description="LESS TAILGATE LINER/SEAL" FeatureCode="YBQAA" />
+			<Description Description="ICE-LOW AUDIO (0C) WITH DAB" FeatureCode="ICEGE" />
+			<Description Description="LESS EXTERIOR BODYSIDE MLDGS" FeatureCode="BMBAA" />
+			<Description Description="LESS DEPLOYABLE BONNET" FeatureCode="A3RAA" />
+			<Description Description="TECHNOLOGY PACKAGE 20" FeatureCode="J4WBE" />
+			<Description Description="DRV SEAT BACK MTD MAP POCKET" FeatureCode="BU6AB" />
+			<Description Description="LESS POWER POINT PLUG" FeatureCode="J3EAA" />
+			<Description Description="TECHNOLOGY PACKAGE 73" FeatureCode="J4WDK" />
+			<Description Description="LESS INTERIOR LIGHT GROUP" FeatureCode="JCBAA" />
+			<Description Description="SVO APPLICATION/LABEL" FeatureCode="AB9AB" />
+			<Description Description="DUAL POWER-MANUAL FOLD BACK" FeatureCode="BSHA6" />
+			<Description Description="BODY CONSTRUCTION - HEAVY" FeatureCode="A4ZAG" />
+			<Description Description="DR ENT REM CONTR UNIT-FLIP KEY" FeatureCode="CBFAL" />
+			<Description Description="WHEEL PACK 16" FeatureCode="J4YAR" />
+			<Description Description="RR SEAT BELTS-3 POINT/INERTA" FeatureCode="CPCAI" />
+			<Description Description="LESS ISOFIX HARD POINT ATTACH." FeatureCode="CPSAA" />
+			<Description Description="FRT FLR MATS-PREMIUM" FeatureCode="BBHCM" />
+			<Description Description="LESS SECOND UNIT BODY COVERS" FeatureCode="A9BAA" />
+			<Description Description="LESS MARKETING CV PACK" FeatureCode="AGJAA" />
+			<Description Description="AIR REGISTER - BASE" FeatureCode="G1GAB" />
+			<Description Description="LESS PORTABLE SPEAKER" FeatureCode="YFLAA" />
+			<Description Description="MANUAL REGEN INITIATION" FeatureCode="A6YAB" />
+			<Description Description="FRT FENDER GILL-BRIGHT" FeatureCode="A2RAH" />
+			<Description Description="OUTSIDE TEMP THERMOMETER" FeatureCode="HJEAB" />
+			<Description Description="SUNVISOR,SINGLE-PASS MR INSERT" FeatureCode="BCBAC" />
+			<Description Description="TAILLAMPS-LEVEL 2" FeatureCode="JDAAC" />
+			<Description Description="LESS AUTOMATED PARKING SYSTEM" FeatureCode="HNSAA" />
+			<Description Description="LESS LOAD BOX BED LINER" FeatureCode="A9SAA" />
+			<Description Description="LESS SEAT TEMP CONTROL" FeatureCode="A4DAA" />
+			<Description Description="DEALER ACCESSORY 11" FeatureCode="ZJB" />
+			<Description Description="SPLASH GUARD-FRONT" FeatureCode="A3E" />
+			<Description Description="SUSPENSION" FeatureCode="DWA" />
+			<Description Description="HEADLAMPS-RUNNING" FeatureCode="JBC" />
+			<Description Description="REAR SEAT PACKS" FeatureCode="BYY" />
+			<Description Description="CAR AND LIGHT TRUCK WHEELS" FeatureCode="SW1" />
+			<Description Description="MIR-EXTR DRIVING INSTRUCTOR" FeatureCode="BSG" />
+			<Description Description="FLOOR COVERING-PASS AREA-CAR" FeatureCode="BBG" />
+			<Description Description="BODY STYLING KIT" FeatureCode="AE7" />
+			<Description Description="DEFROSTER-FRONT WINDSHIELD" FeatureCode="B3M" />
+			<Description Description="SPEED SIGN RECOGNITION" FeatureCode="HLQ" />
+			<Description Description="SENSOR-OCCUPANT" FeatureCode="CP5" />
+			<Description Description="DEALER ACCESSORY 1" FeatureCode="ZJ1" />
+			<Description Description="E-MARKED " FeatureCode="B2J" />
+			<Description Description="SIDE STEP" FeatureCode="YBU" />
+			<Description Description="ADAPTER" FeatureCode="YAA" />
+			<Description Description="FIRST AID/SAFETY KITS" FeatureCode="AHQ" />
+			<Description Description="FRONT SEAT PACK" FeatureCode="BW1" />
+			<Description Description="HOOD APPLIQUE" FeatureCode="A4Y" />
+			<Description Description="LESS MESH HEADBOARD 2ND UNIT" FeatureCode="A9DAA" />
+			<Description Description="XLT #1 SERIES" FeatureCode="SE#N1" />
+			<Description Description="EBONYLEATHER # 5" FeatureCode="12YZH" />
+			<Description Description="NARROW BODYSIDE MOLDING" FeatureCode="BMBAB" />
+			<Description Description="POWER REAR SIDE WINDOW" FeatureCode="B2DAC" />
+			<Description Description="LESS APPEARANCE PACK" FeatureCode="YPJAA" />
+			<Description Description="ITRMT VARIABLE WINDSHIELD WIPE" FeatureCode="CFFAB" />
+			<Description Description="SPARE ACCESSORY SWITCHES - 6" FeatureCode="JZJAG" />
+			<Description Description="MANUAL 4-WAY PASS SEAT ADJUST" FeatureCode="BYQAD" />
+			<Description Description="LESS FLEET PACK" FeatureCode="J7BAA" />
+			<Description Description="LEATHER # 5" FeatureCode="12Y00" />
+			<Description Description="SHIP TO VFS" FeatureCode="AASBQ" />
+			<Description Description="ELECTRICAL OUTLET #3" FeatureCode="J3AAD" />
+			<Description Description="EXT MIRROR FINISH-SELF COLOR" FeatureCode="BSLAF" />
+			<Description Description="FRAME - HEAVY" FeatureCode="CWAAM" />
+			<Description Description="LOAD BOX BED LINER" FeatureCode="A9SAB" />
+			<Description Description="DOOR TRIM PNL INSERT-VINYL" FeatureCode="BCLAP" />
+			<Description Description="FOG LAMP BEZEL-DARK CHROME RG" FeatureCode="JB3AH" />
+			<Description Description="BRAKES-ABS/ESP W/ELCT BRK BOST" FeatureCode="FEABA" />
+			<Description Description="HEATED SEATS - DRV/PASS" FeatureCode="A4DAB" />
+			<Description Description="REMOTE STARTER #3" FeatureCode="DEEAE" />
+			<Description Description="STEP BAR - SILVER MATTE" FeatureCode="BPLA9" />
+			<Description Description="LESS MRKT FUEL TANK PACKAGE" FeatureCode="YBBAA" />
+			<Description Description="LESS HOT WEATHER GROUP" FeatureCode="ACQAA" />
+			<Description Description="LESS I/P PULL OUT CUP HOLDER" FeatureCode="B5QAA" />
+			<Description Description="EUROPEAN + RDS RADIO FREQ" FeatureCode="IBMAH" />
+			<Description Description="INT FEATURE COLOR-EBONY" FeatureCode="BA8AF" />
+			<Description Description="LESS FRONT BUMPER PUSH BAR" FeatureCode="CLIAA" />
+			<Description Description="SPORTS BAR - ADJUSTABLE" FeatureCode="A9IAX" />
+			<Description Description="ICE FEATURE PACK 102" FeatureCode="ICFDV" />
+			<Description Description="AIR REGISTER - HIGH SERIES" FeatureCode="G1GAC" />
+			<Description Description="PASS AIR BAG DEACTIVATION OCS" FeatureCode="CPQAC" />
+			<Description Description="8.0 X 17&quot; STYLED ALUM WHLS" FeatureCode="D2YED" />
+			<Description Description="CALCULAT GVW OR PICK FRM TABLE" FeatureCode="AAZAB" />
+			<Description Description="LESS TONNEAU/CAP COVER" FeatureCode="YBSAA" />
+			<Description Description="SPARE WHEEL - 18&quot; ALUMINUM" FeatureCode="D17AP" />
+			<Description Description="COLLISION MITIGATION SYSTEM" FeatureCode="FBF" />
+			<Description Description="BODY CONSTRUCTION" FeatureCode="A4Z" />
+			<Description Description="MIRROR-EXTERIOR DUAL" FeatureCode="BSH" />
+			<Description Description="LAMPS-REAR FOG" FeatureCode="JDJ" />
+			<Description Description="FLOOR MATS-FRONT" FeatureCode="BBH" />
+			<Description Description="DEALER ACCESSORY 2" FeatureCode="ZJ2" />
+			<Description Description="MEDIA GATEWAY MODULE (MGM)" FeatureCode="IEV" />
+			<Description Description="TACHOGRAPH" FeatureCode="HDK" />
+			<Description Description="POWER CONVERTER/INVERTER" FeatureCode="HUK" />
+			<Description Description="FRT BUMPER PED FOAM PROTECTION" FeatureCode="CKZ" />
+			<Description Description="AIR BAG RESTRAINT-DRIVER" FeatureCode="CPG" />
+			<Description Description="TAILGATE" FeatureCode="A7A" />
+			<Description Description="HEATER-AUXILIARY" FeatureCode="GZA" />
+			<Description Description="SEAT-SPECIAL COVERS" FeatureCode="BW2" />
+			<Description Description="TRANSIT COATING" FeatureCode="CJF" />
+			<Description Description="FOG LAMP BEZEL" FeatureCode="JB3" />
+			<Description Description="DEFROSTER-REAR WINDOW" FeatureCode="B3N" />
+			<Description Description="RADIO FREQUENCY" FeatureCode="IBM" />
+			<Description Description="DEALER ACCESSORY 12" FeatureCode="ZJC" />
+			<Description Description="HEADER LIGHTS-ROOF" FeatureCode="JCG" />
+			<Description Description="ADDITIONAL A/C REGIS IN CONSOL" FeatureCode="G1N" />
+			<Description Description="GRILLE-FRONT" FeatureCode="BLD" />
+			<Description Description="RADIO SPEAKERS" FeatureCode="IDB" />
+			<Description Description="FIR GREEN" FeatureCode="PSTSK" />
+			<Description Description="2.0L CR TC DSL PANTHER C" FeatureCode="EN-YN" />
+			<Description Description="LESS KIT" FeatureCode="AHQAA" />
+			<Description Description="LESS ELECT WINDSHIELD DEFROST" FeatureCode="B3MAA" />
+			<Description Description="LESS DEALER ACCESSORY 11" FeatureCode="ZJBAA" />
+			<Description Description="LESS HOOD APPLIQUE" FeatureCode="A4YAA" />
+			<Description Description="LESS MIR-EXTR DRIVING INSTRUCT" FeatureCode="BSGAA" />
+			<Description Description="RACE RED" FeatureCode="PN4A7" />
+			<Description Description="OFF ROAD SUSPENSION" FeatureCode="DWACG" />
+			<Description Description="LESS SENSOR - OCCUPANT" FeatureCode="CP5AA" />
+			<Description Description="O/HD CNSL W/INT DOME LAMPS" FeatureCode="B5VAY" />
+			<Description Description="POWER FRT DISC/REAR DRUM" FeatureCode="FBAAC" />
+			<Description Description="FLEET VERSION PACK I" FeatureCode="J7BAB" />
+			<Description Description="SINGLE STAGE VEHICLE" FeatureCode="BASAB" />
+			<Description Description="AIR REGISTER - PREMIUM" FeatureCode="G1GAD" />
+			<Description Description="LESS ADAPTER KIT" FeatureCode="YAAAA" />
+			<Description Description="CARGO AREA MANAGEMENT SYSTEM" FeatureCode="BDCAF" />
+			<Description Description="MPH/KPH SPEEDOMETER" FeatureCode="HDHAB" />
+			<Description Description="LESS DEALER ACCESSORY 1" FeatureCode="ZJ1AA" />
+			<Description Description="ADVANCED AUTOMATED PARK SYSTEM" FeatureCode="HNSAC" />
+			<Description Description="DIFFUSED SILVER" FeatureCode="PN4FW" />
+			<Description Description="REAR SEAT PACK 15" FeatureCode="BYYAR" />
+			<Description Description="ELECTRONIC DUAL ZONE ATC A/C" FeatureCode="AC--K" />
+			<Description Description="FRT BUMPER PTD ACCENT COLOR" FeatureCode="CLFKH" />
+			<Description Description="DUAL P/HEATED FOLD BACK MIR" FeatureCode="BSHAZ" />
+			<Description Description="LESS SIDE STEP" FeatureCode="YBUAA" />
+			<Description Description="I/P PULL OUT CUP HOLDER" FeatureCode="B5QAB" />
+			<Description Description="LESS BODY STYLING KIT" FeatureCode="AE7AA" />
+			<Description Description="PICKUP BOX CAP COVER" FeatureCode="A9BAC" />
+			<Description Description="CARBONIZED GRAY/ASHER GRAY" FeatureCode="PN4JA" />
+			<Description Description="WHEEL-SPARE" FeatureCode="D17" />
+			<Description Description="DOOR TRIM PANEL INSERT" FeatureCode="BCL" />
+			<Description Description="CARGO AREA STORAGE" FeatureCode="YA2" />
+			<Description Description="AUXILLARY LIGHTS" FeatureCode="JB4" />
+			<Description Description="PROTOTYPE PROGRAM CONTROL" FeatureCode="AD6" />
+			<Description Description="HEATER-FRESH AIR" FeatureCode="G2A" />
+			<Description Description="STEERING WHEELS" FeatureCode="GTA" />
+			<Description Description="TAILGATE APPLIQUES" FeatureCode="A7B" />
+			<Description Description="DEALER ACCESSORY 3" FeatureCode="ZJ3" />
+			<Description Description="KNOCKDOWN OPERATIONS" FeatureCode="ABR" />
+			<Description Description="SECONDARY SECURITY SYSTEMS" FeatureCode="HNH" />
+			<Description Description="PICKUP SIDE RAILS" FeatureCode="A9H" />
+			<Description Description="AIR BAG RESTRAINT-PASS" FeatureCode="CPH" />
+			<Description Description="REVERSE BRAKE ASSIST" FeatureCode="HNY" />
+			<Description Description="C TO C ALTERNATIVES" FeatureCode="C2C" />
+			<Description Description="HEADLINERS" FeatureCode="BBZ" />
+			<Description Description="BUMPER-REAR" FeatureCode="CLM" />
+			<Description Description="CAMERA" FeatureCode="J3K" />
+			<Description Description="BIKE CARRIERS" FeatureCode="YAC" />
+			<Description Description="DOOR LOCK REAR CHILD PROOF" FeatureCode="CAN" />
+			<Description Description="FLOOR MATS-REAR" FeatureCode="BBI" />
+			<Description Description="DEALER ACCESSORY 13" FeatureCode="ZJD" />
+			<Description Description="PROGRAMMABLE INTERFACE MODULE" FeatureCode="JRS" />
+			<Description Description="NON LOCKING CAPLESS FUEL FILL" FeatureCode="GBTAG" />
+			<Description Description="LESS REAR BUMPER" FeatureCode="CLMAA" />
+			<Description Description="LESS AIR CONDITIONER" FeatureCode="AC--L" />
+			<Description Description="LESS DEALER ACCESSORY 13" FeatureCode="ZJDAA" />
+			<Description Description="ELECTRIC WINDSHIELD DEFROSTER" FeatureCode="B3MAB" />
+			<Description Description="LESS PRGRAMBLE INTERFACE MDULE" FeatureCode="JRSAA" />
+			<Description Description="MARKETING CV PACK #3" FeatureCode="AGJAD" />
+			<Description Description="WHEEL PACK 31" FeatureCode="J4YBG" />
+			<Description Description="POWER 4-WHEEL DISC" FeatureCode="FBAAD" />
+			<Description Description="FRONT SPLASH GUARDS/MUD FLAPS" FeatureCode="A3EAB" />
+			<Description Description="LESS CARGO AREA STORAGE" FeatureCode="YA2AA" />
+			<Description Description="MIR-EXTR DRIVING INSTRUCTOR" FeatureCode="BSGAB" />
+			<Description Description="SECOND ROW BENCH SEAT (3 PASS)" FeatureCode="BYBAE" />
+			<Description Description="BLUE LIGHTNING" FeatureCode="PN4E3" />
+			<Description Description="E-MARKED GLASS" FeatureCode="B2JAB" />
+			<Description Description="MULTI STAGE VEHICLE" FeatureCode="BASAC" />
+			<Description Description="LESS KNOCKDOWN OPERATIONS" FeatureCode="ABRAA" />
+			<Description Description="ICE FEATURE PACK 89" FeatureCode="ICFDG" />
+			<Description Description="SPEED SIGN RECOGNITION" FeatureCode="HLQAB" />
+			<Description Description="LESS AUXILLARY LIGHTS" FeatureCode="JB4AA" />
+			<Description Description="LESS CHILD PROOF RR DOOR LOCKS" FeatureCode="CANAA" />
+			<Description Description="87 MPH ENGINE GOVERNOR" FeatureCode="DCFAL" />
+			<Description Description="AUTO HIGH LAMP HEADLAMP " FeatureCode="JEDAF" />
+			<Description Description="LESS BIKE CARRIER" FeatureCode="YACAA" />
+			<Description Description="LESS REAR FLOOR MATS" FeatureCode="BBIAA" />
+			<Description Description="LESS PICKUP SIDE RAILS" FeatureCode="A9HAA" />
+			<Description Description="LESS TAILGATE APPLIQUE" FeatureCode="A7BAA" />
+			<Description Description="REAR SEAT PACK 1" FeatureCode="BYYAB" />
+			<Description Description="HONEYCOMB RADIATOR GRILLE" FeatureCode="BLDBM" />
+			<Description Description="POWER INVERTER #1" FeatureCode="HUKAJ" />
+			<Description Description="DAYTIME RUNNING LAMPS" FeatureCode="JBCAB" />
+			<Description Description="255/65R 18 A/T" FeatureCode="D3HFS" />
+			<Description Description="FRONT SEAT PACK 16" FeatureCode="BW1AS" />
+			<Description Description="TRAILER TOW PREP PACK" FeatureCode="C1CAH" />
+			<Description Description="LESS DEALER ACCESSORY 3" FeatureCode="ZJ3AA" />
+			<Description Description="LESS REVERSE BRAKE ASSIST" FeatureCode="HNYAA" />
+			<Description Description="128.7&quot;/3270MM WHEELBASE" FeatureCode="AA5CT" />
+			<Description Description="STAGE 6.2 EMISSIONS" FeatureCode="DGADU" />
+			<Description Description="HEADLAMPS - LEVEL 3" FeatureCode="JBBAK" />
+			<Description Description="10 SPD AUTO TRANSMISSION-10R80" FeatureCode="TR-EU" />
+			<Description Description="REAR VIEW CAMERA - LEVEL 2" FeatureCode="J3KAR" />
+			<Description Description="HEAVY DUTY SUSPENSION" FeatureCode="DWAAB" />
+			<Description Description="FIRST AID KIT" FeatureCode="AHQAB" />
+			<Description Description="ICE (FROST) WARNING " FeatureCode="HBG" />
+			<Description Description="MARKET SUPER FAMILY" FeatureCode="SUP" />
+			<Description Description="SPARE WHEEL LOCK" FeatureCode="D1Z" />
+			<Description Description="LOCKS-DOOR" FeatureCode="CBA" />
+			<Description Description="TRANSMISSION-CAR/LT TRK" FeatureCode="TR-" />
+			<Description Description="SPARE ACCESSORY SWITCHES" FeatureCode="JZJ" />
+			<Description Description="CARGO BOX" FeatureCode="YAD" />
+			<Description Description="DEALER ACCESSORY 14" FeatureCode="ZJE" />
+			<Description Description="HEATED STEERING WHEELS" FeatureCode="GTB" />
+			<Description Description="ENGINE COVER - UNDER HOOD" FeatureCode="C7S" />
+			<Description Description="WIRELESS CHARGING" FeatureCode="IEX" />
+			<Description Description="TONNEAU COVER" FeatureCode="CHB" />
+			<Description Description="CAMERA 2" FeatureCode="J3L" />
+			<Description Description="KIT-TIRE REPAIR SERVICE" FeatureCode="AHT" />
+			<Description Description="TRIM PACKS" FeatureCode="ABB" />
+			<Description Description="CONSOLE-OVERHEAD" FeatureCode="B5V" />
+			<Description Description="LIGHTING PACKAGES" FeatureCode="JBW" />
+			<Description Description="INFLATABLE KNEE BOLSTER DRIVER" FeatureCode="CP8" />
+			<Description Description="CORROSION PROTECTION-U/BODY" FeatureCode="CJH" />
+			<Description Description="FLEET" FeatureCode="YZK" />
+			<Description Description="DEALER ACCESSORY 4" FeatureCode="ZJ4" />
+			<Description Description="ROLL BAR" FeatureCode="A9I" />
+			<Description Description="LESS UNDERBODY PROTECTION" FeatureCode="A1CAA" />
+			<Description Description="LESS ATTITUDE/RIDE HEIGHT PACK" FeatureCode="DWEAA" />
+			<Description Description="WHEEL PACK 4" FeatureCode="J4YAE" />
+			<Description Description="LESS WEATHERSHIELDS" FeatureCode="B2NAA" />
+			<Description Description="255/65R18 A/S" FeatureCode="D3HFT" />
+			<Description Description="STEERING WHEEL-BASE" FeatureCode="GTAAB" />
+			<Description Description="PARTIAL TFT/LCD INSTR CLUSTER" FeatureCode="HCAAW" />
+			<Description Description="TRAILER TOW CLASS I" FeatureCode="C1CAI" />
+			<Description Description="ISOFIX - I-SIZE" FeatureCode="CPSAE" />
+			<Description Description="TECHNOLOGY PACKAGE 50" FeatureCode="J4WCL" />
+			<Description Description="ACC-INTLLGNT SPD ASSIST" FeatureCode="GTDAZ" />
+			<Description Description="LOCKING REAR AXLE" FeatureCode="EGJAD" />
+			<Description Description="LESS TERRAIN PACKAGE" FeatureCode="AAQAA" />
+			<Description Description="SPARE WHEEL-17 X 8 ALLOY" FeatureCode="D17BE" />
+			<Description Description="FEATURE PACKAGE B" FeatureCode="AALC0" />
+			<Description Description="REVERSE BRAKE ASSIST" FeatureCode="HNYAB" />
+			<Description Description="ELECTRONIC AUTOMATIC GEARSHIFT" FeatureCode="CAWAF" />
+			<Description Description="HOOD APPLIQUE-CHROME" FeatureCode="A4YAC" />
+			<Description Description="3.55 FINAL DRIVE RATIO" FeatureCode="EGAHD" />
+			<Description Description="FRESH AIR HEATER" FeatureCode="G2AAB" />
+			<Description Description="LESS A/C REFRIGERANT" FeatureCode="G3FAA" />
+			<Description Description="LESS SIDE REPEAT FLASHERS" FeatureCode="JBGAA" />
+			<Description Description="LESS ASSIST PACKAGES" FeatureCode="DAXAA" />
+			<Description Description="LESS DEALER ACCESSORY 5" FeatureCode="ZJ5AA" />
+			<Description Description="LESS RR SEAT INFORMATION SYST" FeatureCode="B55AA" />
+			<Description Description="LESS REAR SEAT CENTER ARMREST" FeatureCode="BWFAA" />
+			<Description Description="LESS TIE DOWN HOOKS" FeatureCode="A9JAA" />
+			<Description Description="ACOUSTIC LAMINATED WINDSCREEN" FeatureCode="B2RAP" />
+			<Description Description="CELLPHONE INTERFACE SYSTEM 5" FeatureCode="IEPAN" />
+			<Description Description="PICKUP SIDE RAILS" FeatureCode="A9HAB" />
+			<Description Description="LESS SVO MARKETING PACKS" FeatureCode="AGAAA" />
+			<Description Description="REAR VIDEO CAMERA PREP KIT" FeatureCode="J3KAS" />
+			<Description Description="FRONT SEAT PACK 36" FeatureCode="BW1BF" />
+			<Description Description="LESS TIRE PRESSURE SENSORS" FeatureCode="D19AA" />
+			<Description Description="SINGLE CHASSIS CAB" FeatureCode="CA#WM" />
+			<Description Description="CHILD PROOF RR DOOR LOCKS" FeatureCode="CANAB" />
+			<Description Description="BELTMINDER" FeatureCode="CP9" />
+			<Description Description="DEALER ACCESSORY 5" FeatureCode="ZJ5" />
+			<Description Description="SEAT ARMREST-REAR CENTER" FeatureCode="BWF" />
+			<Description Description="CONSOLE-FLOOR" FeatureCode="B5W" />
+			<Description Description="SIDE FLASHERS" FeatureCode="JBG" />
+			<Description Description="TERRAIN PACKAGES" FeatureCode="AAQ" />
+			<Description Description="REAR SEAT INFORMATION SYSTEM" FeatureCode="B55" />
+			<Description Description="WHEEL LUG NUTS" FeatureCode="D5E" />
+			<Description Description="INTERIOR TRIMS" FeatureCode="ITS" />
+			<Description Description="WEATHERSHIELDS" FeatureCode="B2N" />
+			<Description Description="A/C REFRIGERANT" FeatureCode="G3F" />
+			<Description Description="ALL PAINTS" FeatureCode="PAA" />
+			<Description Description="ELECTRONIC SPEED LIMITATION" FeatureCode="GTC" />
+			<Description Description="WASHER TANK LEVEL WARN LAMP" FeatureCode="CFN" />
+			<Description Description="BRAKES-ANTI-LOCK" FeatureCode="FEA" />
+			<Description Description="SEAT/AIRBAG PACK" FeatureCode="BWW" />
+			<Description Description="INTERIOR ENVIRONMENT COLOR" FeatureCode="BA7" />
+			<Description Description="TIRE PRESSURE SENSORS" FeatureCode="D19" />
+			<Description Description="UNDERBODY PROTECTION" FeatureCode="A1C" />
+			<Description Description="SVO MARKETING PACKS" FeatureCode="AGA" />
+			<Description Description="ATTITUDE/RIDE HEIGHT PACK" FeatureCode="DWE" />
+			<Description Description="TIE DOWN HOOKS-INSIDE" FeatureCode="A9J" />
+			<Description Description="ASSIST PACKAGES" FeatureCode="DAX" />
+			<Description Description="LESS DEALER ACCESSORY 17" FeatureCode="ZJHAA" />
+			<Description Description="ICE FEATURE PACK 106" FeatureCode="ICFDZ" />
+			<Description Description="ICE-MID AUDIO + DAB + TMC" FeatureCode="ICEF6" />
+			<Description Description="TERRAIN PACK-STANDARD DUTY" FeatureCode="AAQAB" />
+			<Description Description="V - VINYL #3" FeatureCode="11M00" />
+			<Description Description="ELECT ST ADJUSTER-DRV W/MEM" FeatureCode="BYPBC" />
+			<Description Description="OPEN STYLE REAR AXLE" FeatureCode="EGJAE" />
+			<Description Description="WASHER TANK LEVEL WARN LAMP" FeatureCode="CFNAB" />
+			<Description Description="IRELAND" FeatureCode="WAEIR" />
+			<Description Description="EXTERIOR DRESS UP PACK 2" FeatureCode="AAXAG" />
+			<Description Description="FULL TFT/LCD INSTR CLUSTER" FeatureCode="HCAAX" />
+			<Description Description="PICKUP BOX CAP COVER #2" FeatureCode="A9BAF" />
+			<Description Description="LESS FRONT PARKING AID" FeatureCode="HNLAA" />
+			<Description Description="SINGLE CAB (REGULAR CAB)" FeatureCode="CA#BB" />
+			<Description Description="LESS DRIVER IMPAIRMENT MONITOR" FeatureCode="HLFAA" />
+			<Description Description="REAR SEAT CENTER ARMREST" FeatureCode="BWFAB" />
+			<Description Description="LESS TRACKING/RECOVERY" FeatureCode="YLFAA" />
+			<Description Description="INT ENVIRON COLOR-EBONY" FeatureCode="BA7AB" />
+			<Description Description="MOONDUST SILVER C/C MED SOLID" FeatureCode="PNZJB" />
+			<Description Description="MARKETING CV PACK #5" FeatureCode="AGJAF" />
+			<Description Description="LESS HOOD PROTECTOR." FeatureCode="YESAA" />
+			<Description Description="LESS ACCESSORY FRONT GRILLE" FeatureCode="YE1AA" />
+			<Description Description="LESS GLOVE BOX LIGHTS" FeatureCode="JCLAA" />
+			<Description Description="INTERIOR TRIM PACK 13" FeatureCode="ABBBN" />
+			<Description Description="LESS DEALER ACCESSORY 7" FeatureCode="ZJ7AA" />
+			<Description Description="PWR REAR 1 SHOT UP/DOWN WINDOW" FeatureCode="B2DAG" />
+			<Description Description="12YR DE-ICE SALT CRRSN PROTECT" FeatureCode="CJHAK" />
+			<Description Description="EBONYV - VINYL #3" FeatureCode="11MZH" />
+			<Description Description="TIRE PRESSURE SENSORS" FeatureCode="D19AB" />
+			<Description Description="FRONT SEAT PACK 37" FeatureCode="BW1BG" />
+			<Description Description="UNDERBODY PROTECTION" FeatureCode="A1CAB" />
+			<Description Description="LESS NAVIGATION CENTER" FeatureCode="HKCAA" />
+			<Description Description="LESS WAX KIT" FeatureCode="A2YAA" />
+			<Description Description="FRONT SEAT PACK 3" FeatureCode="BW1AD" />
+			<Description Description="INTERIOR FEATURE COLOR" FeatureCode="BA8" />
+			<Description Description="DEALER ACCESSORY 16" FeatureCode="ZJG" />
+			<Description Description="STARTER-TYPE" FeatureCode="DEC" />
+			<Description Description="REVERSE PARKING AID" FeatureCode="HNK" />
+			<Description Description="TRIM BLEND CODE FAMILY" FeatureCode="#T#" />
+			<Description Description="TRAILER TOWING" FeatureCode="C1C" />
+			<Description Description="TAILGATE LOCK" FeatureCode="A7E" />
+			<Description Description="SPEED CONTROL" FeatureCode="GTD" />
+			<Description Description="DRIVER PACK" FeatureCode="J5T" />
+			<Description Description="ID PLATES" FeatureCode="A2X" />
+			<Description Description="SCND CLLSON MTGR/PST IMPAC BRK" FeatureCode="FDP" />
+			<Description Description="FINAL DRIVE RATIOS" FeatureCode="SDR" />
+			<Description Description="COMPRESSOR" FeatureCode="G3G" />
+			<Description Description="DEALER ACCESSORY 6" FeatureCode="ZJ6" />
+			<Description Description="SEAT TRACK/ANCHOR-REAR" FeatureCode="BWG" />
+			<Description Description="EMERGENCY CALL SYSTEMS" FeatureCode="HKS" />
+			<Description Description="ROOF RACK" FeatureCode="BLY" />
+			<Description Description="MIRROR FINISH-EXTERIOR" FeatureCode="BSL" />
+			<Description Description="ALL INT TRIM COLORS-" FeatureCode="000" />
+			<Description Description="ACTIVE GRILLESHUTTER " FeatureCode="BLH" />
+			<Description Description="REAR SEAT OCCUPANT ALERT" FeatureCode="B55AC" />
+			<Description Description="GLOVE BOX LIGHTS" FeatureCode="JCLAB" />
+			<Description Description="EBONYC - CLOTH/CLOTH" FeatureCode="3CQZH" />
+			<Description Description="LESS FRONT FOG LAMPS" FeatureCode="JBKAA" />
+			<Description Description="WILDTRAK #1 SERIES" FeatureCode="SE#R1" />
+			<Description Description="MULTI FUNCTION DISPLAY - 12&quot;" FeatureCode="HJGAX" />
+			<Description Description="ADAPTIVE SPD CONTROL W/CADSIII" FeatureCode="GTDAK" />
+			<Description Description="TECHNOLOGY PACKAGE 52" FeatureCode="J4WCN" />
+			<Description Description="WHEEL PACK 22" FeatureCode="J4YAX" />
+			<Description Description="LESS SAFETY PACK" FeatureCode="ADMAA" />
+			<Description Description="C - CLOTH/CLOTH" FeatureCode="3CQ00" />
+			<Description Description="FRONT TOWING HOOKS" FeatureCode="C1UAB" />
+			<Description Description="NAVIGATION CENTER" FeatureCode="HKCAB" />
+			<Description Description="ADVANCED AIR BAG RESTRNT-PASS" FeatureCode="CPHAD" />
+			<Description Description="LESS LOAD BARS" FeatureCode="A5BAA" />
+			<Description Description="LESS DEALER ACCESSORY 18" FeatureCode="ZJJAA" />
+			<Description Description="ALTERNATOR-250A" FeatureCode="HUACG" />
+			<Description Description="SEAT INT A/BAG FAR SIDE OCC" FeatureCode="CRAAB" />
+			<Description Description="LIFTGATE - MANUAL" FeatureCode="A7FAB" />
+			<Description Description="COMPLETE VEHICLE" FeatureCode="AASAB" />
+			<Description Description="LESS RADIO NOISE SUPRESSION" FeatureCode="IELAA" />
+			<Description Description="DOOR HANDLES-INSIDE MIC" FeatureCode="BCFAG" />
+			<Description Description="LESS LIFT/DECKLID HANDLE" FeatureCode="CACAA" />
+			<Description Description="P/BOX TIE DOWN HOOKS-INSIDE" FeatureCode="A9JAC" />
+			<Description Description="FRONT HEADLAMP LEVELING" FeatureCode="JEAAB" />
+			<Description Description="REAR THROW IN RUBBER FLR MATS" FeatureCode="BBIAD" />
+			<Description Description="REVERSE PARK ASSIST WITH BRKNG" FeatureCode="HNYAD" />
+			<Description Description="SPRAY IN LOAD BOX BED LINER" FeatureCode="A9SAG" />
+			<Description Description="FRT FENDER GILL - AS MOLDED" FeatureCode="A2RAN" />
+			<Description Description="AGATE BLACK METALLIC" FeatureCode="PN4GM" />
+			<Description Description="PLATINUM WITH CHROME SURROUND" FeatureCode="BLDBP" />
+			<Description Description="HOLLY GREEN" FeatureCode="PN3GE" />
+			<Description Description="XL #2 SERIES" FeatureCode="SE#G2" />
+			<Description Description="LESS REAR BUMPER EXTENSION" FeatureCode="CLSAA" />
+			<Description Description="TERRAIN PACK-HEAVY DUTY" FeatureCode="AAQAC" />
+			<Description Description="LESS TIRE INFLATION KIT" FeatureCode="HJBAA" />
+			<Description Description="ROLL SPORTSBAR-STAINLESS STEEL" FeatureCode="A9IAL" />
+			<Description Description="INSTRUMENT - CLUSTERS  ALT A" FeatureCode="C2CCJ" />
+			<Description Description="LESS FRONT PROTECTION BAR" FeatureCode="A29AA" />
+			<Description Description="NON WOVEN CARPET" FeatureCode="BBGAE" />
+			<Description Description="FRONT PARKING AID" FeatureCode="HNLAB" />
+			<Description Description="GENDARMERIE BLUE" FeatureCode="PSTLK" />
+			<Description Description="HTD/VENTED COOLED FRONT" FeatureCode="A4DAG" />
+			<Description Description="HOOD APPLIQUE" FeatureCode="A4YAE" />
+			<Description Description="LESS DEALER ACCESSORY 9" FeatureCode="ZJ9AA" />
+			<Description Description="4 WHL R/H PART TIME DRIVE" FeatureCode="DR--G" />
+			<Description Description="LESS CARGO TRAY-FIA" FeatureCode="FIQAA" />
+			<Description Description="LESS HEADRESTRAINT-REAR CENTER" FeatureCode="BWJAA" />
+			<Description Description="NARROW BODYSIDE MOLDING/INSERT" FeatureCode="BMBAG" />
+			<Description Description="LESS SNORKEL" FeatureCode="YF6AA" />
+			<Description Description="LESS SPECIAL BUILD REQUIREMENT" FeatureCode="AADAA" />
+			<Description Description="ROOF STORAGE-DRIVER SUNGLASSES" FeatureCode="BHNAB" />
+			<Description Description="DOUBLE CAB (CREW CAB)" FeatureCode="CA#BC" />
+			<Description Description="SIDE/CURTAIN/AIRBAG PACK" FeatureCode="BWWAC" />
+			<Description Description="SEAT-INDIVIDUAL H/B DRV/PASS" FeatureCode="FS--H" />
+			<Description Description="ROOF STORAGE-DRIVER" FeatureCode="BHN" />
+			<Description Description="DRIVER IMPAIRMENT MONITOR" FeatureCode="HLF" />
+			<Description Description="LIFTGATE/DECKLID/SPLITGATE" FeatureCode="A7F" />
+			<Description Description="FRONT GRILLE" FeatureCode="YE1" />
+			<Description Description="TOWING HOOKS-FRONT" FeatureCode="C1U" />
+			<Description Description="NAVIGATION CENTER" FeatureCode="HKC" />
+			<Description Description="SERIES-LIGHT TRUCK" FeatureCode="SE#" />
+			<Description Description="REDUNDANT CNTLS ON STEERING WL" FeatureCode="GTE" />
+			<Description Description="AIR BAG RESTRAINT-INNER SEAT" FeatureCode="CRA" />
+			<Description Description="CONSOLE MATERIAL" FeatureCode="B5Y" />
+			<Description Description="GLOVE BOX LIGHTS" FeatureCode="JCL" />
+			<Description Description="WAX" FeatureCode="A2Y" />
+			<Description Description="DEALER ACCESSORY 17" FeatureCode="ZJH" />
+			<Description Description="HEADLAMP LEVELING" FeatureCode="JEA" />
+			<Description Description="FRONT PARKING AID" FeatureCode="HNL" />
+			<Description Description="TRACKING/RECOVERY" FeatureCode="YLF" />
+			<Description Description="HOOD PROTECTOR." FeatureCode="YES" />
+			<Description Description="RADIO ANTENNA" FeatureCode="ICD" />
+			<Description Description="DOOR HANDLE-EXTERIOR" FeatureCode="CAA" />
+			<Description Description="VEHICLE STATUS" FeatureCode="AAS" />
+			<Description Description="DEALER ACCESSORY 7" FeatureCode="ZJ7" />
+			<Description Description="LOAD BARS" FeatureCode="A5BAB" />
+			<Description Description="EXT DOOR HANDLE-BODY COLOR" FeatureCode="CAAAC" />
+			<Description Description="LUCID RED TC/RED CARPET TC" FeatureCode="PN4HQ" />
+			<Description Description="LESS STORAGE/TOOL BOX" FeatureCode="A5DAA" />
+			<Description Description="INTERIOR TRIM PACK 14" FeatureCode="ABBBP" />
+			<Description Description="VERSION PACK 9" FeatureCode="AACD2" />
+			<Description Description="LESS DEALER ACCESSORY 20" FeatureCode="ZJLAA" />
+			<Description Description="SPECIAL BUILD REQUIREMENT A" FeatureCode="AADAB" />
+			<Description Description="TECHNOLOGY PACKAGE 16" FeatureCode="J4WAZ" />
+			<Description Description="8 HIGH SERIES RADIO SPEAKERS" FeatureCode="IDBAN" />
+			<Description Description="A/C REFRIGERANT-HF01234YF" FeatureCode="G3FAD" />
+			<Description Description="AUTOMATIC HEADLAMP LEVELING" FeatureCode="JEAAC" />
+			<Description Description="LOCKING WHEEL LUG NUT" FeatureCode="D5EAD" />
+			<Description Description="DIESEL FUEL CAPABILITY" FeatureCode="GBVAJ" />
+			<Description Description="SUNVISOR,SINGLE-DRIVER" FeatureCode="BCAAB" />
+			<Description Description="4 WHL R/H FULL TIME DRIVE" FeatureCode="DR--H" />
+			<Description Description="STANDARD DUTY SUSPENSION" FeatureCode="DWAAF" />
+			<Description Description="PICKUP BOX CANOPY" FeatureCode="A9BAH" />
+			<Description Description="C-TRAXON/MAX" FeatureCode="3CB00" />
+			<Description Description="CYBER ORANGE 3C" FeatureCode="PN4JF" />
+			<Description Description="HEADRESTRAINT-REAR CENTER" FeatureCode="BWJAB" />
+			<Description Description="INCOMPLETE VEHICLE" FeatureCode="AASAC" />
+			<Description Description="WHEEL PACK 7" FeatureCode="J4YAH" />
+			<Description Description="ELEC CH LK/RR DOORS/TAILGATE" FeatureCode="CANAE" />
+			<Description Description="STEERING WHEEL-LEATHER WRAPPED" FeatureCode="GTAAE" />
+			<Description Description="PARKING BRAKE - MECHANICAL" FeatureCode="FAJAB" />
+			<Description Description="UNDERBODY WAX" FeatureCode="A2YAC" />
+			<Description Description="FRONT SEAT PACK 20" FeatureCode="BW1AW" />
+			<Description Description="WHEEL PACK 34" FeatureCode="J4YBK" />
+			<Description Description="LESS PWR DISTRIBUTION BOX-FRT" FeatureCode="JZQAA" />
+			<Description Description="FRONT FOG LAMPS" FeatureCode="JBKAB" />
+			<Description Description="FRONT TOW HOOKS -ALTERNT DESGN" FeatureCode="C1UAC" />
+			<Description Description="THATCHAM SECURITY SYSTEM" FeatureCode="HNHAE" />
+			<Description Description="WHEEL PACK 23" FeatureCode="J4YAY" />
+			<Description Description="PLATINUM SERIES" FeatureCode="SE#GU" />
+			<Description Description="FEATURE PACKAGE A" FeatureCode="AALB0" />
+			<Description Description="BREAKDOWN WARNING SIGN" FeatureCode="AHHAB" />
+			<Description Description="MY KEY" FeatureCode="A64AB" />
+			<Description Description="LESS BRAKE CONTROL VALVE" FeatureCode="FDDAA" />
+			<Description Description="LESS POWER PACKAGE" FeatureCode="YPVAA" />
+			<Description Description="EBONYC-TRAXON/MAX" FeatureCode="3CBZH" />
+			<Description Description="255/70R16 BSW A-S" FeatureCode="D3JDP" />
+			<Description Description="TONNEAU COVER - SOFT" FeatureCode="CHBAM" />
+			<Description Description="REAR BUMPER EXTENSION" FeatureCode="CLSAB" />
+			<Description Description="LESS WINDOW DEFLECTORS" FeatureCode="YE5AA" />
+			<Description Description="REMOTE STARTER" FeatureCode="DEE" />
+			<Description Description="LOAD REST" FeatureCode="BD2" />
+			<Description Description="TIE DOWN HOOKS-OUTSIDE" FeatureCode="A9M" />
+			<Description Description="FRONT BUMPER LIP" FeatureCode="CM3" />
+			<Description Description="TOWING HOOKS-REAR" FeatureCode="C1V" />
+			<Description Description="IN CAR ENTERTAINMENT" FeatureCode="ICE" />
+			<Description Description="VERSION PACKAGES" FeatureCode="AAC" />
+			<Description Description="EXTERIOR LIGHT PACK" FeatureCode="ABW" />
+			<Description Description="RR COMPT AC/HEAT DUCT" FeatureCode="G1C" />
+			<Description Description="SALES BADGE" FeatureCode="AB5" />
+			<Description Description="CARGO BOX POWER POINT PLUG" FeatureCode="J3P" />
+			<Description Description="CARGO AREA COVER" FeatureCode="BDC" />
+			<Description Description="FUEL TANK LOCK" FeatureCode="GBT" />
+			<Description Description="INFLATABLE KNEE BOLSTER-PASS" FeatureCode="CN9AB" />
+			<Description Description="INTERIOR TRIM PACK 15" FeatureCode="ABBBQ" />
+			<Description Description="LEATHER # 2" FeatureCode="5V800" />
+			<Description Description="DIVERSITY ANTENNA" FeatureCode="ICHAB" />
+			<Description Description="REAR BUMPER-PLASTIC" FeatureCode="CLMAW" />
+			<Description Description="GRILLE-CHROME #1" FeatureCode="BLDCU" />
+			<Description Description="LESS BLIND SPOT INFO SYSTEM" FeatureCode="HLLAA" />
+			<Description Description="20X8 ALUMINUM - PREMIUM PAINT" FeatureCode="D2FCF" />
+			<Description Description="MULTI FUNCTION DISPLAY - 10" FeatureCode="HJGAZ" />
+			<Description Description="LEATHER GEAR SHIFT KNOB" FeatureCode="CAEAB" />
+			<Description Description="LESS UTILITY PACKAGE" FeatureCode="ADQAA" />
+			<Description Description="LESS HIGH MOUNTED STOP LAMP" FeatureCode="JDDAA" />
+			<Description Description="GRILLE-ACCENT COLOR" FeatureCode="BLDC3" />
+			<Description Description="255/70 R17 A/S" FeatureCode="D3KGQ" />
+			<Description Description="REAR BUMPER-MOLDED IN COLOR" FeatureCode="CLMHJ" />
+			<Description Description="NON LOCKING LUG NUTS" FeatureCode="D5EAE" />
+			<Description Description="CONVENTIONAL GEARSHIFT" FeatureCode="CAWAJ" />
+			<Description Description="INTELLIGENT SPEED ASSISTANCE" FeatureCode="GTCAV" />
+			<Description Description="EXTERIOR DOOR HANDLE-CHROME" FeatureCode="CAAAD" />
+			<Description Description="PARKING BRAKE - ELECTRIC" FeatureCode="FAJAC" />
+			<Description Description="WHELIP MLDG-WITH PAINTED FLARE" FeatureCode="BMCAQ" />
+			<Description Description="EBONYLEATHER # 2" FeatureCode="5V8ZH" />
+			<Description Description="LOCKING GLOVE BOX LID" FeatureCode="B5LAB" />
+			<Description Description="WHEEL PACK 35" FeatureCode="J4YBL" />
+			<Description Description="TECHNOLOGY PACKAGE 65" FeatureCode="J4WDB" />
+			<Description Description="TONNEAU COVER - ROLL TOP" FeatureCode="CHBAN" />
+			<Description Description="EXT MIR FIN - ACCENT COLOR" FeatureCode="BSLAM" />
+			<Description Description="LOAD BARS 2" FeatureCode="A5BAC" />
+			<Description Description="ICE-MID AUDIO BRANDED +DAB+TMC" FeatureCode="ICEF9" />
+			<Description Description="4.55 FINAL DRIVE RATIO" FeatureCode="EGAM5" />
+			<Description Description="SUNVISOR,SINGLE-DRV MIR INSERT" FeatureCode="BCAAC" />
+			<Description Description="MULTI MEDIA CTLS -STEER WHL" FeatureCode="GTEAD" />
+			<Description Description="ICE FEATURE PACK 17" FeatureCode="ICFAT" />
+			<Description Description="17 X 7.5 ALLOY WHEEL" FeatureCode="D2YCE" />
+			<Description Description="SHIP TO VFS NORTH" FeatureCode="AASBX" />
+			<Description Description="WILDTRAK X SERIES" FeatureCode="SE#JN" />
+			<Description Description="SUNVISORS-DRIVER" FeatureCode="BCA" />
+			<Description Description="HEADRESTRAINT-REAR CENTER" FeatureCode="BWJ" />
+			<Description Description="MY KEY" FeatureCode="A64" />
+			<Description Description="PARKING BRAKE-FUNCTION TYPE" FeatureCode="FAJ" />
+			<Description Description="WINDSHIELD GLASS" FeatureCode="B2R" />
+			<Description Description="ICE FEATURE PACK" FeatureCode="ICF" />
+			<Description Description="SNORKEL" FeatureCode="YF6" />
+			<Description Description="SPECIAL BUILD REQUIREMENT" FeatureCode="AAD" />
+			<Description Description="CARGO TRAY-FIA" FeatureCode="FIQ" />
+			<Description Description="FRAME ASSEMBLY" FeatureCode="CWA" />
+			<Description Description="WARNING DISPLAYS" FeatureCode="AHH" />
+			<Description Description="ALTERNATORS" FeatureCode="HUA" />
+			<Description Description="DOOR ENTRY REMOTE CNTR UNIT" FeatureCode="CBF" />
+			<Description Description="DEALER ACCESSORY 9" FeatureCode="ZJ9" />
+			<Description Description="SAFETY PACK-B" FeatureCode="ADM" />
+			<Description Description="RADIO NOISE SUPRESSION" FeatureCode="IEL" />
+			<Description Description="LIFTGATE/TAILGATE HANDLE-EXT" FeatureCode="CAC" />
+			<Description Description="FOG LAMPS-FRONT" FeatureCode="JBK" />
+			<Description Description="FRONT PROTECTION BAR" FeatureCode="A29" />
+			<Description Description="LOAD BARS" FeatureCode="A5B" />
+			<Description Description="SEAT ADJUSTER-DRIVER" FeatureCode="BYP" />
+			<Description Description="TIRE INFLATION KIT" FeatureCode="HJB" />
+			<Description Description="DEALER ACCESSORY 18" FeatureCode="ZJJ" />
+			<Description Description="BUMPER EXTENSION-REAR" FeatureCode="CLS" />
+		</Descriptions>
+		<Paints>
+			<Paint FeatureCode="PN3GE" />
+			<Paint FeatureCode="PN3GZ" />
+			<Paint FeatureCode="PN4A7" />
+			<Paint FeatureCode="PN4E3" />
+			<Paint FeatureCode="PN4FW" />
+			<Paint FeatureCode="PN4GD" />
+			<Paint FeatureCode="PN4GM" />
+			<Paint FeatureCode="PN4HQ" />
+			<Paint FeatureCode="PN4JA" />
+			<Paint FeatureCode="PN4JF" />
+			<Paint FeatureCode="PNZJB" />
+			<Paint FeatureCode="PSTBE" />
+			<Paint FeatureCode="PSTJN" />
+			<Paint FeatureCode="PSTLK" />
+			<Paint FeatureCode="PSTLP" />
+			<Paint FeatureCode="PSTRB" />
+			<Paint FeatureCode="PSTRR" />
+			<Paint FeatureCode="PSTSK" />
+			<Paint FeatureCode="PSVAS" />
+		</Paints>
+		<Trims>
+			<Trim FeatureCode="11MZH" />
+			<Trim FeatureCode="12YZH" />
+			<Trim FeatureCode="3CBZH" />
+			<Trim FeatureCode="3CQZH" />
+			<Trim FeatureCode="5V8ZH" />
+		</Trims>
+		<Extras>
+			<Extra FeatureCode="BYYAR" />
+			<Extra FeatureCode="BYYAB" />
+			<Extra FeatureCode="AGJAF" />
+			<Extra FeatureCode="AGJAA" />
+			<Extra FeatureCode="AGJAD" />
+			<Extra FeatureCode="AADAB" />
+			<Extra FeatureCode="AADAA" />
+			<Extra FeatureCode="AACD2" />
+			<Extra FeatureCode="AACAA" />
+			<Extra FeatureCode="AALC0" />
+			<Extra FeatureCode="AALAA" />
+			<Extra FeatureCode="AALB0" />
+			<Extra FeatureCode="ICFDZ" />
+			<Extra FeatureCode="ICFAT" />
+			<Extra FeatureCode="ICFAW" />
+			<Extra FeatureCode="ICFBK" />
+			<Extra FeatureCode="ICFDG" />
+			<Extra FeatureCode="ICFDV" />
+			<Extra FeatureCode="AC--L" />
+			<Extra FeatureCode="AC--B" />
+			<Extra FeatureCode="AC--K" />
+			<Extra FeatureCode="FIQAA" />
+			<Extra FeatureCode="GZAAA" />
+			<Extra FeatureCode="JCGAR" />
+			<Extra FeatureCode="JCGAA" />
+			<Extra FeatureCode="D1ZAB" />
+			<Extra FeatureCode="D1ZAA" />
+			<Extra FeatureCode="AAQAC" />
+			<Extra FeatureCode="AAQAA" />
+			<Extra FeatureCode="AAQAB" />
+			<Extra FeatureCode="B2DAG" />
+			<Extra FeatureCode="B2DAA" />
+			<Extra FeatureCode="B2DAC" />
+			<Extra FeatureCode="AAXAG" />
+			<Extra FeatureCode="AAXAA" />
+			<Extra FeatureCode="HNAAG" />
+			<Extra FeatureCode="BPLAR" />
+			<Extra FeatureCode="BPLA9" />
+			<Extra FeatureCode="BPLAA" />
+			<Extra FeatureCode="BPLAD" />
+			<Extra FeatureCode="CHBAP" />
+			<Extra FeatureCode="CHBAA" />
+			<Extra FeatureCode="CHBAE" />
+			<Extra FeatureCode="CHBAM" />
+			<Extra FeatureCode="CHBAN" />
+			<Extra FeatureCode="ABBBQ" />
+			<Extra FeatureCode="ABBBB" />
+			<Extra FeatureCode="ABBBH" />
+			<Extra FeatureCode="ABBBN" />
+			<Extra FeatureCode="ABBBP" />
+			<Extra FeatureCode="BDCAF" />
+			<Extra FeatureCode="BDCAA" />
+			<Extra FeatureCode="J4KAB" />
+			<Extra FeatureCode="J4KAA" />
+			<Extra FeatureCode="BBHCM" />
+			<Extra FeatureCode="BBHAA" />
+			<Extra FeatureCode="BBHAB" />
+			<Extra FeatureCode="BBHAD" />
+			<Extra FeatureCode="A2YAC" />
+			<Extra FeatureCode="A2YAA" />
+			<Extra FeatureCode="BBGAK" />
+			<Extra FeatureCode="BBGAE" />
+			<Extra FeatureCode="A9BAH" />
+			<Extra FeatureCode="A9BAA" />
+			<Extra FeatureCode="A9BAC" />
+			<Extra FeatureCode="A9BAF" />
+			<Extra FeatureCode="YA2AA" />
+			<Extra FeatureCode="ABJBC" />
+			<Extra FeatureCode="ABJBB" />
+			<Extra FeatureCode="BBICM" />
+			<Extra FeatureCode="BBIAA" />
+			<Extra FeatureCode="BBIAD" />
+			<Extra FeatureCode="A7AAB" />
+			<Extra FeatureCode="A7AA1" />
+			<Extra FeatureCode="A7AAA" />
+			<Extra FeatureCode="A5BAC" />
+			<Extra FeatureCode="A5BAA" />
+			<Extra FeatureCode="A5BAB" />
+			<Extra FeatureCode="J4WDK" />
+			<Extra FeatureCode="J4WAZ" />
+			<Extra FeatureCode="J4WBD" />
+			<Extra FeatureCode="J4WBE" />
+			<Extra FeatureCode="J4WCL" />
+			<Extra FeatureCode="J4WCN" />
+			<Extra FeatureCode="J4WDB" />
+			<Extra FeatureCode="J4WDE" />
+			<Extra FeatureCode="J4WDG" />
+			<Extra FeatureCode="J4WDH" />
+			<Extra FeatureCode="J4WDJ" />
+			<Extra FeatureCode="A5DAA" />
+			<Extra FeatureCode="A5CAB" />
+			<Extra FeatureCode="A5CAA" />
+			<Extra FeatureCode="J4YBL" />
+			<Extra FeatureCode="J4YAE" />
+			<Extra FeatureCode="J4YAH" />
+			<Extra FeatureCode="J4YAJ" />
+			<Extra FeatureCode="J4YAM" />
+			<Extra FeatureCode="J4YAP" />
+			<Extra FeatureCode="J4YAR" />
+			<Extra FeatureCode="J4YAX" />
+			<Extra FeatureCode="J4YAY" />
+			<Extra FeatureCode="J4YBG" />
+			<Extra FeatureCode="J4YBK" />
+			<Extra FeatureCode="A9IAX" />
+			<Extra FeatureCode="A9IAA" />
+			<Extra FeatureCode="A9IAB" />
+			<Extra FeatureCode="A9IAL" />
+			<Extra FeatureCode="A9IAQ" />
+			<Extra FeatureCode="D5EAE" />
+			<Extra FeatureCode="D5EAD" />
+			<Extra FeatureCode="ABWAT" />
+			<Extra FeatureCode="ABWAA" />
+			<Extra FeatureCode="C1CAI" />
+			<Extra FeatureCode="C1CAH" />
+			<Extra FeatureCode="J7BAB" />
+			<Extra FeatureCode="J7BAA" />
+			<Extra FeatureCode="BMBAG" />
+			<Extra FeatureCode="BMBAA" />
+			<Extra FeatureCode="BMBAB" />
+			<Extra FeatureCode="BW1BG" />
+			<Extra FeatureCode="BW1AD" />
+			<Extra FeatureCode="BW1AH" />
+			<Extra FeatureCode="BW1AS" />
+			<Extra FeatureCode="BW1AW" />
+			<Extra FeatureCode="BW1BF" />
+			<Extra FeatureCode="A9SAG" />
+			<Extra FeatureCode="A9SAA" />
+			<Extra FeatureCode="A9SAB" />
+		</Extras>
+	</JARVISSettings>
+	<LinkingRecords>
+		<linkingrecord fullload="N" market="na" model="na" numericalMmy="na" ptvl="na" specMarket="na" year="na">
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2200_deu_dbc_h1_l1_limited_4wd_die_2000cc_auto_na_opt0_12tzh" State="S_na_foe_2200_deu_dbc_h1_l1_limited_4wd_die_2000cc_auto_na_opt0_12tzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_dbc_h1_l1_raptor_4wd_pet_2000cc_auto_na_opt0_12szh" State="S_na_foe_2200_deu_dbc_h1_l1_raptor_4wd_pet_2000cc_auto_na_opt0_12szh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_opt0_5v8zh" State="S_na_foe_2200_deu_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_dbc_h1_l1_xlt_4x4_die_2000cc_man_na_opt0_3cbzh" State="S_na_foe_2200_deu_dbc_h1_l1_xlt_4x4_die_2000cc_man_na_opt0_3cbzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_dbc_h1_l1_xl_4x4_die_2000cc_man_na_opt0_3cqzh" State="S_na_foe_2200_deu_dbc_h1_l1_xl_4x4_die_2000cc_man_na_opt0_3cqzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_rap_h1_l1_limited_4wd_die_2000cc_auto_na_opt0_12tzh" State="S_na_foe_2200_deu_rap_h1_l1_limited_4wd_die_2000cc_auto_na_opt0_12tzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_rap_h1_l1_wildtrak_4wd_die_2000cc_auto_na_opt0_5v8zh" State="S_na_foe_2200_deu_rap_h1_l1_wildtrak_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_rap_h1_l1_xlt_4x4_die_2000cc_man_na_opt0_3cbzh" State="S_na_foe_2200_deu_rap_h1_l1_xlt_4x4_die_2000cc_man_na_opt0_3cbzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_rap_h1_l1_xl_4x4_die_2000cc_man_na_opt0_3cqzh" State="S_na_foe_2200_deu_rap_h1_l1_xl_4x4_die_2000cc_man_na_opt0_3cqzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_scb_h1_l1_xl_4x2_die_2000cc_man_na_opt1_3cqzh" State="S_na_foe_2200_deu_scb_h1_l1_xl_4x2_die_2000cc_man_na_opt1_3cqzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_deu_scb_h1_l1_xl_4x4_die_2000cc_man_na_opt2_3cqzh" State="S_na_foe_2200_deu_scb_h1_l1_xl_4x4_die_2000cc_man_na_opt2_3cqzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_gbr_dbc_h1_l1_limited_4wd_die_2000cc_auto_na_opt0_12tzh" State="S_na_foe_2200_gbr_dbc_h1_l1_limited_4wd_die_2000cc_auto_na_opt0_12tzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_gbr_dbc_h1_l1_raptor_4wd_die_2000cc_auto_na_opt0_12szh" State="S_na_foe_2200_gbr_dbc_h1_l1_raptor_4wd_die_2000cc_auto_na_opt0_12szh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_gbr_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_opt0_5v8zh" State="S_na_foe_2200_gbr_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_gbr_dbc_h1_l1_xlt_4x4_die_2000cc_man_na_opt0_3cbzh" State="S_na_foe_2200_gbr_dbc_h1_l1_xlt_4x4_die_2000cc_man_na_opt0_3cbzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_gbr_dbc_h1_l1_xl_4x4_die_2000cc_man_na_opt0_3cqzh" State="S_na_foe_2200_gbr_dbc_h1_l1_xl_4x4_die_2000cc_man_na_opt0_3cqzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" Lighting="" Name="foe_2200_gbr_scb_h1_l1_xl_4x4_die_2000cc_man_na_opt2_3cqzh" State="S_na_foe_2200_gbr_scb_h1_l1_xl_4x4_die_2000cc_man_na_opt2_3cqzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2200_deu_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_hero_5v8zh" State="S_na_foe_2200_deu_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_hero_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2200_gbr_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_hero_5v8zh" State="S_na_foe_2200_gbr_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_na_hero_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2200_deu_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_woshutters_hero_5v8zh" State="S_na_foe_2200_deu_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_woshutters_hero_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2200_gbr_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_woshutters_hero_5v8zh" State="S_na_foe_2200_gbr_dbc_h1_l1_wildtrak_4wd_die_2000cc_auto_woshutters_hero_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+		</linkingrecord>
+		<linkingrecord fullload="N" market="deu" model="dbc" numericalMmy="na" ptvl="na" specMarket="na" year="2300">
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" State="S_deu_foe_2300_deu_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" State="S_deu_foe_2300_deu_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" State="S_deu_foe_2300_deu_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_rap_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" State="S_deu_foe_2300_deu_rap_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_rap_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" State="S_deu_foe_2300_deu_rap_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_hero_5v8zh" State="S_deu_foe_2300_deu_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_hero_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_deu_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_hero_11lzh" State="S_deu_foe_2300_deu_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_hero_11lzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+		</linkingrecord>
+		<linkingrecord fullload="N" market="gbr" model="dbc" numericalMmy="na" ptvl="na" specMarket="na" trimframe="202" year="2300">
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_gbr_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" State="S_gbr_foe_2300_gbr_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_gbr_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" State="S_gbr_foe_2300_gbr_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_gbr_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" State="S_gbr_foe_2300_gbr_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_gbr_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_hero_11lzh" State="S_gbr_foe_2300_gbr_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_hero_11lzh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+			<BasePass AdditionalLayers="" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="foe_2300_gbr_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_hero_5v8zh" State="S_gbr_foe_2300_gbr_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_hero_5v8zh" Type="exterior" Views="21,25,24,29,22,26,23,28,27" />
+		</linkingrecord>
+		<linkingrecord bodystyleframe="4" extraframe="0" fullload="N" market="DEU" model="TRB04" numericalMmy="202300" ptvl="TRB" seriesframe="0" showroomframe="9" specMarket="WAEDX" trimframe="202" year="YYE">
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN4JF,ABML1,SE#R1,CA#RA,&#10;PN3GZ,ABML1,SE#R1,CA#RA,&#10;PN4GM,ABML1,SE#R1,CA#RA,&#10;PN4HQ,ABML1,SE#R1,CA#RA,&#10;PN4JA,ABML1,SE#R1,CA#RA,&#10;PNZJB,ABML1,SE#R1,CA#RA," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-SE#R1-CA#RA | MARKETING LEVEL 1-WILDTRAK #1 SERIES-RAPCAB" OverrideFilename="" Series="false" Showroom="false" State="" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#P1,CA#RA,&#10;PN4GM,ABML1,SE#P1,CA#RA,&#10;PN4HQ,ABML1,SE#P1,CA#RA,&#10;PN4JA,ABML1,SE#P1,CA#RA,&#10;PNZJB,ABML1,SE#P1,CA#RA,&#10;PN4E3,ABML1,SE#P1,CA#RA,&#10;PN4FW,ABML1,SE#P1,CA#RA," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#P1-CA#RA | MARKETING LEVEL 1-LTD #1 SERIES-RAPCAB" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G1,CA#WM,&#10;PN4GM,ABML1,SE#G1,CA#WM,&#10;PN4HQ,ABML1,SE#G1,CA#WM,&#10;PN4JA,ABML1,SE#G1,CA#WM,&#10;PNZJB,ABML1,SE#G1,CA#WM,&#10;PN4E3,ABML1,SE#G1,CA#WM,&#10;PN4FW,ABML1,SE#G1,CA#WM," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G1-CA#WM | MARKETING LEVEL 1-XL #1 SERIES-SINGLE CHASSIS CAB" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G1,CA#BB,&#10;PN4GM,ABML1,SE#G1,CA#BB,&#10;PN4HQ,ABML1,SE#G1,CA#BB,&#10;PN4JA,ABML1,SE#G1,CA#BB,&#10;PNZJB,ABML1,SE#G1,CA#BB,&#10;PN4E3,ABML1,SE#G1,CA#BB,&#10;PN4FW,ABML1,SE#G1,CA#BB," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G1-CA#BB | MARKETING LEVEL 1-XL #1 SERIES-SINGLE CAB (REGULAR CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#BB,&#10;PN4GM,ABML1,SE#G2,CA#BB,&#10;PN4HQ,ABML1,SE#G2,CA#BB,&#10;PN4JA,ABML1,SE#G2,CA#BB,&#10;PNZJB,ABML1,SE#G2,CA#BB,&#10;PN4E3,ABML1,SE#G2,CA#BB,&#10;PN4FW,ABML1,SE#G2,CA#BB," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#BB | MARKETING LEVEL 1-XL #2 SERIES-SINGLE CAB (REGULAR CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#RA,&#10;PN4GM,ABML1,SE#G2,CA#RA,&#10;PN4HQ,ABML1,SE#G2,CA#RA,&#10;PN4JA,ABML1,SE#G2,CA#RA,&#10;PNZJB,ABML1,SE#G2,CA#RA,&#10;PN4E3,ABML1,SE#G2,CA#RA,&#10;PN4FW,ABML1,SE#G2,CA#RA," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#RA | MARKETING LEVEL 1-XL #2 SERIES-RAPCAB" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#P1,CA#BC,&#10;PN4GM,ABML1,SE#P1,CA#BC,&#10;PN4HQ,ABML1,SE#P1,CA#BC,&#10;PN4JA,ABML1,SE#P1,CA#BC,&#10;PNZJB,ABML1,SE#P1,CA#BC,&#10;PN4E3,ABML1,SE#P1,CA#BC,&#10;PN4FW,ABML1,SE#P1,CA#BC," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#P1-CA#BC | MARKETING LEVEL 1-LTD #1 SERIES-DOUBLE CAB (CREW CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#BC,&#10;PN4GM,ABML1,SE#G2,CA#BC,&#10;PN4HQ,ABML1,SE#G2,CA#BC,&#10;PN4JA,ABML1,SE#G2,CA#BC,&#10;PNZJB,ABML1,SE#G2,CA#BC,&#10;PN4E3,ABML1,SE#G2,CA#BC,&#10;PN4FW,ABML1,SE#G2,CA#BC," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#BC | MARKETING LEVEL 1-XL #2 SERIES-DOUBLE CAB (CREW CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#WM,&#10;PN4GM,ABML1,SE#G2,CA#WM,&#10;PN4HQ,ABML1,SE#G2,CA#WM,&#10;PN4JA,ABML1,SE#G2,CA#WM,&#10;PNZJB,ABML1,SE#G2,CA#WM,&#10;PN4E3,ABML1,SE#G2,CA#WM,&#10;PN4FW,ABML1,SE#G2,CA#WM," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#WM | MARKETING LEVEL 1-XL #2 SERIES-SINGLE CHASSIS CAB" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#N1,CA#BC,&#10;PN4GM,ABML1,SE#N1,CA#BC,&#10;PN4HQ,ABML1,SE#N1,CA#BC,&#10;PN4JA,ABML1,SE#N1,CA#BC,&#10;PNZJB,ABML1,SE#N1,CA#BC,&#10;PN4E3,ABML1,SE#N1,CA#BC,&#10;PN4FW,ABML1,SE#N1,CA#BC," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#N1-CA#BC | MARKETING LEVEL 1-XLT #1 SERIES-DOUBLE CAB (CREW CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#N1,CA#RA,&#10;PN4GM,ABML1,SE#N1,CA#RA,&#10;PN4HQ,ABML1,SE#N1,CA#RA,&#10;PN4JA,ABML1,SE#N1,CA#RA,&#10;PNZJB,ABML1,SE#N1,CA#RA,&#10;PN4E3,ABML1,SE#N1,CA#RA,&#10;PN4FW,ABML1,SE#N1,CA#RA," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#N1-CA#RA | MARKETING LEVEL 1-XLT #1 SERIES-RAPCAB" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#GU,CA#BC,&#10;PN4GM,ABML1,SE#GU,CA#BC,&#10;PN4HQ,ABML1,SE#GU,CA#BC,&#10;PN4JA,ABML1,SE#GU,CA#BC,&#10;PNZJB,ABML1,SE#GU,CA#BC,&#10;PN4FW,ABML1,SE#GU,CA#BC," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-SE#GU-CA#BC | MARKETING LEVEL 1-PLATINUM SERIES-DOUBLE CAB (CREW CAB)" OverrideFilename="" Series="false" Showroom="false" State="S_deu_foe_2300_deu_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#R1,CA#BC,&#10;PN4GM,ABML1,SE#R1,CA#BC,&#10;PN4HQ,ABML1,SE#R1,CA#BC,&#10;PN4JA,ABML1,SE#R1,CA#BC,&#10;PNZJB,ABML1,SE#R1,CA#BC,&#10;PN4JF,ABML1,SE#R1,CA#BC," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-SE#R1-CA#BC | MARKETING LEVEL 1-WILDTRAK #1 SERIES-DOUBLE CAB (CREW CAB)" OverrideFilename="" Series="false" Showroom="false" State="" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+		</linkingrecord>
+		<linkingrecord bodystyleframe="4" extraframe="0" fullload="N" market="GBR" model="TRB04" numericalMmy="202300" ptvl="TRB" seriesframe="0" showroomframe="9" specMarket="WAEGB" trimframe="202" year="YYE">
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#BB,&#10;PN4E3,ABML1,SE#G2,CA#BB,&#10;PN4FW,ABML1,SE#G2,CA#BB,&#10;PN4GM,ABML1,SE#G2,CA#BB,&#10;PN4HQ,ABML1,SE#G2,CA#BB,&#10;PN4JA,ABML1,SE#G2,CA#BB,&#10;PNZJB,ABML1,SE#G2,CA#BB," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#BB | MARKETING LEVEL 1-XL #2 SERIES-SINGLE CAB (REGULAR CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#BC,&#10;PN4E3,ABML1,SE#G2,CA#BC,&#10;PN4FW,ABML1,SE#G2,CA#BC,&#10;PN4GM,ABML1,SE#G2,CA#BC,&#10;PN4HQ,ABML1,SE#G2,CA#BC,&#10;PN4JA,ABML1,SE#G2,CA#BC,&#10;PNZJB,ABML1,SE#G2,CA#BC," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#BC | MARKETING LEVEL 1-XL #2 SERIES-DOUBLE CAB (CREW CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#G2,CA#WM,&#10;PN4E3,ABML1,SE#G2,CA#WM,&#10;PN4FW,ABML1,SE#G2,CA#WM,&#10;PN4GM,ABML1,SE#G2,CA#WM,&#10;PN4HQ,ABML1,SE#G2,CA#WM,&#10;PN4JA,ABML1,SE#G2,CA#WM,&#10;PNZJB,ABML1,SE#G2,CA#WM," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#G2-CA#WM | MARKETING LEVEL 1-XL #2 SERIES-SINGLE CHASSIS CAB" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#N1,CA#BC,&#10;PN4E3,ABML1,SE#N1,CA#BC,&#10;PN4FW,ABML1,SE#N1,CA#BC,&#10;PN4GM,ABML1,SE#N1,CA#BC,&#10;PN4HQ,ABML1,SE#N1,CA#BC,&#10;PN4JA,ABML1,SE#N1,CA#BC,&#10;PNZJB,ABML1,SE#N1,CA#BC," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-SE#N1-CA#BC | MARKETING LEVEL 1-XLT #1 SERIES-DOUBLE CAB (CREW CAB)" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN4JF,ABML1,SE#R1,CA#BC,&#10;PN3GZ,ABML1,SE#R1,CA#BC,&#10;PN4GM,ABML1,SE#R1,CA#BC,&#10;PN4HQ,ABML1,SE#R1,CA#BC,&#10;PN4JA,ABML1,SE#R1,CA#BC,&#10;PNZJB,ABML1,SE#R1,CA#BC," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-SE#R1-CA#BC | MARKETING LEVEL 1-WILDTRAK #1 SERIES-DOUBLE CAB (CREW CAB)" OverrideFilename="" Series="false" Showroom="false" State="" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,SE#GU,CA#BC,&#10;PN4FW,ABML1,SE#GU,CA#BC,&#10;PN4GM,ABML1,SE#GU,CA#BC,&#10;PN4HQ,ABML1,SE#GU,CA#BC,&#10;PN4JA,ABML1,SE#GU,CA#BC,&#10;PNZJB,ABML1,SE#GU,CA#BC," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-SE#GU-CA#BC | MARKETING LEVEL 1-PLATINUM SERIES-DOUBLE CAB (CREW CAB)" OverrideFilename="" Series="false" Showroom="false" State="S_gbr_foe_2300_gbr_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+		</linkingrecord>
+		<linkingrecord bodystyleframe="4" extraframe="0" fullload="N" market="DEU" model="TRB04" numericalMmy="202375" ptvl="TRB" seriesframe="0" showroomframe="9" specMarket="WAEDX" trimframe="202" year="YYE">
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#R1,&#10;PN4GM,ABML1,CA#BC,SE#R1,&#10;PN4HQ,ABML1,CA#BC,SE#R1,&#10;PN4JA,ABML1,CA#BC,SE#R1,&#10;PN4JF,ABML1,CA#BC,SE#R1,&#10;PNZJB,ABML1,CA#BC,SE#R1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#R1 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-WILDTRAK #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#JN,&#10;PN4FW,ABML1,CA#BC,SE#JN,&#10;PN4GM,ABML1,CA#BC,SE#JN,&#10;PN4HQ,ABML1,CA#BC,SE#JN,&#10;PN4JA,ABML1,CA#BC,SE#JN,&#10;PN4JF,ABML1,CA#BC,SE#JN,&#10;PNZJB,ABML1,CA#BC,SE#JN," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#BC-SE#JN | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-WILDTRAK X SERIES" OverrideFilename="" Series="true" Showroom="false" State="S_deu_foe_2300_deu_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#P1,&#10;PN4E3,ABML1,CA#BC,SE#P1,&#10;PN4FW,ABML1,CA#BC,SE#P1,&#10;PN4GM,ABML1,CA#BC,SE#P1,&#10;PN4HQ,ABML1,CA#BC,SE#P1,&#10;PN4JA,ABML1,CA#BC,SE#P1,&#10;PNZJB,ABML1,CA#BC,SE#P1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#P1 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-LTD #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BC,SE#G2,&#10;PN3GZ,ABML1,CA#BC,SE#G2,&#10;PN4A7,ABML1,CA#BC,SE#G2,&#10;PN4E3,ABML1,CA#BC,SE#G2,&#10;PN4FW,ABML1,CA#BC,SE#G2,&#10;PN4GM,ABML1,CA#BC,SE#G2,&#10;PN4HQ,ABML1,CA#BC,SE#G2,&#10;PN4JA,ABML1,CA#BC,SE#G2,&#10;PNZJB,ABML1,CA#BC,SE#G2,&#10;ABML1,CA#BC,PSTBE,SE#G2,&#10;ABML1,CA#BC,PSTJN,SE#G2,&#10;ABML1,CA#BC,PSTLK,SE#G2,&#10;ABML1,CA#BC,PSTLP,SE#G2,&#10;ABML1,CA#BC,PSTRB,SE#G2,&#10;ABML1,CA#BC,PSTRR,SE#G2,&#10;ABML1,CA#BC,PSTSK,SE#G2,&#10;ABML1,CA#BC,PSVAS,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#G2 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#RA,SE#JN,&#10;PN4FW,ABML1,CA#RA,SE#JN,&#10;PN4GM,ABML1,CA#RA,SE#JN,&#10;PN4HQ,ABML1,CA#RA,SE#JN,&#10;PN4JA,ABML1,CA#RA,SE#JN,&#10;PN4JF,ABML1,CA#RA,SE#JN,&#10;PNZJB,ABML1,CA#RA,SE#JN," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#RA-SE#JN | MARKETING LEVEL 1-RAPCAB-WILDTRAK X SERIES" OverrideFilename="" Series="false" Showroom="false" State="S_deu_foe_2300_deu_rap_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#JB,&#10;PN4E3,ABML1,CA#BC,SE#JB,&#10;PN4FW,ABML1,CA#BC,SE#JB,&#10;PN4GM,ABML1,CA#BC,SE#JB,&#10;PN4HQ,ABML1,CA#BC,SE#JB,&#10;PN4JA,ABML1,CA#BC,SE#JB,&#10;PNZJB,ABML1,CA#BC,SE#JB,&#10;" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#BC-SE#JB | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-FX4+ SERIES" OverrideFilename="" Series="true" Showroom="false" State="S_deu_foe_2300_deu_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#RA,SE#N1,&#10;PN3GZ,ABML1,CA#RA,SE#N1,&#10;PN4A7,ABML1,CA#RA,SE#N1,&#10;PN4E3,ABML1,CA#RA,SE#N1,&#10;PN4FW,ABML1,CA#RA,SE#N1,&#10;PN4GM,ABML1,CA#RA,SE#N1,&#10;PN4HQ,ABML1,CA#RA,SE#N1,&#10;PN4JA,ABML1,CA#RA,SE#N1,&#10;PNZJB,ABML1,CA#RA,SE#N1,&#10;ABML1,CA#RA,PSTBE,SE#N1,&#10;ABML1,CA#RA,PSTJN,SE#N1,&#10;ABML1,CA#RA,PSTLK,SE#N1,&#10;ABML1,CA#RA,PSTLP,SE#N1,&#10;ABML1,CA#RA,PSTRB,SE#N1,&#10;ABML1,CA#RA,PSTRR,SE#N1,&#10;ABML1,CA#RA,PSTSK,SE#N1,&#10;ABML1,CA#RA,PSVAS,SE#N1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#RA-SE#N1 | MARKETING LEVEL 1-RAPCAB-XLT #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BB,SE#G1,&#10;PN3GZ,ABML1,CA#BB,SE#G1,&#10;PN4A7,ABML1,CA#BB,SE#G1,&#10;PN4E3,ABML1,CA#BB,SE#G1,&#10;PN4FW,ABML1,CA#BB,SE#G1,&#10;PN4GM,ABML1,CA#BB,SE#G1,&#10;PN4HQ,ABML1,CA#BB,SE#G1,&#10;PN4JA,ABML1,CA#BB,SE#G1,&#10;PNZJB,ABML1,CA#BB,SE#G1,&#10;ABML1,CA#BB,PSTBE,SE#G1,&#10;ABML1,CA#BB,PSTJN,SE#G1,&#10;ABML1,CA#BB,PSTLK,SE#G1,&#10;ABML1,CA#BB,PSTLP,SE#G1,&#10;ABML1,CA#BB,PSTRB,SE#G1,&#10;ABML1,CA#BB,PSTRR,SE#G1,&#10;ABML1,CA#BB,PSTSK,SE#G1,&#10;ABML1,CA#BB,PSVAS,SE#G1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BB-SE#G1 | MARKETING LEVEL 1-SINGLE CAB (REGULAR CAB)-XL #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BB,SE#G2,&#10;PN3GZ,ABML1,CA#BB,SE#G2,&#10;PN4A7,ABML1,CA#BB,SE#G2,&#10;PN4E3,ABML1,CA#BB,SE#G2,&#10;PN4FW,ABML1,CA#BB,SE#G2,&#10;PN4GM,ABML1,CA#BB,SE#G2,&#10;PN4HQ,ABML1,CA#BB,SE#G2,&#10;PN4JA,ABML1,CA#BB,SE#G2,&#10;PNZJB,ABML1,CA#BB,SE#G2,&#10;ABML1,CA#BB,PSTBE,SE#G2,&#10;ABML1,CA#BB,PSTJN,SE#G2,&#10;ABML1,CA#BB,PSTLK,SE#G2,&#10;ABML1,CA#BB,PSTLP,SE#G2,&#10;ABML1,CA#BB,PSTRB,SE#G2,&#10;ABML1,CA#BB,PSTRR,SE#G2,&#10;ABML1,CA#BB,PSTSK,SE#G2,&#10;ABML1,CA#BB,PSVAS,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BB-SE#G2 | MARKETING LEVEL 1-SINGLE CAB (REGULAR CAB)-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#RA,SE#G2,&#10;PN3GZ,ABML1,CA#RA,SE#G2,&#10;PN4A7,ABML1,CA#RA,SE#G2,&#10;PN4E3,ABML1,CA#RA,SE#G2,&#10;PN4FW,ABML1,CA#RA,SE#G2,&#10;PN4GM,ABML1,CA#RA,SE#G2,&#10;PN4HQ,ABML1,CA#RA,SE#G2,&#10;PN4JA,ABML1,CA#RA,SE#G2,&#10;PNZJB,ABML1,CA#RA,SE#G2,&#10;ABML1,CA#RA,PSTBE,SE#G2,&#10;ABML1,CA#RA,PSTJN,SE#G2,&#10;ABML1,CA#RA,PSTLK,SE#G2,&#10;ABML1,CA#RA,PSTLP,SE#G2,&#10;ABML1,CA#RA,PSTRB,SE#G2,&#10;ABML1,CA#RA,PSTRR,SE#G2,&#10;ABML1,CA#RA,PSTSK,SE#G2,&#10;ABML1,CA#RA,PSVAS,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#RA-SE#G2 | MARKETING LEVEL 1-RAPCAB-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#RA,SE#JB,&#10;PN4E3,ABML1,CA#RA,SE#JB,&#10;PN4FW,ABML1,CA#RA,SE#JB,&#10;PN4GM,ABML1,CA#RA,SE#JB,&#10;PN4HQ,ABML1,CA#RA,SE#JB,&#10;PN4JA,ABML1,CA#RA,SE#JB,&#10;PNZJB,ABML1,CA#RA,SE#JB,&#10;" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#RA-SE#JB | MARKETING LEVEL 1-RAPCAB-FX4+ SERIES" OverrideFilename="" Series="false" Showroom="false" State="S_deu_foe_2300_deu_rap_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PNZJB,ABML1,CA#RA,SE#R1,&#10;PN3GZ,ABML1,CA#RA,SE#R1,&#10;PN4GM,ABML1,CA#RA,SE#R1,&#10;PN4HQ,ABML1,CA#RA,SE#R1,&#10;PN4JA,ABML1,CA#RA,SE#R1,&#10;PN4JF,ABML1,CA#RA,SE#R1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#RA-SE#R1 | MARKETING LEVEL 1-RAPCAB-WILDTRAK #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#GU,&#10;PN4FW,ABML1,CA#BC,SE#GU,&#10;PN4GM,ABML1,CA#BC,SE#GU,&#10;PN4HQ,ABML1,CA#BC,SE#GU,&#10;PN4JA,ABML1,CA#BC,SE#GU,&#10;PNZJB,ABML1,CA#BC,SE#GU," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#BC-SE#GU | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-PLATINUM SERIES" OverrideFilename="" Series="true" Showroom="false" State="S_deu_foe_2300_deu_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_opt0_12yzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#WM,SE#G1,&#10;PN3GZ,ABML1,CA#WM,SE#G1,&#10;PN4A7,ABML1,CA#WM,SE#G1,&#10;PN4E3,ABML1,CA#WM,SE#G1,&#10;PN4FW,ABML1,CA#WM,SE#G1,&#10;PN4GM,ABML1,CA#WM,SE#G1,&#10;PN4HQ,ABML1,CA#WM,SE#G1,&#10;PN4JA,ABML1,CA#WM,SE#G1,&#10;PNZJB,ABML1,CA#WM,SE#G1,&#10;ABML1,CA#WM,PSTBE,SE#G1,&#10;ABML1,CA#WM,PSTJN,SE#G1,&#10;ABML1,CA#WM,PSTLK,SE#G1,&#10;ABML1,CA#WM,PSTLP,SE#G1,&#10;ABML1,CA#WM,PSTRB,SE#G1,&#10;ABML1,CA#WM,PSTRR,SE#G1,&#10;ABML1,CA#WM,PSTSK,SE#G1,&#10;ABML1,CA#WM,PSVAS,SE#G1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#WM-SE#G1 | MARKETING LEVEL 1-SINGLE CHASSIS CAB-XL #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BC,SE#N1,&#10;PN3GZ,ABML1,CA#BC,SE#N1,&#10;PN4A7,ABML1,CA#BC,SE#N1,&#10;PN4E3,ABML1,CA#BC,SE#N1,&#10;PN4FW,ABML1,CA#BC,SE#N1,&#10;PN4GM,ABML1,CA#BC,SE#N1,&#10;PN4HQ,ABML1,CA#BC,SE#N1,&#10;PN4JA,ABML1,CA#BC,SE#N1,&#10;PNZJB,ABML1,CA#BC,SE#N1,&#10;ABML1,CA#BC,PSTBE,SE#N1,&#10;ABML1,CA#BC,PSTJN,SE#N1,&#10;ABML1,CA#BC,PSTLK,SE#N1,&#10;ABML1,CA#BC,PSTLP,SE#N1,&#10;ABML1,CA#BC,PSTRB,SE#N1,&#10;ABML1,CA#BC,PSTRR,SE#N1,&#10;ABML1,CA#BC,PSTSK,SE#N1,&#10;ABML1,CA#BC,PSVAS,SE#N1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#N1 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-XLT #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#RA,SE#P1,&#10;PN4E3,ABML1,CA#RA,SE#P1,&#10;PN4FW,ABML1,CA#RA,SE#P1,&#10;PN4GM,ABML1,CA#RA,SE#P1,&#10;PN4HQ,ABML1,CA#RA,SE#P1,&#10;PN4JA,ABML1,CA#RA,SE#P1,&#10;PNZJB,ABML1,CA#RA,SE#P1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#RA-SE#P1 | MARKETING LEVEL 1-RAPCAB-LTD #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#WM,SE#G2,&#10;PN3GZ,ABML1,CA#WM,SE#G2,&#10;PN4A7,ABML1,CA#WM,SE#G2,&#10;PN4E3,ABML1,CA#WM,SE#G2,&#10;PN4FW,ABML1,CA#WM,SE#G2,&#10;PN4GM,ABML1,CA#WM,SE#G2,&#10;PN4HQ,ABML1,CA#WM,SE#G2,&#10;PN4JA,ABML1,CA#WM,SE#G2,&#10;PNZJB,ABML1,CA#WM,SE#G2,&#10;ABML1,CA#WM,PSTBE,SE#G2,&#10;ABML1,CA#WM,PSTJN,SE#G2,&#10;ABML1,CA#WM,PSTLK,SE#G2,&#10;ABML1,CA#WM,PSTLP,SE#G2,&#10;ABML1,CA#WM,PSTRB,SE#G2,&#10;ABML1,CA#WM,PSTRR,SE#G2,&#10;ABML1,CA#WM,PSTSK,SE#G2,&#10;ABML1,CA#WM,PSVAS,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#WM-SE#G2 | MARKETING LEVEL 1-SINGLE CHASSIS CAB-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+		</linkingrecord>
+		<linkingrecord bodystyleframe="4" extraframe="0" fullload="N" market="GBR" model="TRB04" numericalMmy="202375" ptvl="TRB" seriesframe="0" showroomframe="9" specMarket="WAEGB" trimframe="202" year="YYE">
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN4JF,ABML1,CA#BC,SE#R1,&#10;PN3GZ,ABML1,CA#BC,SE#R1,&#10;PN4GM,ABML1,CA#BC,SE#R1,&#10;PN4HQ,ABML1,CA#BC,SE#R1,&#10;PN4JA,ABML1,CA#BC,SE#R1,&#10;PNZJB,ABML1,CA#BC,SE#R1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#R1 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-WILDTRAK #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#JN,&#10;PN4GM,ABML1,CA#BC,SE#JN,&#10;PN4HQ,ABML1,CA#BC,SE#JN,&#10;PN4JA,ABML1,CA#BC,SE#JN,&#10;PNZJB,ABML1,CA#BC,SE#JN,&#10;PN4FW,ABML1,CA#BC,SE#JN,&#10;PN4JF,ABML1,CA#BC,SE#JN," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#BC-SE#JN | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-WILDTRAK X SERIES" OverrideFilename="" Series="true" Showroom="false" State="S_gbr_foe_2300_gbr_dbc_h1_l1_wildtrak-x_4wd_die_2000cc_auto_na_opt0_5v8zh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BC,SE#G2,&#10;PN4A7,ABML1,CA#BC,SE#G2,&#10;PN4E3,ABML1,CA#BC,SE#G2,&#10;ABML1,CA#BC,PSTBE,SE#G2,&#10;ABML1,CA#BC,PSTJN,SE#G2,&#10;ABML1,CA#BC,PSTLK,SE#G2,&#10;ABML1,CA#BC,PSTLP,SE#G2,&#10;ABML1,CA#BC,PSTRB,SE#G2,&#10;ABML1,CA#BC,PSTRR,SE#G2,&#10;ABML1,CA#BC,PSTSK,SE#G2,&#10;ABML1,CA#BC,PSVAS,SE#G2,&#10;PN3GZ,ABML1,CA#BC,SE#G2,&#10;PN4GM,ABML1,CA#BC,SE#G2,&#10;PN4HQ,ABML1,CA#BC,SE#G2,&#10;PN4JA,ABML1,CA#BC,SE#G2,&#10;PNZJB,ABML1,CA#BC,SE#G2,&#10;PN4FW,ABML1,CA#BC,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#G2 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#JB,&#10;PN4E3,ABML1,CA#BC,SE#JB,&#10;PN4FW,ABML1,CA#BC,SE#JB,&#10;PN4GM,ABML1,CA#BC,SE#JB,&#10;PN4HQ,ABML1,CA#BC,SE#JB,&#10;PN4JA,ABML1,CA#BC,SE#JB,&#10;PNZJB,ABML1,CA#BC,SE#JB,&#10;" Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#BC-SE#JB | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-FX4+ SERIES" OverrideFilename="" Series="true" Showroom="false" State="S_gbr_foe_2300_gbr_dbc_h1_l1_tremor_4wd_die_2000cc_auto_na_opt0_11lzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BB,SE#G2,&#10;PN3GZ,ABML1,CA#BB,SE#G2,&#10;PN4A7,ABML1,CA#BB,SE#G2,&#10;PN4E3,ABML1,CA#BB,SE#G2,&#10;PN4FW,ABML1,CA#BB,SE#G2,&#10;PN4GM,ABML1,CA#BB,SE#G2,&#10;PN4HQ,ABML1,CA#BB,SE#G2,&#10;PN4JA,ABML1,CA#BB,SE#G2,&#10;PNZJB,ABML1,CA#BB,SE#G2,&#10;ABML1,CA#BB,PSTBE,SE#G2,&#10;ABML1,CA#BB,PSTJN,SE#G2,&#10;ABML1,CA#BB,PSTLK,SE#G2,&#10;ABML1,CA#BB,PSTLP,SE#G2,&#10;ABML1,CA#BB,PSTRB,SE#G2,&#10;ABML1,CA#BB,PSTRR,SE#G2,&#10;ABML1,CA#BB,PSTSK,SE#G2,&#10;ABML1,CA#BB,PSVAS,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BB-SE#G2 | MARKETING LEVEL 1-SINGLE CAB (REGULAR CAB)-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass AdditionalLayers="" AdditionalLayersMask="false" Bodystyle="false" Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GZ,ABML1,CA#BC,SE#GU,&#10;PN4GM,ABML1,CA#BC,SE#GU,&#10;PN4HQ,ABML1,CA#BC,SE#GU,&#10;PN4JA,ABML1,CA#BC,SE#GU,&#10;PNZJB,ABML1,CA#BC,SE#GU,&#10;PN4FW,ABML1,CA#BC,SE#GU," Frames="0,1,2,3,4,5,6,7,8" LightingState="L_Lighting" Name="ABML1-CA#BC-SE#GU | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-PLATINUM SERIES" OverrideFilename="" Series="true" Showroom="false" State="S_gbr_foe_2300_gbr_dbc_h1_l1_platinum_4wd_die_2000cc_auto_na_d2ufc_12yzh" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#BC,SE#N1,&#10;PN4A7,ABML1,CA#BC,SE#N1,&#10;PN4E3,ABML1,CA#BC,SE#N1,&#10;ABML1,CA#BC,PSTBE,SE#N1,&#10;ABML1,CA#BC,PSTJN,SE#N1,&#10;ABML1,CA#BC,PSTLK,SE#N1,&#10;ABML1,CA#BC,PSTLP,SE#N1,&#10;ABML1,CA#BC,PSTRB,SE#N1,&#10;ABML1,CA#BC,PSTRR,SE#N1,&#10;ABML1,CA#BC,PSTSK,SE#N1,&#10;ABML1,CA#BC,PSVAS,SE#N1,&#10;PN3GZ,ABML1,CA#BC,SE#N1,&#10;PN4GM,ABML1,CA#BC,SE#N1,&#10;PN4HQ,ABML1,CA#BC,SE#N1,&#10;PN4JA,ABML1,CA#BC,SE#N1,&#10;PNZJB,ABML1,CA#BC,SE#N1,&#10;PN4FW,ABML1,CA#BC,SE#N1," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#BC-SE#N1 | MARKETING LEVEL 1-DOUBLE CAB (CREW CAB)-XLT #1 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+			<BasePass Depths="0,0,0,0,0,0,0,0,0" FeatureCodes="PN3GE,ABML1,CA#WM,SE#G2,&#10;PN3GZ,ABML1,CA#WM,SE#G2,&#10;PN4A7,ABML1,CA#WM,SE#G2,&#10;PN4E3,ABML1,CA#WM,SE#G2,&#10;PN4FW,ABML1,CA#WM,SE#G2,&#10;PN4GM,ABML1,CA#WM,SE#G2,&#10;PN4HQ,ABML1,CA#WM,SE#G2,&#10;PN4JA,ABML1,CA#WM,SE#G2,&#10;PNZJB,ABML1,CA#WM,SE#G2,&#10;ABML1,CA#WM,PSTBE,SE#G2,&#10;ABML1,CA#WM,PSTJN,SE#G2,&#10;ABML1,CA#WM,PSTLK,SE#G2,&#10;ABML1,CA#WM,PSTLP,SE#G2,&#10;ABML1,CA#WM,PSTRB,SE#G2,&#10;ABML1,CA#WM,PSTRR,SE#G2,&#10;ABML1,CA#WM,PSTSK,SE#G2,&#10;ABML1,CA#WM,PSVAS,SE#G2," Frames="0,1,2,3,4,5,6,7,8" Name="ABML1-CA#WM-SE#G2 | MARKETING LEVEL 1-SINGLE CHASSIS CAB-XL #2 SERIES" Type="exterior" Views="21,22,23,24,25,26,27,28,29" />
+		</linkingrecord>
+	</LinkingRecords>
+	<DeadlineSettings Output="Y:\CGI Production\p703_ranger\2023.75\BnP\Exterior\renders\test\m_v24_01_deadline_007" />
+</Root>

@@ -41,25 +41,24 @@ class BaseXMLParser:
         return dataframes
 
     def load_to_db(self, dfs):
-        engine = create_engine(
+        sql_engine = create_engine(
             f'postgresql://{self.username}:{self.pwd}@{self.hostname}:{self.port_id}/{self.database}',
             pool_size=100, max_overflow=50
         )
-        inspector = inspect(engine)
+        inspector = inspect(sql_engine)
 
         for table_name, df in dfs.items():
             try:
                 tables_in_db = inspector.get_table_names()
                 if table_name not in tables_in_db:
-                    df.to_sql(table_name, engine, index=False)
+                    df.to_sql(table_name, sql_engine, index=False)
                 else:
                     db_columns = inspector.get_columns(table_name)
                     db_column_names = [col['name'] for col in db_columns]
                     df = df.reindex(columns=db_column_names, fill_value=None)
-                    df.to_sql(table_name, engine, if_exists='append', index=False)
+                    df.to_sql(table_name, sql_engine, if_exists='append', index=False)
             except Exception as e:
                 print("Error is:", e)
-                print(df)
 
 
 class EditorXMLParser(BaseXMLParser):
@@ -69,6 +68,7 @@ class EditorXMLParser(BaseXMLParser):
         self.linkinrecords_dicts = []
         self.basepass_dicts = []
         self.optionpass_dicts = []
+        self.records_dicts = []
 
     def extract_data_to_df(self, tag_name, project_id):
         for record in self.root.findall('.//' + tag_name):
@@ -80,8 +80,7 @@ class EditorXMLParser(BaseXMLParser):
         return pd.DataFrame(self.xml_data)
 
     def handle_additional_data(self, project_id):
-        self.editor_dataframes['linkingrecords'], self.editor_dataframes['basepasses'], self.editor_dataframes[
-            'optionpasses'] = self.extract_root_data_to_df(project_id)
+        self.editor_dataframes = self.extract_passes_data_to_render_pass(project_id)
         return self.editor_dataframes
 
     def extract_root_data_to_df(self, project_id):
@@ -108,6 +107,35 @@ class EditorXMLParser(BaseXMLParser):
 
         return pd.DataFrame(self.linkinrecords_dicts), pd.DataFrame(self.basepass_dicts), pd.DataFrame(
             self.optionpass_dicts)
+
+    def extract_passes_data_to_render_pass(self, project_id):
+
+        for linking_record in self.root.findall('.//linkingrecord'):
+            linking_record_data = {attr: linking_record.get(attr).replace('\n', '') for attr in linking_record.attrib}
+            linking_record_id = uuid.uuid4()
+            linking_record_data['ID'] = linking_record_id
+            linking_record_data['project_id'] = project_id
+            self.linkinrecords_dicts.append(linking_record_data)
+            for base_pass in linking_record.findall('.//BasePass'):
+                base_pass_id = uuid.uuid4()
+                self.process_pass(base_pass, 'BasePass', base_pass_id, linking_record_id, project_id)
+                for option_pass in base_pass.findall('.//OptionPass'):
+                    option_pass_id = uuid.uuid4()
+                    self.process_pass(option_pass, 'OptionPass', option_pass_id, base_pass_id, project_id)
+
+        render_pass_df = pd.DataFrame(self.records_dicts)
+        linking_record_df = pd.DataFrame(self.linkinrecords_dicts)
+        return {'renderPass': render_pass_df,
+                'linkingRecords': linking_record_df}
+
+    def process_pass(self, pass_element, pass_type, pass_id, parent_id, project_id):
+        pass_data = {attr: pass_element.get(attr, '').replace('\n', '') for attr in pass_element.attrib}
+        pass_data['RenderPass_ID'] = str(pass_id)
+        pass_data['PassType'] = pass_type
+        pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None
+        pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None
+        pass_data['project_id'] = project_id
+        self.records_dicts.append(pass_data)
 
 
 class StateXMLParser(BaseXMLParser):
@@ -155,3 +183,40 @@ class StateXMLParser(BaseXMLParser):
                     self.zone_dict.append(zone_data)
 
         return pd.DataFrame(self.states_settings_dict), pd.DataFrame(self.state_dict), pd.DataFrame(self.zone_dict)
+
+
+class NormalizerUtils:
+    def __init__(self, render_pass_df):
+        # TODO: check again to instance a render_pass method line 192
+        self.render_pass_df = render_pass_df
+        self.shared_fields = ['Depths', 'AdditionalLayers', 'FeatureCodes', 'Frames', 'Layers', 'Lighting', 'Zones']
+        self.shared_fields_dfs = {field: pd.DataFrame(columns=['ID', field]) for field in self.shared_fields if
+                                  field in self.shared_fields}
+        self.field_id_maps = {field: {} for field in self.shared_fields if field in self.shared_fields_dfs}
+
+    def normalize_data(self):
+        self.extract_shared_fields()
+        self.update_render_pass_table_with_references()
+
+    def extract_shared_fields(self):
+        for field in self.shared_fields:
+            if field in self.render_pass_df.columns:
+                unique_values = self.render_pass_df[field].unique()
+                for value in unique_values:
+                    if value not in self.field_id_maps[field]:
+                        field_id = str(uuid.uuid4())
+                        if field not in self.shared_fields_dfs or not isinstance(self.shared_fields_dfs[field],
+                                                                                 pd.DataFrame):
+                            self.shared_fields_dfs[field] = pd.DataFrame(columns=['ID', field])
+                        new_row = pd.DataFrame({'ID': [field_id], field: [value]})
+                        self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
+                                                                  ignore_index=True)
+                        self.field_id_maps[field][value] = field_id
+
+    def update_render_pass_table_with_references(self):
+        for field in self.shared_fields:
+            if field in self.render_pass_df.columns:
+                self.render_pass_df[field] = self.render_pass_df[field].map(self.field_id_maps[field])
+
+    def get_normalized_dataframes(self):
+        return self.render_pass_df, self.shared_fields_dfs

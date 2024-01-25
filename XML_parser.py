@@ -1,5 +1,7 @@
 from abc import abstractmethod
 from sqlalchemy import *
+from sqlalchemy.ext.automap import automap_base
+from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
 import pandas as pd
@@ -7,16 +9,38 @@ import uuid
 import os
 
 
-class BaseXMLParser:
-    def __init__(self, new_root, root_names):
+class Databaser:
+    def __init__(self):
         load_dotenv()
-        self.root = new_root
-        self.root_names = root_names
         self.hostname = os.getenv('DB_HOST')
         self.database = os.getenv('DB_NAME')
         self.username = os.getenv('DB_USER')
         self.pwd = os.getenv('DB_PWD')
         self.port_id = os.getenv('DB_PORT')
+
+    def sql_engine_creator(self):
+        sql_engine = create_engine(
+            f'postgresql://{self.username}:{self.pwd}@{self.hostname}:{self.port_id}/{self.database}',
+            pool_size=100, max_overflow=50
+        )
+        return sql_engine
+
+    def initializer(self):
+        Base = automap_base()
+        Base.prepare(self.sql_engine_creator(), reflect=True)
+        return Base
+
+    def session_creator(self):
+        Session = sessionmaker(bind=self.sql_engine_creator())
+        session = Session()
+        return session
+
+
+class BaseXMLParser(Databaser):
+    def __init__(self, new_root, root_names):
+        super().__init__()
+        self.root = new_root
+        self.root_names = root_names
         self.xml_data = []
 
     @abstractmethod
@@ -41,17 +65,14 @@ class BaseXMLParser:
         return dataframes
 
     def load_to_db(self, dfs):
-        sql_engine = create_engine(
-            f'postgresql://{self.username}:{self.pwd}@{self.hostname}:{self.port_id}/{self.database}',
-            pool_size=100, max_overflow=50
-        )
+        sql_engine = self.sql_engine_creator()
         inspector = inspect(sql_engine)
 
         for table_name, df in dfs.items():
             try:
                 tables_in_db = inspector.get_table_names()
                 if table_name not in tables_in_db:
-                    df.to_sql(table_name, sql_engine, index=False)
+                    df.to_sql(table_name, sql_engine, index=True)
                 else:
                     db_columns = inspector.get_columns(table_name)
                     db_column_names = [col['name'] for col in db_columns]
@@ -124,6 +145,7 @@ class EditorXMLParser(BaseXMLParser):
                     self.process_pass(option_pass, 'OptionPass', option_pass_id, base_pass_id, project_id)
 
         render_pass_df = pd.DataFrame(self.records_dicts)
+        render_pass_df.set_index('RenderPass_ID', inplace=True)
         linking_record_df = pd.DataFrame(self.linkinrecords_dicts)
         return {'renderPass': render_pass_df,
                 'linkingRecords': linking_record_df}
@@ -134,7 +156,7 @@ class EditorXMLParser(BaseXMLParser):
         pass_data['PassType'] = pass_type
         pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None
         pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None
-        pass_data['project_id'] = project_id
+        pass_data['Project_ID'] = project_id
         self.records_dicts.append(pass_data)
 
 
@@ -185,12 +207,14 @@ class StateXMLParser(BaseXMLParser):
         return pd.DataFrame(self.states_settings_dict), pd.DataFrame(self.state_dict), pd.DataFrame(self.zone_dict)
 
 
-class NormalizerUtils:
+class NormalizerUtils(Databaser):
     def __init__(self, render_pass_df):
+        super().__init__()
         # TODO: check again to instance a render_pass method line 192
         self.render_pass_df = render_pass_df
         self.shared_fields = ['Depths', 'AdditionalLayers', 'FeatureCodes', 'Frames', 'Layers', 'Lighting', 'Zones']
-        self.shared_fields_dfs = {field: pd.DataFrame(columns=['ID', field]) for field in self.shared_fields if
+        self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', 'Desc', field]) for field in
+                                  self.shared_fields if
                                   field in self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields if field in self.shared_fields_dfs}
 
@@ -207,8 +231,8 @@ class NormalizerUtils:
                         field_id = str(uuid.uuid4())
                         if field not in self.shared_fields_dfs or not isinstance(self.shared_fields_dfs[field],
                                                                                  pd.DataFrame):
-                            self.shared_fields_dfs[field] = pd.DataFrame(columns=['ID', field])
-                        new_row = pd.DataFrame({'ID': [field_id], field: [value]})
+                            self.shared_fields_dfs[field] = pd.DataFrame(columns=[f'{field}_ID', 'Desc', field])
+                        new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': 'Description', field: [value]})
                         self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
                                                                   ignore_index=True)
                         self.field_id_maps[field][value] = field_id
@@ -217,6 +241,15 @@ class NormalizerUtils:
         for field in self.shared_fields:
             if field in self.render_pass_df.columns:
                 self.render_pass_df[field] = self.render_pass_df[field].map(self.field_id_maps[field])
+                self.render_pass_df[f'{field}_ID'] = self.render_pass_df[field]
+                self.render_pass_df.drop(field, axis=1, inplace=True)
 
     def get_normalized_dataframes(self):
         return self.render_pass_df, self.shared_fields_dfs
+
+    def query(self):
+        RenderPass = self.initializer().classes.renderPass
+        session = self.session_creator()
+        for instance in session.query(RenderPass).limit(5):
+            print("instance----->", instance.PassType)
+        session.close()

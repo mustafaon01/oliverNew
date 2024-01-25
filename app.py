@@ -17,8 +17,9 @@ def process_xml_files(xml_paths, root_names, parser_class):
             render_pass_dict = {'renderPass': normalized_render_pass_df}
             xml_parser.load_to_db(render_pass_dict)
             xml_parser.load_to_db(normalized_common_fields_df)
-            # xml_normalizer.query()
             dfs = {key: value for key, value in dfs.items() if key != 'renderPass'}
+            if i == 1:
+                xml_normalizer.primary_key_maker()
         xml_parser.load_to_db(dfs)
 
 
@@ -43,10 +44,10 @@ def main():
                          'JARVISSettings']
     root_names_state = ['ProjectSettings']
 
-    editor_paths = get_xml_files_from_directory(editor_directory)
     state_paths = get_xml_files_from_directory(state_directory)
-    process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
+    editor_paths = get_xml_files_from_directory(editor_directory)
     process_xml_files(state_paths, root_names_state, StateXMLParser)
+    process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
 
 
 if __name__ == '__main__':

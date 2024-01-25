@@ -35,6 +35,23 @@ class Databaser:
         session = Session()
         return session
 
+    def primary_key_maker(self):
+        with self.sql_engine_creator().connect() as conn:
+            trans = conn.begin()
+            try:
+                conn.execute(text('ALTER TABLE "renderPass" ADD PRIMARY KEY ("RenderPass_ID");'))
+                conn.execute(text('ALTER TABLE "FeatureCodes" ADD PRIMARY KEY ("FeatureCodes_ID");'))
+                conn.execute(text('ALTER TABLE "AdditionalLayers" ADD PRIMARY KEY ("AdditionalLayers_ID");'))
+                conn.execute(text('ALTER TABLE "Depths" ADD PRIMARY KEY ("Depths_ID");'))
+                conn.execute(text('ALTER TABLE "Frames" ADD PRIMARY KEY ("Frames_ID");'))
+                conn.execute(text('ALTER TABLE "Layers" ADD PRIMARY KEY ("Layers_ID");'))
+                conn.execute(text('ALTER TABLE "Lighting" ADD PRIMARY KEY ("Lighting_ID");'))
+                conn.execute(text('ALTER TABLE "Zones" ADD PRIMARY KEY ("Zones_ID");'))
+                trans.commit()
+            except Exception as e:
+                trans.rollback()
+                print("primary key error:", e)
+
 
 class BaseXMLParser(Databaser):
     def __init__(self, new_root, root_names):
@@ -72,14 +89,14 @@ class BaseXMLParser(Databaser):
             try:
                 tables_in_db = inspector.get_table_names()
                 if table_name not in tables_in_db:
-                    df.to_sql(table_name, sql_engine, index=True)
+                    df.to_sql(table_name, sql_engine, index=False)
                 else:
                     db_columns = inspector.get_columns(table_name)
                     db_column_names = [col['name'] for col in db_columns]
                     df = df.reindex(columns=db_column_names, fill_value=None)
                     df.to_sql(table_name, sql_engine, if_exists='append', index=False)
             except Exception as e:
-                print("Error is:", e)
+                print("Load db Error is:", e)
 
 
 class EditorXMLParser(BaseXMLParser):
@@ -145,7 +162,6 @@ class EditorXMLParser(BaseXMLParser):
                     self.process_pass(option_pass, 'OptionPass', option_pass_id, base_pass_id, project_id)
 
         render_pass_df = pd.DataFrame(self.records_dicts)
-        render_pass_df.set_index('RenderPass_ID', inplace=True)
         linking_record_df = pd.DataFrame(self.linkinrecords_dicts)
         return {'renderPass': render_pass_df,
                 'linkingRecords': linking_record_df}
@@ -218,23 +234,30 @@ class NormalizerUtils(Databaser):
                                   field in self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields if field in self.shared_fields_dfs}
 
-    def normalize_data(self):
-        self.extract_shared_fields()
-        self.update_render_pass_table_with_references()
-
     def extract_shared_fields(self):
         for field in self.shared_fields:
             if field in self.render_pass_df.columns:
                 unique_values = self.render_pass_df[field].unique()
                 for value in unique_values:
+                    value = str(value)
                     if value not in self.field_id_maps[field]:
-                        field_id = str(uuid.uuid4())
-                        if field not in self.shared_fields_dfs or not isinstance(self.shared_fields_dfs[field],
-                                                                                 pd.DataFrame):
-                            self.shared_fields_dfs[field] = pd.DataFrame(columns=[f'{field}_ID', 'Desc', field])
-                        new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': 'Description', field: [value]})
-                        self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
-                                                                  ignore_index=True)
+                        try:
+                            exist_id = self.filter_method(field, value)
+                            if exist_id is None:
+                                field_id = str(uuid.uuid4())
+                                new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': 'Description', field: [value]})
+                                self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
+                                                                          ignore_index=True)
+                            else:
+                                field_id = exist_id
+                        except Exception as e:
+                            field_id = str(uuid.uuid4())
+                            if field not in self.shared_fields_dfs or not isinstance(self.shared_fields_dfs[field],
+                                                                                     pd.DataFrame):
+                                self.shared_fields_dfs[field] = pd.DataFrame(columns=[f'{field}_ID', 'Desc', field])
+                            new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': 'Description', field: [value]})
+                            self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
+                                                                      ignore_index=True)
                         self.field_id_maps[field][value] = field_id
 
     def update_render_pass_table_with_references(self):
@@ -244,12 +267,23 @@ class NormalizerUtils(Databaser):
                 self.render_pass_df[f'{field}_ID'] = self.render_pass_df[field]
                 self.render_pass_df.drop(field, axis=1, inplace=True)
 
+    def normalize_data(self):
+        self.extract_shared_fields()
+        self.update_render_pass_table_with_references()
+
     def get_normalized_dataframes(self):
         return self.render_pass_df, self.shared_fields_dfs
 
-    def query(self):
-        RenderPass = self.initializer().classes.renderPass
+    def filter_method(self, table_name, u_value):
+        Base = self.initializer()
+        table_obj = getattr(Base.classes, table_name)
         session = self.session_creator()
-        for instance in session.query(RenderPass).limit(5):
-            print("instance----->", instance.PassType)
-        session.close()
+        column_to_filter = getattr(table_obj, table_name)
+
+        result = session.query(table_obj).filter(column_to_filter == u_value).first()
+        if result:
+            ID_column_name = f'{table_name}_ID'
+            ID_value = getattr(result, ID_column_name)
+            return ID_value
+        else:
+            return None

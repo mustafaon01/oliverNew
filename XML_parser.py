@@ -226,10 +226,9 @@ class StateXMLParser(BaseXMLParser):
 class NormalizerUtils(Databaser):
     def __init__(self, render_pass_df):
         super().__init__()
-        # TODO: check again to instance a render_pass method line 192
         self.render_pass_df = render_pass_df
         self.shared_fields = ['Depths', 'AdditionalLayers', 'FeatureCodes', 'Frames', 'Layers', 'Lighting', 'Zones']
-        self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', 'Desc', field]) for field in
+        self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', 'Desc', 'version']) for field in
                                   self.shared_fields if
                                   field in self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields if field in self.shared_fields_dfs}
@@ -245,7 +244,9 @@ class NormalizerUtils(Databaser):
                             exist_id = self.filter_method(field, value)
                             if exist_id is None:
                                 field_id = str(uuid.uuid4())
-                                new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': 'Description', field: [value]})
+                                new_row = pd.DataFrame(
+                                    {f'{field}_ID': [field_id], 'Desc': [value],
+                                     'version': '1.0.0'})
                                 self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
                                                                           ignore_index=True)
                             else:
@@ -254,8 +255,10 @@ class NormalizerUtils(Databaser):
                             field_id = str(uuid.uuid4())
                             if field not in self.shared_fields_dfs or not isinstance(self.shared_fields_dfs[field],
                                                                                      pd.DataFrame):
-                                self.shared_fields_dfs[field] = pd.DataFrame(columns=[f'{field}_ID', 'Desc', field])
-                            new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': 'Description', field: [value]})
+                                self.shared_fields_dfs[field] = pd.DataFrame(
+                                    columns=[f'{field}_ID', 'Desc', 'version'])
+                            new_row = pd.DataFrame({f'{field}_ID': [field_id], 'Desc': [value],
+                                                    'version': '1.0.0'})
                             self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row],
                                                                       ignore_index=True)
                         self.field_id_maps[field][value] = field_id
@@ -278,9 +281,9 @@ class NormalizerUtils(Databaser):
         Base = self.initializer()
         table_obj = getattr(Base.classes, table_name)
         session = self.session_creator()
-        column_to_filter = getattr(table_obj, table_name)
+        # column_to_filter = getattr(table_obj, table_name)
 
-        result = session.query(table_obj).filter(column_to_filter == u_value).first()
+        result = session.query(table_obj).filter(table_obj.Desc == u_value).first()
         if result:
             ID_column_name = f'{table_name}_ID'
             ID_value = getattr(result, ID_column_name)

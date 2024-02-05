@@ -4,23 +4,27 @@ from XML_parser import *
 
 def process_xml_files(xml_paths, root_names, parser_class):
     for i, path in enumerate(xml_paths, start=1):
-        print(f"{i}.PATH->", path)
+        print(f"PATH {i}->", path)
         project_id = create_project_id(path)
         tree = ET.parse(path)
         root = tree.getroot()
-        xml_parser = parser_class(root, root_names)
+        xml_parser = parser_class(root, root_names, path)
         dfs = xml_parser.extract_all_data_to_df(project_id)
         if 'EDITOR' in path:
             xml_normalizer = NormalizerUtils(dfs['renderPass'])
             xml_normalizer.normalize_data()
+            xml_normalizer.finalize_shared_fields_dfs()
             normalized_render_pass_df, normalized_common_fields_df = xml_normalizer.get_normalized_dataframes()
             render_pass_dict = {'renderPass': normalized_render_pass_df}
             xml_parser.load_to_db(render_pass_dict)
             xml_parser.load_to_db(normalized_common_fields_df)
             dfs = {key: value for key, value in dfs.items() if key != 'renderPass'}
-            if i == 1:
-                xml_normalizer.primary_key_maker()
+            if i >= 1:
+                xml_normalizer.editor_primary_key_maker()
         xml_parser.load_to_db(dfs)
+        if 'STATE' in path:
+            if i >= 1:
+                xml_parser.state_primary_key_maker()
 
 
 def create_project_id(path):

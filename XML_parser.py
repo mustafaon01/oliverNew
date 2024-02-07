@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import pandas as pd
 import uuid
 import os
+import traceback
 
 
 class Databaser:
@@ -34,35 +35,6 @@ class Databaser:
         Session = sessionmaker(bind=self.sql_engine_creator())
         session = Session()
         return session
-
-    def editor_primary_key_maker(self):
-        with self.sql_engine_creator().connect() as conn:
-            trans = conn.begin()
-            try:
-                conn.execute(text('ALTER TABLE "renderPass" ADD PRIMARY KEY ("RenderPass_ID");'))
-                conn.execute(text('ALTER TABLE "FeatureCodes" ADD PRIMARY KEY ("FeatureCodes_ID");'))
-                '''conn.execute(text('ALTER TABLE "AdditionalLayers" ADD PRIMARY KEY ("AdditionalLayers_ID");'))
-                conn.execute(text('ALTER TABLE "Depths" ADD PRIMARY KEY ("Depths_ID");'))
-                conn.execute(text('ALTER TABLE "Frames" ADD PRIMARY KEY ("Frames_ID");'))'''
-                conn.execute(text('ALTER TABLE "Layers" ADD PRIMARY KEY ("Layers_ID");'))
-                conn.execute(text('ALTER TABLE "Lighting" ADD PRIMARY KEY ("Lighting_ID");'))
-                conn.execute(text('ALTER TABLE "Zones" ADD PRIMARY KEY ("Zones_ID");'))
-                trans.commit()
-            except Exception as e:
-                trans.rollback()
-                # print("editor primary key error:", e)
-
-    def state_primary_key_maker(self):
-        with self.sql_engine_creator().connect() as conn:
-            trans = conn.begin()
-            try:
-                conn.execute(text('ALTER TABLE states ADD PRIMARY KEY ("ID");'))
-                conn.execute(text('ALTER TABLE statesettings ADD PRIMARY KEY ("ID");'))
-                conn.execute(text('ALTER TABLE zones ADD PRIMARY KEY ("ID");'))
-                trans.commit()
-            except Exception as e:
-                trans.rollback()
-                # print("state primary key error:", e)
 
 
 class BaseXMLParser(Databaser):
@@ -111,8 +83,16 @@ class BaseXMLParser(Databaser):
                         df.to_sql(table_name, sql_engine, if_exists='append', index=False)
                 except Exception as e:
                     print("Load db Error is:", e)
+
+                with sql_engine.connect() as conn:
+                    trans = conn.begin()
+                    try:
+                        conn.execute(text(f'ALTER TABLE "{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
+                        trans.commit()
+                    except Exception as e:
+                        trans.rollback()
             else:
-                print(f"{table_name} DataFrame is empty. Skipping...")
+                continue
 
 
 class EditorXMLParser(BaseXMLParser):
@@ -127,9 +107,9 @@ class EditorXMLParser(BaseXMLParser):
     def extract_data_to_df(self, tag_name, project_id):
         for record in self.root.findall('.//' + tag_name):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data['project_id'] = project_id
+            record_data['Project_ID'] = project_id
             if tag_name == 'ProjectSettings':
-                record_data['type'] = 'Editor'
+                record_data['Type'] = 'Editor'
             self.xml_data.append(record_data)
         return pd.DataFrame(self.xml_data)
 
@@ -142,21 +122,21 @@ class EditorXMLParser(BaseXMLParser):
         for linkingrecord in self.root.findall('.//linkingrecord'):
             linkingrecord_data = {attr: linkingrecord.get(attr).replace('\n', '') for attr in linkingrecord.attrib}
             linkingrecord_data['ID'] = uuid.uuid4()
-            linkingrecord_data['project_id'] = project_id
+            linkingrecord_data['Project_ID'] = project_id
             self.linkinrecords_dicts.append(linkingrecord_data)
 
             for basepass in linkingrecord.findall('.//BasePass'):
                 basepass_data = {attr: basepass.get(attr).replace('\n', '') for attr in basepass.attrib}
                 basepass_data['ID'] = uuid.uuid4()
                 basepass_data['linkingrecord_id'] = linkingrecord_data['ID']
-                basepass_data['project_id'] = project_id
+                basepass_data['Project_ID'] = project_id
                 self.basepass_dicts.append(basepass_data)
 
                 for optionpass in basepass.findall('.//OptionPass'):
                     optionpass_data = {attr: optionpass.get(attr).replace('\n', '') for attr in optionpass.attrib}
                     optionpass_data['basepass_id'] = basepass_data['ID']
                     optionpass_data['ID'] = uuid.uuid4()
-                    optionpass_data['project_id'] = project_id
+                    optionpass_data['Project_ID'] = project_id
                     self.optionpass_dicts.append(optionpass_data)
 
         return pd.DataFrame(self.linkinrecords_dicts), pd.DataFrame(self.basepass_dicts), pd.DataFrame(
@@ -168,7 +148,7 @@ class EditorXMLParser(BaseXMLParser):
             linking_record_data = {attr: linking_record.get(attr).replace('\n', '') for attr in linking_record.attrib}
             linking_record_id = uuid.uuid4()
             linking_record_data['ID'] = linking_record_id
-            linking_record_data['project_id'] = project_id
+            linking_record_data['Project_ID'] = project_id
             self.linkinrecords_dicts.append(linking_record_data)
             for base_pass in linking_record.findall('.//BasePass'):
                 base_pass_id = uuid.uuid4()
@@ -179,16 +159,20 @@ class EditorXMLParser(BaseXMLParser):
 
         render_pass_df = pd.DataFrame(self.records_dicts)
         linking_record_df = pd.DataFrame(self.linkinrecords_dicts)
-        return {'renderPass': render_pass_df,
-                'linkingRecords': linking_record_df}
+        return {'RenderPass': render_pass_df,
+                'LinkingRecords': linking_record_df}
 
     def process_pass(self, pass_element, pass_type, pass_id, parent_id, project_id):
         pass_data = {attr: pass_element.get(attr).replace('\n', ',') for attr in pass_element.attrib}
-        fields_to_process = ['Layers', 'FeatureCodes', 'Lighting']
+        fields_to_process = ['Layers', 'FeatureCodes', 'Lighting', 'Zones']
         for field in fields_to_process:
             if field in pass_data:
-                items_list = pass_data[field].split(',')
-                pass_data[field] = "(" + ', '.join("'" + item + "'" for item in items_list) + ")"
+                if field == 'FeatureCodes':
+                    items_list = [item for item in pass_data[field].split(',') if item]
+                    pass_data[field] = "(" + ', '.join("'" + item + "'" for item in items_list) + ")"
+                else:
+                    items_list = pass_data[field].split(',')
+                    pass_data[field] = "(" + ', '.join("'" + item + "'" for item in items_list) + ")"
         pass_data['RenderPass_ID'] = str(pass_id)
         pass_data['PassType'] = pass_type
         pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None
@@ -220,41 +204,54 @@ class StateXMLParser(BaseXMLParser):
     def extract_data_to_df(self, tag_name, project_id):
         for record in self.root.findall('.//' + tag_name):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data['project_id'] = project_id
+            record_data['Project_ID'] = project_id
             if tag_name == 'ProjectSettings':
-                record_data['type'] = 'State'
+                record_data['Type'] = 'State'
             self.xml_data.append(record_data)
         return pd.DataFrame(self.xml_data)
 
     def handle_additional_data(self, project_id):
-        self.state_dataframes['statesettings'], self.state_dataframes['states'], self.state_dataframes[
-            'zones'] = self.extract_root_data_to_df(project_id)
+        self.state_dataframes['StateSettings'], self.state_dataframes['State'], self.state_dataframes[
+            'Zone'] = self.extract_root_data_to_df(project_id)
         return self.state_dataframes
 
     def extract_root_data_to_df(self, project_id):
 
-        for statesetting in self.root.findall('.//StatesSettings'):
-            statesetting_data = {attr: statesetting.get(attr).replace('\n', '') for attr in statesetting.attrib}
-            statesetting_data['ID'] = uuid.uuid4()
-            statesetting_data['project_id'] = project_id
-            self.states_settings_dict.append(statesetting_data)
+        for state_setting in self.root.findall('.//StatesSettings'):
+            state_setting_data = {attr: state_setting.get(attr).replace('\n', '') for attr in state_setting.attrib}
+            state_setting_data['StateSettings_ID'] = uuid.uuid4()
+            state_setting_data['Project_ID'] = project_id
+            self.states_settings_dict.append(state_setting_data)
 
-            for state in statesetting.findall('.//State'):
+            for state in state_setting.findall('.//State'):
                 state_data = {attr: state.get(attr).replace('\n', '') for attr in state.attrib}
                 if 'Layers' in state_data:
                     item_list = state_data['Layers'].split(',')
                     state_data['Layers'] = "(" + ', '.join("'" + item + "'" for item in item_list) + ")"
-                state_data['ID'] = uuid.uuid4()
-                state_data['states_settings_id'] = statesetting_data['ID']
-                state_data['project_id'] = project_id
-                self.state_dict.append(state_data)
+                    # state_data['Layers'] = item_list
+                state_data['State_ID'] = uuid.uuid4()
+                state_data['StateSettings_ID'] = state_setting_data['StateSettings_ID']
+                state_data['Project_id'] = project_id
+                state_data['ZonesNames'] = []
+                state_data['MaterialNames'] = []
+                state_data['Assignments'] = []
+                # self.state_dict.append(state_data)
 
                 for zone in state.findall('.//Zone'):
                     zone_data = {attr: zone.get(attr).replace('\n', '') for attr in zone.attrib}
-                    zone_data['state_id'] = state_data['ID']
-                    zone_data['ID'] = uuid.uuid4()
-                    zone_data['project_id'] = project_id
+                    zone_data['State_ID'] = state_data['State_ID']
+                    zone_data['Zone_ID'] = uuid.uuid4()
+                    zone_data['Project_ID'] = project_id
+                    state_data['Assignments'].append(zone_data['Name'])
+                    state_data['MaterialNames'].append(zone_data['Material'])
+                    state_data['ZonesNames'].append(zone_data['Zone'])
                     self.zone_dict.append(zone_data)
+
+                fields = ['Assignments', 'MaterialNames', 'ZonesNames']
+                for field in fields:
+                    zones_str = "(" + ', '.join("'" + zone_name + "'" for zone_name in state_data[field]) + ")"
+                    state_data[field] = zones_str
+                self.state_dict.append(state_data)
 
         return pd.DataFrame(self.states_settings_dict), pd.DataFrame(self.state_dict), pd.DataFrame(self.zone_dict)
 
@@ -293,13 +290,8 @@ class NormalizerUtils(Databaser):
 
     def make_lookup_tables(self, field, item):
         field_id = str(uuid.uuid4())
-        new_row = None
         if field == 'Zones':
-            if 'Zones' in self.render_pass_df.columns and not self.render_pass_df['Zones'].isna().all():
-                state_names = self.render_pass_df[
-                    'State'].dropna().unique() if 'State' in self.render_pass_df.columns else []
-                for state_name in state_names:
-                    self.create_zones_lookup(field, state_name)
+            self.accumulated_new_rows[field].append(self.create_zones_lookup(field, field_id, item))
         elif field == 'FeatureCodes':
             self.accumulated_new_rows[field].append(self.create_feature_code_lookup(field, field_id, item))
         elif field == 'Lighting':
@@ -316,33 +308,37 @@ class NormalizerUtils(Databaser):
 
     def finalize_shared_fields_dfs(self):
         for field in self.shared_fields:
-            if self.accumulated_new_rows[field]:
-                accumulated_df = pd.concat(self.accumulated_new_rows[field], ignore_index=True)
+            valid_dfs = [df for df in self.accumulated_new_rows[field] if df is not None]
+
+            if valid_dfs:
+                accumulated_df = pd.concat(valid_dfs, ignore_index=True)
                 if field in self.shared_fields_dfs and not self.shared_fields_dfs[field].empty:
                     self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
                                                               ignore_index=True)
                 else:
                     self.shared_fields_dfs[field] = accumulated_df
+            else:
+                if field not in self.shared_fields_dfs or self.shared_fields_dfs[field].empty:
+                    self.shared_fields_dfs[field] = pd.DataFrame()
 
-    def create_zones_lookup(self, field, state_name):
+    def create_zones_lookup(self, field, field_id,item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', 'StateName', 'State_ID', 'ZoneNames', 'MaterialNames',
+                columns=[f'{field}_ID', 'StateName', 'State_ID', 'ZonesNames', 'MaterialNames',
                          'Assignments', 'Version'])
-        state_details = self.state_filter_method(state_name)
+        state_details = self.state_filter_method(item)
 
-        field_id = str(uuid.uuid4())
         new_row = pd.DataFrame({
             f'{field}_ID': [field_id],
-            'StateName': [state_details['StateName'][0]],
-            'State_ID': [state_details['State_ID'][0]],
-            'ZoneNames': [state_details['ZoneNames']],
+            'StateName': [state_details['StateName']],
+            'State_ID': [state_details['State_ID']],
+            'ZonesNames': [state_details['ZoneNames']],
             'MaterialNames': [state_details['MaterialNames']],
             'Assignments': [state_details['Assignments']],
-            'Version': [1]
+            'Version': 1
         })
 
-        self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], new_row], ignore_index=True)
+        return new_row
 
     def create_feature_code_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
@@ -355,9 +351,9 @@ class NormalizerUtils(Databaser):
     def create_lighting_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}LayerName', 'MaxScene_ID', 'Version'])
+                columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}LayerName': [item], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'MaxScene_ID': [None], 'Version': 1})
         return new_row
 
     def create_render_max_scenes_lookup(self, field, field_id, item):
@@ -365,7 +361,7 @@ class NormalizerUtils(Databaser):
             self.shared_fields_dfs[field] = pd.DataFrame(
                 columns=['ID', 'Department', 'MaxScene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {'ID': [None], 'Department': [None], 'MaxScene_ID': [None], 'Version': 1})
+            {'ID': [field_id], 'Department': [None], 'MaxScene_ID': [None], 'Version': 1})
         return new_row
 
     def create_layers_lookup(self, field, field_id, item):
@@ -376,7 +372,7 @@ class NormalizerUtils(Databaser):
         layer_details = self.layers_filter_method(item)
         new_row = pd.DataFrame(
             {f'{field}_ID': [field_id], 'StateName': [layer_details['StateName']],
-             'State_ID': [layer_details['State_ID']], 'LayerNames': [item],
+             'State_ID': [layer_details['State_ID']], 'LayersNames': [item],
              'MaxScene_ID': [None], 'Version': 1})
         return new_row
 
@@ -398,6 +394,7 @@ class NormalizerUtils(Databaser):
     def normalize_data(self):
         self.extract_shared_fields()
         self.update_render_pass_table_with_references()
+        self.finalize_shared_fields_dfs()
 
     def get_normalized_dataframes(self):
         return self.render_pass_df, self.shared_fields_dfs
@@ -415,8 +412,8 @@ class NormalizerUtils(Databaser):
         else:
             return None
 
-    def state_filter_method(self, state_name):
-        if pd.isna(state_name) or state_name is None:
+    def state_filter_method(self, assignments):
+        if pd.isna(assignments) or assignments is None:
             return {
                 'StateName': [],
                 'State_ID': [],
@@ -427,49 +424,45 @@ class NormalizerUtils(Databaser):
         session = self.session_creator()
         try:
             Base = self.initializer()
-            states_table = getattr(Base.classes, 'states')
-            zones_table = getattr(Base.classes, 'zones')
+            states_table = getattr(Base.classes, 'State')
             query = session.query(
                 states_table.Name,
-                states_table.ID,
-                zones_table.Name.label('ZoneNames'),
-                zones_table.Material,
-                zones_table.Zone
-            ).join(
-                zones_table, states_table.ID == zones_table.state_id
-                # There are some cases which we have "State" in renderPass however, doesn't match state_ID in states to state_id in zones table
-            ).filter(states_table.Name == state_name)
+                states_table.State_ID,
+                states_table.ZonesNames,
+                states_table.MaterialNames,
+                states_table.Assignments
+            ).filter(states_table.Assignments == assignments)
 
-            results = query.all()
+            result = query.first()
         finally:
             session.close()
 
-        if results:
+        if result:
             aggregated_results = {
-                'StateName': [result.Name for result in results],
-                'State_ID': [result.ID for result in results],
-                'ZoneNames': [result.Zone for result in results],
-                'MaterialNames': [result.Material for result in results],
-                'Assignments': [result.ZoneNames for result in results],
+                'StateName': result.Name,
+                'State_ID': result.State_ID,
+                'ZoneNames': result.ZonesNames,
+                'MaterialNames': result.MaterialNames,
+                'Assignments': result.Assignments,
             }
             return aggregated_results
         else:
             return {
-                'StateName': [],
-                'State_ID': [],
-                'ZoneNames': [],
-                'MaterialNames': [],
-                'Assignments': []
+                'StateName': None,
+                'State_ID': None,
+                'ZoneNames': None,
+                'MaterialNames': None,
+                'Assignments': assignments
             }
 
     def layers_filter_method(self, layer):
         session = self.session_creator()
         try:
             Base = self.initializer()
-            states_table = getattr(Base.classes, 'states')
+            states_table = getattr(Base.classes, 'State')
             query = session.query(
                 states_table.Name,
-                states_table.ID,
+                states_table.State_ID,
             ).filter(states_table.Layers == layer)
 
             results = query.all()
@@ -479,20 +472,11 @@ class NormalizerUtils(Databaser):
         if results:
             aggregated_results = {
                 'StateName': [result.Name for result in results],
-                'State_ID': [result.ID for result in results],
+                'State_ID': [result.State_ID for result in results],
             }
             return aggregated_results
         else:
             return {
-                'StateName': [],
-                'State_ID': []
+                'StateName': None,
+                'State_ID': None
             }
-
-    def update_render_pass_table_with_references1(self):
-        for field in self.shared_fields:
-            if field in self.render_pass_df.columns:
-                mapped_series = self.render_pass_df[field].apply(lambda x: self.field_id_maps[field].get(str(x), x))
-                # self.render_pass_df[field] = self.render_pass_df[field].map(self.field_id_maps[field])
-                # self.render_pass_df[f'{field}_ID'] = self.render_pass_df[field]
-                self.render_pass_df[f'{field}_ID'] = mapped_series
-                self.render_pass_df.drop(field, axis=1, inplace=True)

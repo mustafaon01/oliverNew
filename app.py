@@ -11,20 +11,14 @@ def process_xml_files(xml_paths, root_names, parser_class):
         xml_parser = parser_class(root, root_names, path)
         dfs = xml_parser.extract_all_data_to_df(project_id)
         if 'EDITOR' in path:
-            xml_normalizer = NormalizerUtils(dfs['renderPass'])
+            xml_normalizer = NormalizerUtils(dfs['RenderPass'])
             xml_normalizer.normalize_data()
-            xml_normalizer.finalize_shared_fields_dfs()
             normalized_render_pass_df, normalized_common_fields_df = xml_normalizer.get_normalized_dataframes()
-            render_pass_dict = {'renderPass': normalized_render_pass_df}
+            render_pass_dict = {'RenderPass': normalized_render_pass_df}
             xml_parser.load_to_db(render_pass_dict)
             xml_parser.load_to_db(normalized_common_fields_df)
-            dfs = {key: value for key, value in dfs.items() if key != 'renderPass'}
-            if i >= 1:
-                xml_normalizer.editor_primary_key_maker()
+            dfs = {key: value for key, value in dfs.items() if key != 'RenderPass'}
         xml_parser.load_to_db(dfs)
-        if 'STATE' in path:
-            if i >= 1:
-                xml_parser.state_primary_key_maker()
 
 
 def create_project_id(path):

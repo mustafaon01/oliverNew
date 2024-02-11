@@ -1,8 +1,10 @@
 import xml.etree.ElementTree as ET
 from XML_parser import *
+from datetime import datetime
 
 
 def process_xml_files(xml_paths, root_names, parser_class):
+    print(f"All parsing processes are started: {datetime.now().strftime('%H:%M:%S')}")
     for i, path in enumerate(xml_paths, start=1):
         print(f"PATH {i}->", path)
         project_id = create_project_id(path)
@@ -10,15 +12,26 @@ def process_xml_files(xml_paths, root_names, parser_class):
         root = tree.getroot()
         xml_parser = parser_class(root, root_names, path)
         dfs = xml_parser.extract_all_data_to_df(project_id)
+
+        print("All DFs are uploaded", datetime.now().strftime('%H:%M:%S'))
         if 'EDITOR' in path:
             xml_normalizer = NormalizerUtils(dfs['RenderPass'])
+            print("Normalize Start", datetime.now().strftime('%H:%M:%S'))
             xml_normalizer.normalize_data()
+            print("Normalize end", datetime.now().strftime('%H:%M:%S'))
             normalized_render_pass_df, normalized_common_fields_df = xml_normalizer.get_normalized_dataframes()
             render_pass_dict = {'RenderPass': normalized_render_pass_df}
+            print("RenderPass is uploading..", datetime.now().strftime('%H:%M:%S'))
             xml_parser.load_to_db(render_pass_dict)
+            print("RenderPass was uploaded and common fields are uploading", datetime.now().strftime('%H:%M:%S'))
             xml_parser.load_to_db(normalized_common_fields_df)
+            print("common fields are uploaded", datetime.now().strftime('%H:%M :%S'))
             dfs = {key: value for key, value in dfs.items() if key != 'RenderPass'}
+        print("Common roots are uploading", datetime.now().strftime('%H:%M:%S'))
         xml_parser.load_to_db(dfs)
+        print("Common roots are uploaded", datetime.now().strftime('%H:%M:%S'))
+
+    print(f"All parsing processes are done time: {datetime.now().strftime('%H:%M:%S')}")
 
 
 def create_project_id(path):

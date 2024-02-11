@@ -3,43 +3,27 @@ from sqlalchemy import *
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
+from datetime import datetime
 
 import pandas as pd
 import uuid
 import os
 import traceback
 
+load_dotenv()
+DB_HOST = os.getenv('DB_HOST')
+DB_NAME = os.getenv('DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PWD = os.getenv('DB_PWD')
+DB_PORT = os.getenv('DB_PORT')
 
-class Databaser:
-    def __init__(self):
-        load_dotenv()
-        self.hostname = os.getenv('DB_HOST')
-        self.database = os.getenv('DB_NAME')
-        self.username = os.getenv('DB_USER')
-        self.pwd = os.getenv('DB_PWD')
-        self.port_id = os.getenv('DB_PORT')
-
-    def sql_engine_creator(self):
-        sql_engine = create_engine(
-            f'postgresql://{self.username}:{self.pwd}@{self.hostname}:{self.port_id}/{self.database}',
-            pool_size=100, max_overflow=50
-        )
-        return sql_engine
-
-    def initializer(self):
-        Base = automap_base()
-        Base.prepare(self.sql_engine_creator(), reflect=True)
-        return Base
-
-    def session_creator(self):
-        Session = sessionmaker(bind=self.sql_engine_creator())
-        session = Session()
-        return session
+engine_url = f'postgresql://{DB_USER}:{DB_PWD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+sql_engine = create_engine(engine_url, pool_size=10, max_overflow=20, pool_timeout=30)
+Session = sessionmaker(bind=sql_engine)
 
 
-class BaseXMLParser(Databaser):
+class BaseXMLParser:
     def __init__(self, new_root, root_names, path):
-        super().__init__()
         self.root = new_root
         self.root_names = root_names
         self.path = path
@@ -66,27 +50,32 @@ class BaseXMLParser(Databaser):
         dataframes.update(specific_dataframes)
         return dataframes
 
-    def load_to_db(self, dfs):
-        sql_engine = self.sql_engine_creator()
+    @staticmethod
+    def load_to_db(dfs):
+        # sql_engine = self.sql_engine_creator()
         inspector = inspect(sql_engine)
 
         for table_name, df in dfs.items():
             if not df.empty:
+                # table_name = table_name + 'demo'
                 try:
                     tables_in_db = inspector.get_table_names()
                     if table_name not in tables_in_db:
                         df.to_sql(table_name, sql_engine, index=False)
+
                     else:
                         db_columns = inspector.get_columns(table_name)
                         db_column_names = [col['name'] for col in db_columns]
                         df = df.reindex(columns=db_column_names, fill_value=None)
                         df.to_sql(table_name, sql_engine, if_exists='append', index=False)
+
                 except Exception as e:
                     print("Load db Error is:", e)
 
                 with sql_engine.connect() as conn:
                     trans = conn.begin()
                     try:
+                        # table_name_field = table_name[:-4]
                         conn.execute(text(f'ALTER TABLE "{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
                         trans.commit()
                     except Exception as e:
@@ -256,59 +245,96 @@ class StateXMLParser(BaseXMLParser):
         return pd.DataFrame(self.states_settings_dict), pd.DataFrame(self.state_dict), pd.DataFrame(self.zone_dict)
 
 
-class NormalizerUtils(Databaser):
+class NormalizerUtils:
     def __init__(self, render_pass_df):
-        super().__init__()
         self.render_pass_df = render_pass_df
         self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedMaxScenes']
         self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
-                                  self.shared_fields if
-                                  field in self.shared_fields}
-        self.field_id_maps = {field: {} for field in self.shared_fields if field in self.shared_fields_dfs}
+                                  self.shared_fields}
+        self.field_id_maps = {field: {} for field in self.shared_fields}
         self.accumulated_new_rows = {field: [] for field in self.shared_fields}
 
     def extract_shared_fields(self):
         for field in self.shared_fields:
+            print(f"Normalization start for field: {field} time: {datetime.now().strftime('%H:%M:%S')}")
             if field in self.render_pass_df.columns:
-                if self.render_pass_df[field].apply(lambda x: isinstance(x, list)).any():
-                    unique_items = self.render_pass_df[field].apply(
-                        lambda x: tuple(x) if isinstance(x, list) else x).unique()
-                else:
-                    unique_items = self.render_pass_df[field].unique()
+                unique_items = self.render_pass_df[field].dropna().unique().tolist()
+                value_id_map = self.filter_method(field, unique_items)
+                items_not_in_map = [item for item in unique_items if
+                                    str(item) not in value_id_map and str(item) not in self.field_id_maps[field]]
+                field_ids = [str(uuid.uuid4()) for _ in items_not_in_map]
+                self.make_lookup_tables(field, items_not_in_map, field_ids)
+
                 for item in unique_items:
-                    item = str(item)
-                    if item not in self.field_id_maps[field]:
-                        try:
-                            exist_id = self.filter_method(field, item)
-                            if exist_id is None:
-                                field_id = self.make_lookup_tables(field, item)
-                            else:
-                                field_id = exist_id
-                        except Exception as e:
-                            field_id = self.make_lookup_tables(field, item)
-                        self.field_id_maps[field][item] = field_id
+                    if str(item) in value_id_map:
+                        self.field_id_maps[field][str(item)] = value_id_map[str(item)]
+                    elif str(item) in items_not_in_map:
+                        index = items_not_in_map.index(str(item))
+                        self.field_id_maps[field][str(item)] = field_ids[index]
 
-    def make_lookup_tables(self, field, item):
-        field_id = str(uuid.uuid4())
+            print(f"Normalization end for field: {field} time: {datetime.now().strftime('%H:%M:%S')}")
+
+    def make_lookup_tables(self, field, items_not_in_map, field_ids):
         if field == 'Zones':
-            self.accumulated_new_rows[field].append(self.create_zones_lookup(field, field_id, item))
-        elif field == 'FeatureCodes':
-            self.accumulated_new_rows[field].append(self.create_feature_code_lookup(field, field_id, item))
-        elif field == 'Lighting':
-            self.accumulated_new_rows[field].append(self.create_lighting_lookup(field, field_id, item))
-        elif field == 'RenderedMaxScenes':
-            self.accumulated_new_rows[field].append(self.create_render_max_scenes_lookup(field, field_id, item))
+            lookup_rows = self.create_zones_lookup(field, items_not_in_map, field_ids)
         elif field == 'Layers':
-            self.accumulated_new_rows[field].append(self.create_layers_lookup(field, field_id, item))
+            lookup_rows = self.create_layers_lookup(field, items_not_in_map, field_ids)
+        elif field == 'FeatureCodes':
+            lookup_rows = [self.create_feature_code_lookup(field, field_id, item) for item, field_id in
+                           zip(items_not_in_map, field_ids)]
+        elif field == 'Lighting':
+            lookup_rows = [self.create_lighting_lookup(field, field_id, item) for item, field_id in
+                           zip(items_not_in_map, field_ids)]
+        elif field == 'RenderedMaxScenes':
+            if not items_not_in_map:
+                default_item = 'DefaultMaxScenes'
+                default_id = str(uuid.uuid4())
+                lookup_rows = [self.create_render_max_scenes_lookup(field, default_id, default_item)]
+            else:
+                lookup_rows = [self.create_render_max_scenes_lookup(field, field_id, item) for item, field_id in
+                               zip(items_not_in_map, field_ids)]
         else:
-            self.accumulated_new_rows[field].append(
-                pd.DataFrame({f'{field}_ID': [field_id], f'{field}Names': [item], 'version': 1}))
+            lookup_rows = [pd.DataFrame({f'{field}_ID': [field_id], f'{field}Names': [item], 'version': 1})
+                           for item, field_id in zip(items_not_in_map, field_ids)]
+        self.accumulated_new_rows[field].extend(lookup_rows)
 
-        return field_id
+    def create_zones_lookup(self, field, items, field_ids):
+        zone_details = self.state_filter_method(items)
+        lookup_rows = []
+        for item, field_id in zip(items, field_ids):
+            if item in zone_details:
+                details = zone_details[item]
+                new_row = pd.DataFrame({
+                    f'{field}_ID': [field_id],
+                    'StateName': [details['StateName']],
+                    'State_ID': [details['State_ID']],
+                    'ZonesNames': [details['ZoneNames']],
+                    'MaterialNames': [details['MaterialNames']],
+                    'Assignments': [details['Assignments']],
+                    'Version': [1]
+                })
+                lookup_rows.append(new_row)
+        return lookup_rows
+
+    def create_layers_lookup(self, field, items, field_ids):
+        layer_details = self.layers_filter_method(items)
+        lookup_rows = []
+        for item, field_id in zip(items, field_ids):
+            for key, value in layer_details.items():
+                new_row = pd.DataFrame({
+                    f'{field}_ID': [field_id],
+                    'StateName': [value['StateName']],
+                    'State_ID': [value['State_ID']],
+                    'LayersNames': [item],
+                    'MaxScene_ID': [None],
+                    'Version': [1]
+                })
+                lookup_rows.append(new_row)
+        return lookup_rows
 
     def finalize_shared_fields_dfs(self):
         for field in self.shared_fields:
-            valid_dfs = [df for df in self.accumulated_new_rows[field] if df is not None]
+            valid_dfs = [df for df in self.accumulated_new_rows[field] if isinstance(df, pd.DataFrame)]
 
             if valid_dfs:
                 accumulated_df = pd.concat(valid_dfs, ignore_index=True)
@@ -318,27 +344,10 @@ class NormalizerUtils(Databaser):
                 else:
                     self.shared_fields_dfs[field] = accumulated_df
             else:
+                print(f"################################### --->{field} ===> len:",
+                      len(self.accumulated_new_rows[field]))
                 if field not in self.shared_fields_dfs or self.shared_fields_dfs[field].empty:
                     self.shared_fields_dfs[field] = pd.DataFrame()
-
-    def create_zones_lookup(self, field, field_id,item):
-        if field not in self.shared_fields_dfs[field]:
-            self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', 'StateName', 'State_ID', 'ZonesNames', 'MaterialNames',
-                         'Assignments', 'Version'])
-        state_details = self.state_filter_method(item)
-
-        new_row = pd.DataFrame({
-            f'{field}_ID': [field_id],
-            'StateName': [state_details['StateName']],
-            'State_ID': [state_details['State_ID']],
-            'ZonesNames': [state_details['ZoneNames']],
-            'MaterialNames': [state_details['MaterialNames']],
-            'Assignments': [state_details['Assignments']],
-            'Version': 1
-        })
-
-        return new_row
 
     def create_feature_code_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
@@ -364,18 +373,6 @@ class NormalizerUtils(Databaser):
             {'ID': [field_id], 'Department': [None], 'MaxScene_ID': [None], 'Version': 1})
         return new_row
 
-    def create_layers_lookup(self, field, field_id, item):
-        if field not in self.shared_fields_dfs[field]:
-            self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', 'StateName', 'State_ID', 'LayerNames', 'MaxScene_ID',
-                         'Version'])
-        layer_details = self.layers_filter_method(item)
-        new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], 'StateName': [layer_details['StateName']],
-             'State_ID': [layer_details['State_ID']], 'LayersNames': [item],
-             'MaxScene_ID': [None], 'Version': 1})
-        return new_row
-
     def update_render_pass_table_with_references(self):
         for field in self.shared_fields:
             if field in self.render_pass_df.columns:
@@ -399,29 +396,33 @@ class NormalizerUtils(Databaser):
     def get_normalized_dataframes(self):
         return self.render_pass_df, self.shared_fields_dfs
 
-    def filter_method(self, table_name, u_value):
-        Base = self.initializer()
-        table_obj = getattr(Base.classes, table_name)
-        session = self.session_creator()
-        column_to_filter = getattr(table_obj, f'{table_name}Names')
-        result = session.query(table_obj).filter(column_to_filter == u_value).first()
-        if result:
-            ID_column_name = f'{table_name}_ID'
-            ID_value = getattr(result, ID_column_name)
-            return ID_value
-        else:
-            return None
+    @staticmethod
+    def initializer():
+        Base = automap_base()
+        Base.prepare(sql_engine, reflect=True)
+        return Base
 
-    def state_filter_method(self, assignments):
-        if pd.isna(assignments) or assignments is None:
-            return {
-                'StateName': [],
-                'State_ID': [],
-                'ZoneNames': [],
-                'MaterialNames': [],
-                'Assignments': []
-            }
-        session = self.session_creator()
+    def filter_method(self, table_name, unique_values):
+        Base = self.initializer()
+        try:
+            table_obj = getattr(Base.classes, table_name)
+            session = Session()
+            column_to_filter = getattr(table_obj, f'{table_name}Names')
+            ID_column_name = f'{table_name}_ID'
+
+            results = session.query(table_obj).filter(column_to_filter.in_(unique_values)).all()
+            session.close()
+
+            value_id_map = {getattr(result, f'{table_name}Names'): getattr(result, ID_column_name) for result in
+                            results}
+            return value_id_map
+        except Exception as e:
+            print(f"Exception occurred: {e}")
+            return {}
+
+    def state_filter_method(self, assignments_list):
+        session = Session()
+        state_details_dict = {}
         try:
             Base = self.initializer()
             states_table = getattr(Base.classes, 'State')
@@ -431,52 +432,43 @@ class NormalizerUtils(Databaser):
                 states_table.ZonesNames,
                 states_table.MaterialNames,
                 states_table.Assignments
-            ).filter(states_table.Assignments == assignments)
+            ).filter(states_table.Assignments.in_(assignments_list))
 
-            result = query.first()
+            results = query.all()
+            for result in results:
+                state_details_dict[result.Assignments] = {
+                    'StateName': result.Name,
+                    'State_ID': result.State_ID,
+                    'ZoneNames': result.ZonesNames,
+                    'MaterialNames': result.MaterialNames,
+                    'Assignments': result.Assignments,
+                }
         finally:
             session.close()
 
-        if result:
-            aggregated_results = {
-                'StateName': result.Name,
-                'State_ID': result.State_ID,
-                'ZoneNames': result.ZonesNames,
-                'MaterialNames': result.MaterialNames,
-                'Assignments': result.Assignments,
-            }
-            return aggregated_results
-        else:
-            return {
-                'StateName': None,
-                'State_ID': None,
-                'ZoneNames': None,
-                'MaterialNames': None,
-                'Assignments': assignments
-            }
+        return state_details_dict
 
-    def layers_filter_method(self, layer):
-        session = self.session_creator()
+    def layers_filter_method(self, layers_list):
+        session = Session()
+        layers_details_dict = {}
         try:
             Base = self.initializer()
             states_table = getattr(Base.classes, 'State')
             query = session.query(
                 states_table.Name,
-                states_table.State_ID,
-            ).filter(states_table.Layers == layer)
+                states_table.State_ID
+            ).filter(states_table.Layers.in_(layers_list))
 
             results = query.all()
+            for result in results:
+                if result.Name not in layers_details_dict:
+                    layers_details_dict[result.Name] = {
+                        'StateName': [],
+                        'State_ID': [],
+                    }
+                layers_details_dict[result.Name]['StateName'].append(result.Name)
+                layers_details_dict[result.Name]['State_ID'].append(result.State_ID)
         finally:
             session.close()
 
-        if results:
-            aggregated_results = {
-                'StateName': [result.Name for result in results],
-                'State_ID': [result.State_ID for result in results],
-            }
-            return aggregated_results
-        else:
-            return {
-                'StateName': None,
-                'State_ID': None
-            }
+        return layers_details_dict

@@ -286,7 +286,7 @@ class StateXMLParser(BaseXMLParser):
 class NormalizerUtils:
     def __init__(self, render_pass_df):
         self.render_pass_df = render_pass_df
-        self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedMaxScenes']
+        self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedMaxScenes', 'Exclude', 'Include']
         self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
                                   self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields}
@@ -322,6 +322,12 @@ class NormalizerUtils:
                            zip(items_not_in_map, field_ids)]
         elif field == 'Lighting':
             lookup_rows = [self.create_lighting_lookup(field, field_id, item) for item, field_id in
+                           zip(items_not_in_map, field_ids)]
+        elif field == 'Exclude':
+            lookup_rows = [self.create_exclude_lookup(field, field_id, item) for item, field_id in
+                           zip(items_not_in_map, field_ids)]
+        elif field == 'Include':
+            lookup_rows = [self.create_include_lookup(field, field_id, item) for item, field_id in
                            zip(items_not_in_map, field_ids)]
         elif field == 'RenderedMaxScenes':
             if not items_not_in_map:
@@ -380,6 +386,22 @@ class NormalizerUtils:
         return new_row
 
     def create_lighting_lookup(self, field, field_id, item):
+        if field not in self.shared_fields_dfs[field]:
+            self.shared_fields_dfs[field] = pd.DataFrame(
+                columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])
+        new_row = pd.DataFrame(
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'MaxScene_ID': [None], 'Version': 1})
+        return new_row
+
+    def create_exclude_lookup(self, field, field_id, item):
+        if field not in self.shared_fields_dfs[field]:
+            self.shared_fields_dfs[field] = pd.DataFrame(
+                columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])
+        new_row = pd.DataFrame(
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'MaxScene_ID': [None], 'Version': 1})
+        return new_row
+
+    def create_include_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
                 columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])

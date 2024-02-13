@@ -144,33 +144,7 @@ class EditorXMLParser(BaseXMLParser):
         self.editor_dataframes = self.extract_passes_data_to_render_pass(project_id)
         return self.editor_dataframes
 
-    def extract_root_data_to_df(self, project_id):
-
-        for linkingrecord in self.root.findall('.//linkingrecord'):
-            linkingrecord_data = {attr: linkingrecord.get(attr).replace('\n', '') for attr in linkingrecord.attrib}
-            linkingrecord_data['ID'] = uuid.uuid4()
-            linkingrecord_data['Project_ID'] = project_id
-            self.linkinrecords_dicts.append(linkingrecord_data)
-
-            for basepass in linkingrecord.findall('.//BasePass'):
-                basepass_data = {attr: basepass.get(attr).replace('\n', '') for attr in basepass.attrib}
-                basepass_data['ID'] = uuid.uuid4()
-                basepass_data['LinkingRecord_ID'] = linkingrecord_data['ID']
-                basepass_data['Project_ID'] = project_id
-                self.basepass_dicts.append(basepass_data)
-
-                for optionpass in basepass.findall('.//OptionPass'):
-                    optionpass_data = {attr: optionpass.get(attr).replace('\n', '') for attr in optionpass.attrib}
-                    optionpass_data['basepass_id'] = basepass_data['ID']
-                    optionpass_data['ID'] = uuid.uuid4()
-                    optionpass_data['Project_ID'] = project_id
-                    self.optionpass_dicts.append(optionpass_data)
-
-        return pd.DataFrame(self.linkinrecords_dicts), pd.DataFrame(self.basepass_dicts), pd.DataFrame(
-            self.optionpass_dicts)
-
     def extract_passes_data_to_render_pass(self, project_id):
-
         for linking_record in self.root.findall('.//linkingrecord'):
             linking_record_data = {attr: linking_record.get(attr).replace('\n', '') for attr in linking_record.attrib}
             linking_record_id = uuid.uuid4()

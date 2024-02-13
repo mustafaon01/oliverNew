@@ -293,6 +293,7 @@ class NormalizerUtils:
         self.accumulated_new_rows = {field: [] for field in self.shared_fields}
 
     def extract_shared_fields(self):
+        print()
         for field in self.shared_fields:
             print(f"Normalization start for field: {field} time: {datetime.now().strftime('%H:%M:%S')}")
             if field in self.render_pass_df.columns:

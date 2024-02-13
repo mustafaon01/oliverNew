@@ -22,6 +22,12 @@ sql_engine = create_engine(engine_url, pool_size=10, max_overflow=20, pool_timeo
 Session = sessionmaker(bind=sql_engine)
 
 
+def initializer():
+    Base = automap_base()
+    Base.prepare(sql_engine, reflect=True, schema='public')
+    return Base
+
+
 class BaseXMLParser:
     def __init__(self, new_root, root_names, path):
         self.root = new_root
@@ -51,13 +57,40 @@ class BaseXMLParser:
         return dataframes
 
     @staticmethod
-    def load_to_db(dfs):
-        # sql_engine = self.sql_engine_creator()
+    def delete_exist_tables():
+        Base = initializer()
+        meta_data = Base.metadata
+
+        with sql_engine.connect() as conn:
+            trans = conn.begin()
+            try:
+                for table_name in meta_data.tables:
+                    print(f'Removing {table_name};')
+                    conn.execute(text(f'DROP TABLE IF EXISTS "public"."{table_name[7:]}";'))
+                trans.commit()
+                print("Exist tables have been removed before starting the script")
+            except Exception as e:
+                trans.rollback()
+
+    @staticmethod
+    def print_exist_tables():
+        Base = initializer()
+        meta_data = Base.metadata
+
+        with sql_engine.connect() as conn:
+            trans = conn.begin()
+            try:
+                for table_name in meta_data.tables:
+                    print("Table Name:", table_name)
+                trans.commit()
+            except Exception as e:
+                trans.rollback()
+
+    def load_to_db(self, dfs):
         inspector = inspect(sql_engine)
 
         for table_name, df in dfs.items():
             if not df.empty:
-                # table_name = table_name + 'demo'
                 try:
                     tables_in_db = inspector.get_table_names()
                     if table_name not in tables_in_db:
@@ -70,13 +103,18 @@ class BaseXMLParser:
                         df.to_sql(table_name, sql_engine, if_exists='append', index=False)
 
                 except Exception as e:
-                    print("Load db Error is:", e)
+                    print("Load to DB Error is:", e)
 
                 with sql_engine.connect() as conn:
                     trans = conn.begin()
                     try:
-                        # table_name_field = table_name[:-4]
-                        conn.execute(text(f'ALTER TABLE "{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
+                        primary_keys = inspector.get_pk_constraint(table_name)
+                        pk_columns = primary_keys.get('constrained_columns', [])
+
+                        if not pk_columns and table_name not in self.root_names:
+                            print(f"Adding primary key to 'public'.'{table_name}'")
+                            conn.execute(
+                                text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
                         trans.commit()
                     except Exception as e:
                         trans.rollback()
@@ -117,7 +155,7 @@ class EditorXMLParser(BaseXMLParser):
             for basepass in linkingrecord.findall('.//BasePass'):
                 basepass_data = {attr: basepass.get(attr).replace('\n', '') for attr in basepass.attrib}
                 basepass_data['ID'] = uuid.uuid4()
-                basepass_data['linkingrecord_id'] = linkingrecord_data['ID']
+                basepass_data['LinkingRecord_ID'] = linkingrecord_data['ID']
                 basepass_data['Project_ID'] = project_id
                 self.basepass_dicts.append(basepass_data)
 
@@ -136,7 +174,7 @@ class EditorXMLParser(BaseXMLParser):
         for linking_record in self.root.findall('.//linkingrecord'):
             linking_record_data = {attr: linking_record.get(attr).replace('\n', '') for attr in linking_record.attrib}
             linking_record_id = uuid.uuid4()
-            linking_record_data['ID'] = linking_record_id
+            linking_record_data['LinkingRecords_ID'] = linking_record_id
             linking_record_data['Project_ID'] = project_id
             self.linkinrecords_dicts.append(linking_record_data)
             for base_pass in linking_record.findall('.//BasePass'):
@@ -320,34 +358,18 @@ class NormalizerUtils:
         layer_details = self.layers_filter_method(items)
         lookup_rows = []
         for item, field_id in zip(items, field_ids):
-            for key, value in layer_details.items():
+            if item in layer_details:
+                state_info = layer_details[item]
                 new_row = pd.DataFrame({
                     f'{field}_ID': [field_id],
-                    'StateName': [value['StateName']],
-                    'State_ID': [value['State_ID']],
+                    'StateName': state_info['StateName'],
+                    'State_ID': state_info['State_ID'],
                     'LayersNames': [item],
                     'MaxScene_ID': [None],
                     'Version': [1]
                 })
                 lookup_rows.append(new_row)
         return lookup_rows
-
-    def finalize_shared_fields_dfs(self):
-        for field in self.shared_fields:
-            valid_dfs = [df for df in self.accumulated_new_rows[field] if isinstance(df, pd.DataFrame)]
-
-            if valid_dfs:
-                accumulated_df = pd.concat(valid_dfs, ignore_index=True)
-                if field in self.shared_fields_dfs and not self.shared_fields_dfs[field].empty:
-                    self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
-                                                              ignore_index=True)
-                else:
-                    self.shared_fields_dfs[field] = accumulated_df
-            else:
-                print(f"################################### --->{field} ===> len:",
-                      len(self.accumulated_new_rows[field]))
-                if field not in self.shared_fields_dfs or self.shared_fields_dfs[field].empty:
-                    self.shared_fields_dfs[field] = pd.DataFrame()
 
     def create_feature_code_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
@@ -368,9 +390,9 @@ class NormalizerUtils:
     def create_render_max_scenes_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=['ID', 'Department', 'MaxScene_ID', 'Version'])
+                columns=[f'{field}_ID', 'Department', 'MaxScene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {'ID': [field_id], 'Department': [None], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], 'Department': [None], 'MaxScene_ID': [None], 'Version': 1})
         return new_row
 
     def update_render_pass_table_with_references(self):
@@ -388,6 +410,21 @@ class NormalizerUtils:
             else:
                 self.render_pass_df[f'{field}_ID'] = [[] for _ in range(len(self.render_pass_df))]
 
+    def finalize_shared_fields_dfs(self):
+        for field in self.shared_fields:
+            valid_dfs = [df for df in self.accumulated_new_rows[field] if isinstance(df, pd.DataFrame)]
+
+            if valid_dfs:
+                accumulated_df = pd.concat(valid_dfs, ignore_index=True)
+                if field in self.shared_fields_dfs and not self.shared_fields_dfs[field].empty:
+                    self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
+                                                              ignore_index=True)
+                else:
+                    self.shared_fields_dfs[field] = accumulated_df
+            else:
+                if field not in self.shared_fields_dfs or self.shared_fields_dfs[field].empty:
+                    self.shared_fields_dfs[field] = pd.DataFrame()
+
     def normalize_data(self):
         self.extract_shared_fields()
         self.update_render_pass_table_with_references()
@@ -397,34 +434,39 @@ class NormalizerUtils:
         return self.render_pass_df, self.shared_fields_dfs
 
     @staticmethod
-    def initializer():
-        Base = automap_base()
-        Base.prepare(sql_engine, reflect=True)
-        return Base
-
-    def filter_method(self, table_name, unique_values):
-        Base = self.initializer()
+    def filter_method(table_name, unique_values):
+        Base = initializer()
+        meta_data = Base.metadata
         try:
-            table_obj = getattr(Base.classes, table_name)
-            session = Session()
-            column_to_filter = getattr(table_obj, f'{table_name}Names')
-            ID_column_name = f'{table_name}_ID'
+            if table_name in meta_data.tables:
+                table_obj = getattr(Base.classes, table_name)
+                session = Session()
+                if table_name == 'RenderedMaxScenes':
+                    filter_column = 'Department'
+                else:
+                    filter_column = f'{table_name}Names'
+                column_to_filter = getattr(table_obj, filter_column)
+                ID_column_name = f'{table_name}_ID'
 
-            results = session.query(table_obj).filter(column_to_filter.in_(unique_values)).all()
-            session.close()
+                results = session.query(table_obj).filter(column_to_filter.in_(unique_values)).all()
+                session.close()
 
-            value_id_map = {getattr(result, f'{table_name}Names'): getattr(result, ID_column_name) for result in
-                            results}
-            return value_id_map
+                value_id_map = {getattr(result, filter_column): getattr(result, ID_column_name) for result in
+                                results}
+                return value_id_map
+            else:
+                return {}
         except Exception as e:
             print(f"Exception occurred: {e}")
+            # traceback.print_exc()
             return {}
 
-    def state_filter_method(self, assignments_list):
+    @staticmethod
+    def state_filter_method(assignments_list):
         session = Session()
         state_details_dict = {}
         try:
-            Base = self.initializer()
+            Base = initializer()
             states_table = getattr(Base.classes, 'State')
             query = session.query(
                 states_table.Name,
@@ -448,26 +490,28 @@ class NormalizerUtils:
 
         return state_details_dict
 
-    def layers_filter_method(self, layers_list):
+    @staticmethod
+    def layers_filter_method(layers_list):
         session = Session()
         layers_details_dict = {}
         try:
-            Base = self.initializer()
+            Base = initializer()
             states_table = getattr(Base.classes, 'State')
             query = session.query(
                 states_table.Name,
-                states_table.State_ID
+                states_table.State_ID,
+                states_table.Layers
             ).filter(states_table.Layers.in_(layers_list))
 
             results = query.all()
             for result in results:
                 if result.Name not in layers_details_dict:
-                    layers_details_dict[result.Name] = {
+                    layers_details_dict[result.Layers] = {
                         'StateName': [],
                         'State_ID': [],
                     }
-                layers_details_dict[result.Name]['StateName'].append(result.Name)
-                layers_details_dict[result.Name]['State_ID'].append(result.State_ID)
+                layers_details_dict[result.Layers]['StateName'].append(result.Name)
+                layers_details_dict[result.Layers]['State_ID'].append(result.State_ID)
         finally:
             session.close()
 

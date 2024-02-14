@@ -267,7 +267,6 @@ class NormalizerUtils:
         self.accumulated_new_rows = {field: [] for field in self.shared_fields}
 
     def extract_shared_fields(self):
-        print()
         for field in self.shared_fields:
             print(f"Normalization start for field: {field} time: {datetime.now().strftime('%H:%M:%S')}")
             if field in self.render_pass_df.columns:
@@ -389,7 +388,7 @@ class NormalizerUtils:
             self.shared_fields_dfs[field] = pd.DataFrame(
                 columns=[f'{field}_ID', 'Department', 'MaxScene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], 'Department': [None], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], 'Department': [item], 'MaxScene_ID': [None], 'Version': 1})
         return new_row
 
     def update_render_pass_table_with_references(self):
@@ -406,6 +405,20 @@ class NormalizerUtils:
                 self.render_pass_df.drop(field, axis=1, inplace=True)
             else:
                 self.render_pass_df[f'{field}_ID'] = [[] for _ in range(len(self.render_pass_df))]
+        self.clean_and_update_render_pass()
+
+    def clean_and_update_render_pass(self):
+        columns = ['LightingState', 'OverrideFilename']
+        for item in columns:
+            if item in self.render_pass_df.columns:
+                self.render_pass_df.drop(item, axis=1, inplace=True)
+        self.render_pass_df['FeatureCodeCurrent_ID'] = None
+        self.render_pass_df['LayerCurrent_ID'] = None
+        self.render_pass_df['LightingCurrent_ID'] = None
+        self.render_pass_df['ZoneCurrent_ID'] = None
+        self.render_pass_df['RenderedMaxSceneCurrent_ID'] = None
+        self.render_pass_df['ExcludeCurrent_ID'] = None
+        self.render_pass_df['IncludeCurrent_ID'] = None
 
     def finalize_shared_fields_dfs(self):
         for field in self.shared_fields:

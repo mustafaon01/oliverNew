@@ -70,3 +70,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    BaseXMLParser.delete_state_and_zone_table()

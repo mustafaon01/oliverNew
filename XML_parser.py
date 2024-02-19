@@ -85,6 +85,23 @@ class BaseXMLParser:
                 trans.commit()
             except Exception as e:
                 trans.rollback()
+    
+    @staticmethod
+    def delete_state_and_zone_table():
+        Base = initializer()
+        meta_data = Base.metadata
+
+        with sql_engine.connect() as conn:
+            trans = conn.begin()
+            try:
+                for table_name in meta_data.tables:
+                    if table_name in ['public.State', 'public.Zone']:
+                        print(f'Removing {table_name};')
+                        conn.execute(text(f'DROP TABLE IF EXISTS "public"."{table_name[7:]}";'))
+                trans.commit()
+                print("State and Zone tables have been removed.")
+            except Exception as e:
+                trans.rollback()
 
     def load_to_db(self, dfs):
         inspector = inspect(sql_engine)
@@ -120,7 +137,7 @@ class BaseXMLParser:
                         trans.rollback()
             else:
                 continue
-
+    
 
 class EditorXMLParser(BaseXMLParser):
     def __init__(self, new_root, root_names, path):

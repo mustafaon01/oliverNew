@@ -54,9 +54,9 @@ def main():
     root_names_state = ['ProjectSettings']
 
     print("If there are any existing tables:")
-    BaseXMLParser.print_exist_tables()
+    # BaseXMLParser.print_exist_tables()
     ''' Delete exist tables from database '''
-    BaseXMLParser.delete_exist_tables()
+    # BaseXMLParser.delete_exist_tables()
     state_paths = get_xml_files_from_directory(state_directory)
     editor_paths = get_xml_files_from_directory(editor_directory)
     start_time = time.time()

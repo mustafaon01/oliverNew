@@ -4,6 +4,7 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 from datetime import datetime
+from sqlalchemy.sql import func
 
 import pandas as pd
 import uuid
@@ -233,26 +234,37 @@ class StateXMLParser(BaseXMLParser):
                 state_data['State_ID'] = uuid.uuid4()
                 state_data['StateSettings_ID'] = state_setting_data['StateSettings_ID']
                 state_data['Project_id'] = project_id
-                state_data['ZonesNames'] = []
-                state_data['MaterialNames'] = []
-                state_data['Assignments'] = []
-                # self.state_dict.append(state_data)
+                self.state_dict.append(state_data)
+
+                zone_assignments = []
+                zone_material_names = []
+                zone_names = []
 
                 for zone in state.findall('.//Zone'):
                     zone_data = {attr: zone.get(attr).replace('\n', '') for attr in zone.attrib}
                     zone_data['State_ID'] = state_data['State_ID']
                     zone_data['Zone_ID'] = uuid.uuid4()
                     zone_data['Project_ID'] = project_id
-                    state_data['Assignments'].append(zone_data['Name'])
-                    state_data['MaterialNames'].append(zone_data['Material'])
-                    state_data['ZonesNames'].append(zone_data['Zone'])
                     self.zone_dict.append(zone_data)
 
-                fields = ['Assignments', 'MaterialNames', 'ZonesNames']
+                    # Toplu listelere zone bilgilerini ekle
+                    '''zone_assignments.append(zone_data['Name'])
+                    zone_material_names.append(zone_data['Material'])
+                    zone_names.append(zone_data['Zone'])
+
+                zone_data_dict = {
+                    'State_ID': state_data['State_ID'],
+                    'Assignments': zone_assignments,
+                    'MaterialNames': zone_material_names,
+                    'ZonesNames': zone_names
+                }'''
+
+
+                '''fields = ['Assignments', 'MaterialNames', 'ZonesNames']
                 for field in fields:
                     zones_str = "(" + ', '.join("'" + zone_name + "'" for zone_name in state_data[field]) + ")"
-                    state_data[field] = zones_str
-                self.state_dict.append(state_data)
+                    state_data[field] = zones_str'''
+                # self.state_dict.append(state_data)
 
         return pd.DataFrame(self.states_settings_dict), pd.DataFrame(self.state_dict), pd.DataFrame(self.zone_dict)
 
@@ -477,27 +489,36 @@ class NormalizerUtils:
         state_details_dict = {}
         try:
             Base = initializer()
-            states_table = getattr(Base.classes, 'State')
+            states_table = getattr(Base.classes, 'State')  # 'state' tablosunu al
+            zones_table = getattr(Base.classes, 'Zone')  # 'zone' tablosunu al
+
+            # Sorguyu oluştur
             query = session.query(
-                states_table.Name,
                 states_table.State_ID,
-                states_table.ZonesNames,
-                states_table.MaterialNames,
-                states_table.Assignments
-            ).filter(states_table.Assignments.in_(assignments_list))
+                func.array_agg(zones_table.Material).label('Materials'),
+                func.array_agg(zones_table.Name).label('Assignments'),
+                func.array_agg(zones_table.Zone).label('ZoneNames'),
+                states_table.Name
+            ).join(
+                zones_table, states_table.State_ID == zones_table.State_ID
+            ).filter(
+                zones_table.Name.in_(assignments_list)
+            ).group_by(
+                states_table.State_ID,
+                states_table.Name
+            )
 
             results = query.all()
             for result in results:
                 state_details_dict[result.Assignments] = {
-                    'StateName': result.Name,
                     'State_ID': result.State_ID,
-                    'ZoneNames': result.ZonesNames,
-                    'MaterialNames': result.MaterialNames,
+                    'Materials': result.Materials,
+                    'ZoneNames': result.ZoneNames,
                     'Assignments': result.Assignments,
                 }
         finally:
             session.close()
-
+        print(state_details_dict)
         return state_details_dict
 
     @staticmethod

@@ -9,6 +9,14 @@ for class_ in Base.classes:
     class_.__bases__ = (ToDictMixin,) + class_.__bases__
 
 def query_to_dict(session, table_name, field_name, field_value):
+    """
+    Queries a table in the database and convert to dict
+    param: session: a session object
+    param: table_name: the name of the table to query
+    param: field_name: the name of the field to query
+    param: field_value: the value of the field to query
+    return: a list of dictionaries, each dictionary represents a row in the table
+    """
     try:
         table = getattr(Base.classes, table_name)
         results = session.query(table).filter(getattr(table, field_name) == field_value).all()

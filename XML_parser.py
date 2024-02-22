@@ -65,7 +65,7 @@ class BaseXMLParser:
             trans = conn.begin()
             try:
                 for table_name in meta_data.tables:
-                    print(f'Removing {table_name};')
+                    print(f'Dropping {table_name};')
                     conn.execute(text(f'DROP TABLE IF EXISTS "public"."{table_name[7:]}";'))
                 trans.commit()
                 print("Exist tables have been removed before starting the script")
@@ -185,12 +185,8 @@ class EditorXMLParser(BaseXMLParser):
         fields_to_process = ['Layers', 'FeatureCodes', 'Lighting', 'Zones']
         for field in fields_to_process:
             if field in pass_data:
-                if field == 'FeatureCodes':
-                    items_list = [item for item in pass_data[field].split(',') if item]
-                    pass_data[field] = "(" + ', '.join("'" + item + "'" for item in items_list) + ")"
-                else:
-                    items_list = pass_data[field].split(',')
-                    pass_data[field] = "(" + ', '.join("'" + item + "'" for item in items_list) + ")"
+                items_list = [item for item in pass_data[field].split(',') if item]
+                pass_data[field] = "(" + ', '.join(item for item in items_list) + ")"
         pass_data['RenderPass_ID'] = str(pass_id)
         pass_data['PassType'] = pass_type
         pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None
@@ -245,7 +241,7 @@ class StateXMLParser(BaseXMLParser):
                 state_data = {attr: state.get(attr).replace('\n', '') for attr in state.attrib}
                 if 'Layers' in state_data:
                     item_list = state_data['Layers'].split(',')
-                    state_data['Layers'] = "(" + ', '.join("'" + item + "'" for item in item_list) + ")"
+                    state_data['Layers'] = "(" + ', '.join(item for item in item_list) + ")"
                     # state_data['Layers'] = item_list
                 state_data['State_ID'] = uuid.uuid4()
                 state_data['StateSettings_ID'] = state_setting_data['StateSettings_ID']
@@ -267,7 +263,7 @@ class StateXMLParser(BaseXMLParser):
 
                 fields = ['Assignments', 'MaterialNames', 'ZonesNames']
                 for field in fields:
-                    zones_str = "(" + ', '.join("'" + zone_name + "'" for zone_name in state_data[field]) + ")"
+                    zones_str = "(" + ', '.join(zone_name for zone_name in state_data[field]) + ")"
                     state_data[field] = zones_str
                 self.state_dict.append(state_data)
 
@@ -464,16 +460,17 @@ class NormalizerUtils:
     def filter_method(table_name, unique_values):
         Base = initializer()
         meta_data = Base.metadata
+        table_name = f'public.{table_name}'
         try:
             if table_name in meta_data.tables:
-                table_obj = getattr(Base.classes, table_name)
+                table_obj = getattr(Base.classes, table_name[7:])
                 session = Session()
-                if table_name == 'RenderedMaxScenes':
+                if table_name == 'public.RenderedMaxScenes':
                     filter_column = 'Department'
                 else:
-                    filter_column = f'{table_name}Names'
+                    filter_column = f'{table_name[7:]}Names'
                 column_to_filter = getattr(table_obj, filter_column)
-                ID_column_name = f'{table_name}_ID'
+                ID_column_name = f'{table_name[7:]}_ID'
 
                 results = session.query(table_obj).filter(column_to_filter.in_(unique_values)).all()
                 session.close()

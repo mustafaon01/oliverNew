@@ -52,7 +52,7 @@ def main():
     root_names_editor = ['ProjectSettings', 'ChaosCloudSettings', 'DeadlineSettings', 'OutputSettings',
                          'JARVISSettings']
     root_names_state = ['ProjectSettings']
-
+    
     print("If there are any existing tables:")
     BaseXMLParser.print_exist_tables()
     ''' Delete exist tables from database '''

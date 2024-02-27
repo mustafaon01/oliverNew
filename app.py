@@ -8,10 +8,15 @@ def process_xml_files(xml_paths, root_names, parser_class):
     print(f"All parsing processes are started: {datetime.now().strftime('%H:%M:%S')}")
     for i, path in enumerate(xml_paths, start=1):
         print(f"PATH {i}->", path)
-        project_id = create_project_id(path)
+        project_name = create_project_name(path)
         tree = ET.parse(path)
         root = tree.getroot()
         xml_parser = parser_class(root, root_names, path)
+        try:
+            project_id = BaseXMLParser.projects_filter_method(project_name)
+        except Exception as e:
+            xml_parser.create_project_df(project_name)
+            project_id = BaseXMLParser.projects_filter_method(project_name)
         dfs = xml_parser.extract_all_data_to_df(project_id)
         print("All DFs are uploaded", datetime.now().strftime('%H:%M:%S'))
         if 'EDITOR' in path:
@@ -32,7 +37,7 @@ def process_xml_files(xml_paths, root_names, parser_class):
         print("Common roots are uploaded", datetime.now().strftime('%H:%M:%S'))
 
 
-def create_project_id(path):
+def create_project_name(path):
     index = path.find('/') + 1
     if len(path) > 20:
         index += 7
@@ -60,8 +65,13 @@ def main():
     state_paths = get_xml_files_from_directory(state_directory)
     editor_paths = get_xml_files_from_directory(editor_directory)
     start_time = time.time()
+    '''tree = ET.parse(editor_paths[0])
+    root = tree.getroot()
+    xml_parser = EditorXMLParser(root, ['ProjectSettings', 'ChaosCloudSettings'], editor_paths[0])
+    dfs = xml_parser.extract_all_data_to_df("2")
+    print(dfs)'''
     process_xml_files(state_paths, root_names_state, StateXMLParser)
-    process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
+    # process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
     end_time = time.time()
     total_time = end_time - start_time
     print(f"All parsing processes are done time: {datetime.now().strftime('%H:%M:%S')}.")
@@ -70,4 +80,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    BaseXMLParser.delete_state_and_zone_table()
+    # BaseXMLParser.delete_state_and_zone_table()

@@ -55,7 +55,34 @@ class BaseXMLParser:
         specific_dataframes = self.handle_additional_data(project_id)
         dataframes.update(specific_dataframes)
         return dataframes
-
+    
+    def create_project_df(self,project_name):
+        project_df = pd.DataFrame(columns=['Project_ID', 'ProjectName'])
+        project_df['Project_ID'] = uuid.uuid4()
+        project_df['ProjectName'] = project_name
+        project_dict = {'Project': project_df}
+        print("Project df", project_df)
+        print(project_dict.items())
+        self.load_to_db(project_dict)
+    
+    @staticmethod
+    def projects_filter_method(project_name):
+        session = Session()
+        project_id = None
+        try:
+            Base = initializer()
+            project_table = getattr(Base.classes, 'Project')
+            query = session.query(project_table).filter(project_table.ProjectName == project_name)
+            result = query.first()
+            if result:
+                project_id = result.Project_ID
+        except Exception as e:
+            print(f"Exception occurred in projects_filter_method: {e}")
+            traceback.print_exc()
+        finally:
+            session.close()
+        return project_id
+    
     @staticmethod
     def delete_exist_tables():
         Base = initializer()
@@ -107,6 +134,8 @@ class BaseXMLParser:
         inspector = inspect(sql_engine)
 
         for table_name, df in dfs.items():
+            if table_name == 'Project':
+                print("Project is uploading..", datetime.now().strftime('%H:%M:%S'))
             if not df.empty:
                 try:
                     tables_in_db = inspector.get_table_names()
@@ -484,7 +513,7 @@ class NormalizerUtils:
             print(f"Exception occurred: {e}")
             # traceback.print_exc()
             return {}
-
+    
     @staticmethod
     def state_filter_method(assignments_list):
         session = Session()

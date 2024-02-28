@@ -12,9 +12,13 @@ def process_xml_files(xml_paths, root_names, parser_class):
         tree = ET.parse(path)
         root = tree.getroot()
         xml_parser = parser_class(root, root_names, path)
-        try:
+        '''try:
             project_id = BaseXMLParser.projects_filter_method(project_name)
         except Exception as e:
+            xml_parser.create_project_df(project_name)
+            project_id = BaseXMLParser.projects_filter_method(project_name)'''
+        project_id = BaseXMLParser.projects_filter_method(project_name)
+        if project_id is None:
             xml_parser.create_project_df(project_name)
             project_id = BaseXMLParser.projects_filter_method(project_name)
         dfs = xml_parser.extract_all_data_to_df(project_id)
@@ -71,7 +75,7 @@ def main():
     dfs = xml_parser.extract_all_data_to_df("2")
     print(dfs)'''
     process_xml_files(state_paths, root_names_state, StateXMLParser)
-    # process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
+    process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
     end_time = time.time()
     total_time = end_time - start_time
     print(f"All parsing processes are done time: {datetime.now().strftime('%H:%M:%S')}.")

@@ -56,31 +56,29 @@ class BaseXMLParser:
         dataframes.update(specific_dataframes)
         return dataframes
     
-    def create_project_df(self,project_name):
-        project_df = pd.DataFrame(columns=['Project_ID', 'ProjectName'])
-        project_df['Project_ID'] = uuid.uuid4()
-        project_df['ProjectName'] = project_name
-        project_dict = {'Project': project_df}
-        print("Project df", project_df)
-        print(project_dict.items())
-        self.load_to_db(project_dict)
+    def create_project_df(self, project_name):
+        existing_project_id = self.projects_filter_method(project_name)
+        if existing_project_id is None:
+            project_id = uuid.uuid4()
+            project_df = pd.DataFrame({'Project_ID': [project_id], 'ProjectName': [project_name]})
+            project_dict = {'Project': project_df}
+            self.load_to_db(project_dict)
+        else:
+            print(f"Project '{project_name}' already exists with Project_ID {existing_project_id}.")
     
     @staticmethod
     def projects_filter_method(project_name):
         session = Session()
         project_id = None
-        try:
-            Base = initializer()
+        Base = initializer()
+        meta_data = Base.metadata
+        if "public.Project" in meta_data.tables:
             project_table = getattr(Base.classes, 'Project')
             query = session.query(project_table).filter(project_table.ProjectName == project_name)
             result = query.first()
             if result:
                 project_id = result.Project_ID
-        except Exception as e:
-            print(f"Exception occurred in projects_filter_method: {e}")
-            traceback.print_exc()
-        finally:
-            session.close()
+        session.close()
         return project_id
     
     @staticmethod
@@ -220,7 +218,7 @@ class EditorXMLParser(BaseXMLParser):
         pass_data['PassType'] = pass_type
         pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None
         pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None
-        pass_data['RenderedMaxScenes'] = None
+        pass_data['RenderedScenes'] = None
         pass_data['Project_ID'] = project_id
         self.records_dicts.append(pass_data)
 
@@ -234,6 +232,12 @@ class EditorXMLParser(BaseXMLParser):
             max_scenes_ids.append('foe')
 
         return max_scenes_ids
+    
+    def create_jarvis_settings_df(self, project_id):
+        jarvis_settings_elements = ["Paints", "Trims", "Extras"]
+    
+    def process_jarvis_element(self, element, element_type):
+        description = descriptions
 
 
 class StateXMLParser(BaseXMLParser):
@@ -302,7 +306,7 @@ class StateXMLParser(BaseXMLParser):
 class NormalizerUtils:
     def __init__(self, render_pass_df):
         self.render_pass_df = render_pass_df
-        self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedMaxScenes', 'Exclude', 'Include']
+        self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedScenes', 'Exclude', 'Include']
         self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
                                   self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields}
@@ -345,13 +349,13 @@ class NormalizerUtils:
         elif field == 'Include':
             lookup_rows = [self.create_include_lookup(field, field_id, item) for item, field_id in
                            zip(items_not_in_map, field_ids)]
-        elif field == 'RenderedMaxScenes':
+        elif field == 'RenderedScenes':
             if not items_not_in_map:
                 default_item = 'DefaultMaxScenes'
                 default_id = str(uuid.uuid4())
-                lookup_rows = [self.create_render_max_scenes_lookup(field, default_id, default_item)]
+                lookup_rows = [self.create_rendered_scenes_lookup(field, default_id, default_item)]
             else:
-                lookup_rows = [self.create_render_max_scenes_lookup(field, field_id, item) for item, field_id in
+                lookup_rows = [self.create_rendered_scenes_lookup(field, field_id, item) for item, field_id in
                                zip(items_not_in_map, field_ids)]
         else:
             lookup_rows = [pd.DataFrame({f'{field}_ID': [field_id], f'{field}Names': [item], 'version': 1})
@@ -387,7 +391,7 @@ class NormalizerUtils:
                     'StateName': state_info['StateName'],
                     'State_ID': state_info['State_ID'],
                     'LayersNames': [item],
-                    'MaxScene_ID': [None],
+                    'Scene_ID': [None],
                     'Version': [1]
                 })
                 lookup_rows.append(new_row)
@@ -404,33 +408,33 @@ class NormalizerUtils:
     def create_lighting_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])
+                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1})
         return new_row
 
     def create_exclude_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])
+                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1})
         return new_row
 
     def create_include_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'MaxScene_ID', 'Version'])
+                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1})
         return new_row
 
-    def create_render_max_scenes_lookup(self, field, field_id, item):
+    def create_rendered_scenes_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', 'Department', 'MaxScene_ID', 'Version'])
+                columns=[f'{field}_ID', 'Department', 'Scene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], 'Department': [item], 'MaxScene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], 'Department': [item], 'Scene_ID': [None], 'Version': 1})
         return new_row
 
     def update_render_pass_table_with_references(self):
@@ -494,7 +498,7 @@ class NormalizerUtils:
             if table_name in meta_data.tables:
                 table_obj = getattr(Base.classes, table_name[7:])
                 session = Session()
-                if table_name == 'public.RenderedMaxScenes':
+                if table_name == 'public.RenderedScenes':
                     filter_column = 'Department'
                 else:
                     filter_column = f'{table_name[7:]}Names'

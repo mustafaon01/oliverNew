@@ -12,11 +12,6 @@ def process_xml_files(xml_paths, root_names, parser_class):
         tree = ET.parse(path)
         root = tree.getroot()
         xml_parser = parser_class(root, root_names, path)
-        '''try:
-            project_id = BaseXMLParser.projects_filter_method(project_name)
-        except Exception as e:
-            xml_parser.create_project_df(project_name)
-            project_id = BaseXMLParser.projects_filter_method(project_name)'''
         project_id = BaseXMLParser.projects_filter_method(project_name)
         if project_id is None:
             xml_parser.create_project_df(project_name)

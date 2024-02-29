@@ -174,6 +174,7 @@ class EditorXMLParser(BaseXMLParser):
         self.basepass_dicts = []
         self.optionpass_dicts = []
         self.records_dicts = []
+        self.descriptions_dict = {}
 
     def extract_data_to_df(self, tag_name, project_id):
         for record in self.root.findall('.//' + tag_name):
@@ -234,10 +235,31 @@ class EditorXMLParser(BaseXMLParser):
         return max_scenes_ids
     
     def create_jarvis_settings_df(self, project_id):
-        jarvis_settings_elements = ["Paints", "Trims", "Extras"]
-    
-    def process_jarvis_element(self, element, element_type):
-        description = descriptions
+        self.extract_descriptions()
+        self.process_jarvis_element('Paints', 'Paint', project_id)
+        self.process_jarvis_element('Trims', 'Trim', project_id)
+        self.process_jarvis_element('Extras', 'Extra', project_id)
+
+        # Bu örnek, her bir Jarvis ayarı türü için DataFrame'leri nasıl oluşturacağınızı göstermektedir.
+        # Gerekli tüm DataFrame'leri 'self.editor_dataframes' sözlüğünde toplayabilirsiniz.
+
+    def extract_descriptions(self):
+        for desc in self.root.findall('.//Description'):
+            self.descriptions_dict[desc.get('FeatureCode')] = desc.get('Description')
+
+    def process_jarvis_element(self, element_tag, element_type, project_id):
+        data = []
+        for element in self.root.findall('.//' + element_tag):
+            for item in element:
+                item_data = {
+                    'Type': element_type,
+                    'FeatureCode': item.get('FeatureCode'),
+                    'Description': self.descriptions_dict.get(item.get('FeatureCode'), None),
+                    'Project_ID': project_id
+                }
+                data.append(item_data)
+        df = pd.DataFrame(data)
+        self.editor_dataframes[element_type] = df
 
 
 class StateXMLParser(BaseXMLParser):

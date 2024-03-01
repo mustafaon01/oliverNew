@@ -29,9 +29,8 @@ def initializer():
 
 
 class BaseXMLParser:
-    def __init__(self, new_root, root_names, path):
+    def __init__(self, new_root, path):
         self.root = new_root
-        self.root_names = root_names
         self.path = path
         self.xml_data = []
 
@@ -49,9 +48,8 @@ class BaseXMLParser:
 
     def extract_all_data_to_df(self, project_id):
         dataframes = {}
-        for tag in self.root_names:
-            dataframes[tag] = self.extract_data_to_df(tag, project_id)
-
+        root_dataframes = self.extract_data_to_df(project_id)
+        dataframes.update(root_dataframes)
         specific_dataframes = self.handle_additional_data(project_id)
         dataframes.update(specific_dataframes)
         return dataframes
@@ -155,35 +153,98 @@ class BaseXMLParser:
                         primary_keys = inspector.get_pk_constraint(table_name)
                         pk_columns = primary_keys.get('constrained_columns', [])
 
-                        if not pk_columns and table_name not in self.root_names:
+                        if not pk_columns:
                             print(f"Adding primary key to 'public'.'{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
                         trans.commit()
                     except Exception as e:
+                        print("Primary Key Error is:", e)
                         trans.rollback()
             else:
                 continue
     
 
 class EditorXMLParser(BaseXMLParser):
-    def __init__(self, new_root, root_names, path):
-        super().__init__(new_root, root_names, path)
+    def __init__(self, new_root, path):
+        super().__init__(new_root, path)
         self.editor_dataframes = {}
         self.linkinrecords_dicts = []
         self.basepass_dicts = []
         self.optionpass_dicts = []
         self.records_dicts = []
-        self.descriptions_dict = {}
 
-    def extract_data_to_df(self, tag_name, project_id):
-        for record in self.root.findall('.//' + tag_name):
+    def extract_data_to_df(self, project_id):
+        root_dataframes = {}
+
+        root_dataframes.update(self.create_jarvis_settings_table(project_id))
+        root_dataframes.update(self.create_deadline_settings_table(project_id))
+        root_dataframes.update(self.create_chaos_cloud_settings_table(project_id))
+        root_dataframes.update(self.create_output_settings_table(project_id))
+        root_dataframes.update(self.crate_project_settings_table(project_id))
+
+        return root_dataframes
+
+    
+    def to_get_descriptions_data_as_dict(self):
+        descriptions_dict = {desc.get('FeatureCode'): desc.get('Description') for desc in self.root.findall('.//Descriptions/Description')}
+        return descriptions_dict
+    
+    def create_jarvis_settings_table(self, project_id):
+        descriptions_dict = self.to_get_descriptions_data_as_dict()
+        data = []
+        for category in ['Paints', 'Trims', 'Extras']:
+            for item in self.root.findall(f'.//{category}/{category[:-1]}'):
+                feature_code = item.get('FeatureCode')
+                description = descriptions_dict.get(feature_code, '')
+                data.append({
+                    'JarvisSettings_ID': uuid.uuid4(),
+                    'Project_ID': project_id,
+                    'FeatureCode': feature_code,
+                    'Type': category[:-1],
+                    'Description': description
+                })
+
+        jarvis_settigs_df = pd.DataFrame(data)
+
+        return {'JarvisSettings': jarvis_settigs_df}
+    
+    def create_deadline_settings_table(self, project_id):
+        for record in self.root.findall('.//DeadlineSettings'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
+            record_data['DeadlineSettings_ID'] = uuid.uuid4()
+            record_data['Project_ID'] = project_id  
+            deadline_settings_df = pd.DataFrame([record_data])
+
+        return {'DeadlineSettings': deadline_settings_df}
+    
+    def create_chaos_cloud_settings_table(self, project_id):
+        for record in self.root.findall('.//ChaosCloudSettings'):
+            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
+            record_data['ChaosCloudSettings_ID'] = uuid.uuid4()
             record_data['Project_ID'] = project_id
-            if tag_name == 'ProjectSettings':
-                record_data['Type'] = 'Editor'
-            self.xml_data.append(record_data)
-        return pd.DataFrame(self.xml_data)
+            chaos_cloud_settings_df = pd.DataFrame([record_data])
+
+        return {'ChaosCloudSettings': chaos_cloud_settings_df}
+    
+    def create_output_settings_table(self, project_id):
+        for record in self.root.findall('.//OutputSettings'):
+            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
+            record_data['OutputSettings_ID'] = uuid.uuid4()
+            record_data['Project_ID'] = project_id
+            output_settings_df = pd.DataFrame([record_data])
+
+        return {'OutputSettings': output_settings_df}
+    
+    def crate_project_settings_table(self, project_id):
+        for record in self.root.findall('.//ProjectSettings'):
+            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
+            record_data['ProjectSettings_ID'] = uuid.uuid4()
+            record_data['Project_ID'] = project_id
+            record_data['Type'] = 'Editor'
+            editor_project_settings_df = pd.DataFrame([record_data])
+
+        return {'ProjectSettings': editor_project_settings_df}
 
     def handle_additional_data(self, project_id):
         self.editor_dataframes = self.extract_passes_data_to_render_pass(project_id)
@@ -205,6 +266,7 @@ class EditorXMLParser(BaseXMLParser):
 
         render_pass_df = pd.DataFrame(self.records_dicts)
         linking_record_df = pd.DataFrame(self.linkinrecords_dicts)
+
         return {'RenderPass': render_pass_df,
                 'LinkingRecords': linking_record_df}
 
@@ -221,63 +283,49 @@ class EditorXMLParser(BaseXMLParser):
         pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None
         pass_data['RenderedScenes'] = None
         pass_data['Project_ID'] = project_id
+        ''' State_ID is added to pass_data ''' 
+        # TODO: If this line in comment, it takes a lot of time to upload data to database.
+        # pass_data['State_ID'] = self.state_filter_method(pass_data['State']) if 'State' in pass_data and pass_data['State'] else None
         self.records_dicts.append(pass_data)
-
-    def find_render_max_id(self):
-        max_scenes_ids = []
-        if 'pdm' in self.path:
-            max_scenes_ids.append('pdm')
-        if 'bnp' in self.path:
-            max_scenes_ids.append('bnp')
-        if 'foe' in self.path:
-            max_scenes_ids.append('foe')
-
-        return max_scenes_ids
     
-    def create_jarvis_settings_df(self, project_id):
-        self.extract_descriptions()
-        self.process_jarvis_element('Paints', 'Paint', project_id)
-        self.process_jarvis_element('Trims', 'Trim', project_id)
-        self.process_jarvis_element('Extras', 'Extra', project_id)
-
-        # Bu örnek, her bir Jarvis ayarı türü için DataFrame'leri nasıl oluşturacağınızı göstermektedir.
-        # Gerekli tüm DataFrame'leri 'self.editor_dataframes' sözlüğünde toplayabilirsiniz.
-
-    def extract_descriptions(self):
-        for desc in self.root.findall('.//Description'):
-            self.descriptions_dict[desc.get('FeatureCode')] = desc.get('Description')
-
-    def process_jarvis_element(self, element_tag, element_type, project_id):
-        data = []
-        for element in self.root.findall('.//' + element_tag):
-            for item in element:
-                item_data = {
-                    'Type': element_type,
-                    'FeatureCode': item.get('FeatureCode'),
-                    'Description': self.descriptions_dict.get(item.get('FeatureCode'), None),
-                    'Project_ID': project_id
-                }
-                data.append(item_data)
-        df = pd.DataFrame(data)
-        self.editor_dataframes[element_type] = df
+    @staticmethod
+    def state_filter_method(state_name):
+        session = Session()
+        state_id = None
+        Base = initializer()
+        meta_data = Base.metadata
+        if "public.State" in meta_data.tables:
+            project_table = getattr(Base.classes, 'State')
+            query = session.query(project_table).filter(project_table.Name == state_name)
+            result = query.first()
+            if result:
+                state_id = result.State_ID
+        session.close()
+        return state_id
 
 
 class StateXMLParser(BaseXMLParser):
-    def __init__(self, new_root, root_names, path):
-        super().__init__(new_root, root_names, path)
+    def __init__(self, new_root, path):
+        super().__init__(new_root, path)
         self.state_dataframes = {}
         self.states_settings_dict = []
         self.state_dict = []
         self.zone_dict = []
 
-    def extract_data_to_df(self, tag_name, project_id):
-        for record in self.root.findall('.//' + tag_name):
+    def extract_data_to_df(self, project_id):
+        root_dataframes = {}
+        root_dataframes.update(self.crate_project_settings_table(project_id))
+        return root_dataframes
+
+    def crate_project_settings_table(self, project_id):
+        for record in self.root.findall('.//ProjectSettings'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
+            record_data['ProjectSettings_ID'] = uuid.uuid4()
             record_data['Project_ID'] = project_id
-            if tag_name == 'ProjectSettings':
-                record_data['Type'] = 'State'
-            self.xml_data.append(record_data)
-        return pd.DataFrame(self.xml_data)
+            record_data['Type'] = 'State'
+            state_project_settings_df = pd.DataFrame([record_data])
+
+        return {'ProjectSettings': state_project_settings_df}
 
     def handle_additional_data(self, project_id):
         self.state_dataframes['StateSettings'], self.state_dataframes['State'], self.state_dataframes[
@@ -295,16 +343,15 @@ class StateXMLParser(BaseXMLParser):
             for state in state_setting.findall('.//State'):
                 state_data = {attr: state.get(attr).replace('\n', '') for attr in state.attrib}
                 if 'Layers' in state_data:
-                    item_list = state_data['Layers'].split(',')
-                    state_data['Layers'] = "(" + ', '.join(item for item in item_list) + ")"
-                    # state_data['Layers'] = item_list
+                    layers_data = [item for item in state_data['Layers'].split(',') if item]
+                    layers_str = ", ".join(layers_data)
+                    state_data['Layers'] = f"({layers_str})"
                 state_data['State_ID'] = uuid.uuid4()
                 state_data['StateSettings_ID'] = state_setting_data['StateSettings_ID']
                 state_data['Project_id'] = project_id
                 state_data['ZonesNames'] = []
                 state_data['MaterialNames'] = []
                 state_data['Assignments'] = []
-                # self.state_dict.append(state_data)
 
                 for zone in state.findall('.//Zone'):
                     zone_data = {attr: zone.get(attr).replace('\n', '') for attr in zone.attrib}

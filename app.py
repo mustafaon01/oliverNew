@@ -4,14 +4,14 @@ from datetime import datetime
 import time
 
 
-def process_xml_files(xml_paths, root_names, parser_class):
+def process_xml_files(xml_paths, parser_class):
     print(f"All parsing processes are started: {datetime.now().strftime('%H:%M:%S')}")
     for i, path in enumerate(xml_paths, start=1):
         print(f"PATH {i}->", path)
         project_name = create_project_name(path)
         tree = ET.parse(path)
         root = tree.getroot()
-        xml_parser = parser_class(root, root_names, path)
+        xml_parser = parser_class(root, path)
         project_id = BaseXMLParser.projects_filter_method(project_name)
         if project_id is None:
             xml_parser.create_project_df(project_name)
@@ -53,10 +53,7 @@ def main():
     editor_directory = 'EDITORS'
     state_directory = 'STATES'
 
-    root_names_editor = ['ProjectSettings', 'ChaosCloudSettings', 'DeadlineSettings', 'OutputSettings',
-                         'JARVISSettings']
-    root_names_state = ['ProjectSettings']
-    
+    ''' Print existing tables from database '''
     print("If there are any existing tables:")
     BaseXMLParser.print_exist_tables()
     ''' Delete exist tables from database '''
@@ -64,13 +61,8 @@ def main():
     state_paths = get_xml_files_from_directory(state_directory)
     editor_paths = get_xml_files_from_directory(editor_directory)
     start_time = time.time()
-    '''tree = ET.parse(editor_paths[0])
-    root = tree.getroot()
-    xml_parser = EditorXMLParser(root, ['ProjectSettings', 'ChaosCloudSettings'], editor_paths[0])
-    dfs = xml_parser.extract_all_data_to_df("2")
-    print(dfs)'''
-    process_xml_files(state_paths, root_names_state, StateXMLParser)
-    process_xml_files(editor_paths, root_names_editor, EditorXMLParser)
+    process_xml_files(state_paths, StateXMLParser)
+    process_xml_files(editor_paths, EditorXMLParser)
     end_time = time.time()
     total_time = end_time - start_time
     print(f"All parsing processes are done time: {datetime.now().strftime('%H:%M:%S')}.")
@@ -79,4 +71,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # BaseXMLParser.delete_state_and_zone_table()
+    BaseXMLParser.delete_state_and_zone_table()
+    

@@ -125,6 +125,20 @@ class BaseXMLParser:
                 print("State and Zone tables have been removed.")
             except Exception as e:
                 trans.rollback()
+    
+    @staticmethod
+    def modify_jarvis_settings_table():
+        Base = initializer()
+        meta_data = Base.metadata
+
+        with sql_engine.connect() as conn:
+            trans = conn.begin()
+            try:
+                if 'public.JarvisSettings' in meta_data.tables:
+                    conn.execute(text('DELETE From public."JarvisSettings" where "JarvisSettings_ID" in ( with a as (select "JarvisSettings_ID", row_number() over(partition by "Project_ID","FeatureCode" order by "Type" desc) queue from public."JarvisSettings")select "JarvisSettings_ID" from a where queue <> 1)'))
+                    trans.commit()
+            except Exception as e:
+                trans.rollback()
 
     def load_to_db(self, dfs):
         inspector = inspect(sql_engine)
@@ -193,7 +207,7 @@ class EditorXMLParser(BaseXMLParser):
     def create_jarvis_settings_table(self, project_id):
         descriptions_dict = self.to_get_descriptions_data_as_dict()
         data = []
-        for category in ['Paints', 'Trims', 'Extras']:
+        for category in ['Paints', 'Trims', 'Extras', 'Descriptions']:
             for item in self.root.findall(f'.//{category}/{category[:-1]}'):
                 feature_code = item.get('FeatureCode')
                 description = descriptions_dict.get(feature_code, '')
@@ -383,7 +397,6 @@ class NormalizerUtils:
 
     def extract_shared_fields(self):
         for field in self.shared_fields:
-            print(f"Normalization start for field: {field} time: {datetime.now().strftime('%H:%M:%S')}")
             if field in self.render_pass_df.columns:
                 unique_items = self.render_pass_df[field].dropna().unique().tolist()
                 value_id_map = self.filter_method(field, unique_items)
@@ -398,8 +411,6 @@ class NormalizerUtils:
                     elif str(item) in items_not_in_map:
                         index = items_not_in_map.index(str(item))
                         self.field_id_maps[field][str(item)] = field_ids[index]
-
-            print(f"Normalization end for field: {field} time: {datetime.now().strftime('%H:%M:%S')}")
 
     def make_lookup_tables(self, field, items_not_in_map, field_ids):
         if field == 'Zones':

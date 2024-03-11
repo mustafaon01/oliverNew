@@ -118,7 +118,7 @@ class BaseXMLParser:
             trans = conn.begin()
             try:
                 for table_name in meta_data.tables:
-                    if table_name in ['public.State', 'public.Zone']:
+                    if table_name in ['public.State', 'public.Zone', 'public.StateSettings']:
                         print(f'Removing {table_name};')
                         conn.execute(text(f'DROP TABLE IF EXISTS "public"."{table_name[7:]}";'))
                 trans.commit()
@@ -167,7 +167,7 @@ class BaseXMLParser:
                         primary_keys = inspector.get_pk_constraint(table_name)
                         pk_columns = primary_keys.get('constrained_columns', [])
 
-                        if not pk_columns:
+                        if not pk_columns and table_name != 'ChaosCloudSettings':
                             print(f"Adding primary key to 'public'.'{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
@@ -227,7 +227,8 @@ class EditorXMLParser(BaseXMLParser):
         for record in self.root.findall('.//DeadlineSettings'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
             record_data['DeadlineSettings_ID'] = uuid.uuid4()
-            record_data['Project_ID'] = project_id  
+            ''' Take project name from DeadlineSettings '''
+            # record_data['Project_ID'] = project_id  
             deadline_settings_df = pd.DataFrame([record_data])
 
         return {'DeadlineSettings': deadline_settings_df}
@@ -235,7 +236,8 @@ class EditorXMLParser(BaseXMLParser):
     def create_chaos_cloud_settings_table(self, project_id):
         for record in self.root.findall('.//ChaosCloudSettings'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data['ChaosCloudSettings_ID'] = uuid.uuid4()
+            ''' ChaosCloudSettings is null in the xml files. '''
+            record_data['ChaosCloudSettings_ID'] = null # TODO: When it is not null add uuid.uuid4()
             record_data['Project_ID'] = project_id
             chaos_cloud_settings_df = pd.DataFrame([record_data])
 
@@ -496,17 +498,17 @@ class NormalizerUtils:
     def create_exclude_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version'])
+                columns=[f'Option{field}_ID', f'{field}Name', 'Scene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1})
+            {f'Option{field}_ID': [field_id], f'{field}Name': [item], 'Scene_ID': [None], 'Version': 1})
         return new_row
 
     def create_include_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version'])
+                columns=[f'Option{field}_ID', f'{field}Name', 'Scene_ID', 'Version'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1})
+            {f'Option{field}_ID': [field_id], f'{field}Name': [item], 'Scene_ID': [None], 'Version': 1})
         return new_row
 
     def create_rendered_scenes_lookup(self, field, field_id, item):
@@ -553,12 +555,21 @@ class NormalizerUtils:
             if valid_dfs:
                 accumulated_df = pd.concat(valid_dfs, ignore_index=True)
                 if field in self.shared_fields_dfs and not self.shared_fields_dfs[field].empty:
-                    self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
+                    if field in ['Exclude', 'Include']:
+                        self.shared_fields_dfs[f'Option{field}'] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
+                                                              ignore_index=True)
+                    else:
+                        self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
                                                               ignore_index=True)
                 else:
-                    self.shared_fields_dfs[field] = accumulated_df
+                    if field in ['Exclude', 'Include']:
+                        self.shared_fields_dfs[f'Option{field}'] = accumulated_df
+                    else:
+                        self.shared_fields_dfs[field] = accumulated_df
             else:
                 if field not in self.shared_fields_dfs or self.shared_fields_dfs[field].empty:
+                    if field in ['Exclude', 'Include']:
+                        self.shared_fields_dfs[f'Option{field}'] = pd.DataFrame()    
                     self.shared_fields_dfs[field] = pd.DataFrame()
 
     def normalize_data(self):
@@ -580,6 +591,8 @@ class NormalizerUtils:
                 session = Session()
                 if table_name == 'public.RenderedScenes':
                     filter_column = 'Department'
+                elif table_name in ['public.OptionExclude', 'public.OptionInclude']:
+                    filter_column = f'{table_name[7:]}Name'
                 else:
                     filter_column = f'{table_name[7:]}Names'
                 column_to_filter = getattr(table_obj, filter_column)

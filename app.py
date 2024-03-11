@@ -71,6 +71,8 @@ def main():
 
 if __name__ == '__main__':
     main()
+    ''' Remove "State", "Zone", "StateSettings" tables from database '''
     BaseXMLParser.delete_state_and_zone_table()
-    BaseXMLParser.modify_jarvis_settings_table()
+    ''' Remove "Description" from jarvis_settings table '''
+    # BaseXMLParser.modify_jarvis_settings_table()
     

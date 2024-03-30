@@ -1,6 +1,6 @@
 .env
-.env-dev
-.env-prod
+.prod-env
+.dev-env
 .DS_Store
 .idea
 __pycache__

@@ -10,7 +10,7 @@ import uuid
 import os
 import traceback
 
-load_dotenv()
+load_dotenv(override=True, dotenv_path='.prod-env')
 DB_HOST = os.getenv('DB_HOST')
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
@@ -24,7 +24,7 @@ Session = sessionmaker(bind=sql_engine)
 
 def initializer():
     Base = automap_base()
-    Base.prepare(sql_engine, reflect=True, schema='public')
+    Base.prepare(autoload_with=sql_engine, schema='public')
     return Base
 
 
@@ -237,7 +237,7 @@ class EditorXMLParser(BaseXMLParser):
         for record in self.root.findall('.//ChaosCloudSettings'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
             ''' ChaosCloudSettings is null in the xml files. '''
-            record_data['ChaosCloudSettings_ID'] = null # TODO: When it is not null add uuid.uuid4()
+            record_data['ChaosCloudSettings_ID'] = None # TODO: When it is not null add uuid.uuid4()
             record_data['Project_ID'] = project_id
             chaos_cloud_settings_df = pd.DataFrame([record_data])
 
@@ -540,11 +540,14 @@ class NormalizerUtils:
         for item in columns:
             if item in self.render_pass_df.columns:
                 self.render_pass_df.drop(item, axis=1, inplace=True)
+                
+        ''' Change the column name from State to BaseState in the RenderPass Table '''
+        self.render_pass_df.rename(columns={'State': 'BaseState'}, inplace=True)
         self.render_pass_df['FeatureCodeCurrent_ID'] = None
         self.render_pass_df['LayerCurrent_ID'] = None
         self.render_pass_df['LightingCurrent_ID'] = None
         self.render_pass_df['ZoneCurrent_ID'] = None
-        self.render_pass_df['RenderedMaxSceneCurrent_ID'] = None
+        self.render_pass_df['RenderedScenesCurrent_ID'] = None
         self.render_pass_df['ExcludeCurrent_ID'] = None
         self.render_pass_df['IncludeCurrent_ID'] = None
 

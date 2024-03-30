@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 
 import os
 
-''' load env variables from .env file to use in the code '''
-load_dotenv()
+''' 
+load env variables from .env file to use in the code 
+'''
+load_dotenv(override=True, dotenv_path='.dev-env')
 
 ''' get env variables to connect to the database '''
 DB_HOST = os.getenv('DB_HOST')
@@ -15,7 +17,9 @@ DB_USER = os.getenv('DB_USER')
 DB_PWD = os.getenv('DB_PWD')
 DB_PORT = os.getenv('DB_PORT')
 
-''' create the engine url to connect to the database '''
+''' 
+create the engine url to connect to the database
+'''
 engine_url = f'postgresql://{DB_USER}:{DB_PWD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
 
@@ -33,10 +37,12 @@ class PostgresConnect:
         self.Base = self.initialize_base()
         self.Session = sessionmaker(bind=self.sql_engine)
 
-    ''' initialize the base object to use in the code '''
+    ''' 
+    initialize the base object to use in the code 
+    '''
     def initialize_base(self):
         Base = automap_base()
-        Base.prepare(self.sql_engine, reflect=True, schema='public')
+        Base.prepare(autoload_with=self.sql_engine, schema='public')
         self.apply_mixin(Base)
         return Base
     

@@ -23,6 +23,7 @@ This project is designed to streamline the process of parsing XML files, loading
 - Database Management: The application includes methods for managing the database schema, such as creating or dropping tables, reflecting existing tables, and modifying table structures to accommodate the parsed data. This functionality allows for dynamic schema management, adapting to changes in the data or requirements over time.
 
 ## Highlights
+
 - Dynamic Database Schema Management: Utilizes SQLAlchemy's reflection capabilities to dynamically interact with the database, allowing the application to adapt to changes in the database schema without requiring manual updates to the code.
 
 - Modular Design: The application's architecture is highly modular, with separate classes handling different aspects of the XML parsing and data management process. This design makes it easy to extend the application to support new XML structures or database schemas.

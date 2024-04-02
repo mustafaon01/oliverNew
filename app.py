@@ -95,4 +95,6 @@ if __name__ == '__main__':
     BaseXMLParser.delete_state_and_zone_table()
     ''' Remove "Description" from jarvis_settings table '''
     # BaseXMLParser.modify_jarvis_settings_table() # If you want to remove description column from jarvis_settings table
+
+    BaseXMLParser.update_project_names_with_deadline_outputs()
     

@@ -8,7 +8,7 @@ import os
 ''' 
 load env variables from .env file to use in the code 
 '''
-load_dotenv(override=True, dotenv_path='.dev-env')
+load_dotenv(override=True, dotenv_path='.env')
 
 ''' get env variables to connect to the database '''
 DB_HOST = os.getenv('DB_HOST')

@@ -13,7 +13,7 @@ import traceback
 """
 Load environment variables from the specific .env file.
 """
-load_dotenv(override=True, dotenv_path='.prod-env')
+load_dotenv(override=True, dotenv_path='.env')
 
 """
 Retrieve database connection settings from environment variables.
@@ -116,6 +116,26 @@ class BaseXMLParser:
                 project_id = result.Project_ID
         session.close()
         return project_id
+    
+    @staticmethod
+    def update_project_names_with_deadline_outputs():
+        Base = initializer()
+        session = Session()
+
+        Project = Base.classes.Project
+        DeadlineSettings = Base.classes.DeadlineSettings
+        projects_with_deadlines = session.query(Project, DeadlineSettings).join(DeadlineSettings, Project.Project_ID == DeadlineSettings.Project_ID).all()
+
+        for project, deadline in projects_with_deadlines:
+            project.ProjectName = deadline.Output
+
+        try:
+            session.commit()
+        except Exception as e:
+            session.rollback()
+        finally:
+            session.close()
+
 
 
 

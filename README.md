@@ -1,16 +1,17 @@
-# Overview
+# 'XML_parser.py'
+## Overview
 This project is designed to streamline the process of parsing XML files, loading the parsed data into a database, and normalizing the database tables according to specific requirements. By automating these tasks, the project aims to save time and reduce errors in data handling and database management.
 
-# Components
+## Components
 
-## Core Components ##
+### Core Components ###
 - BaseXMLParser: Serves as the abstract base class for specific XML parser implementations. It establishes a common interface for all parsers, requiring the implementation of methods for data extraction and handling. This class also includes utility methods for database interactions, such as loading data into the database and managing database tables.
 
 - EditorXMLParser and StateXMLParser: These classes extend BaseXMLParser, providing specific implementations for parsing different types of XML files. They override abstract methods to extract and process data unique to their respective XML structures, demonstrating the application's modularity and ability to adapt to various data formats.
 
 - NormalizerUtils: A utility class designed to normalize data, ensuring that the database schema is optimized for efficient queries. It processes DataFrame objects to identify shared fields across different data tables, creating a normalized structure that eliminates redundancies and improves data integrity.
 
-## Data Flow ##
+### Data Flow ###
 - Initialization: The application initializes by setting up the database connection through SQLAlchemy and preparing the database schema for data loading. It employs the automap_base function to dynamically reflect the current state of the database schema, allowing for a flexible and adaptable architecture.
 
 - XML Parsing: Upon receiving XML files, the application utilizes xml.etree.ElementTree for parsing. The EditorXMLParser and StateXMLParser classes handle specific XML structures, extracting data and converting it into Pandas DataFrame objects for easier manipulation and analysis.
@@ -29,7 +30,8 @@ This project is designed to streamline the process of parsing XML files, loading
 - Efficient Data Handling: Combines the power of SQLAlchemy for database operations with Pandas for data manipulation, creating a highly efficient pipeline for processing and managing XML data.
 
 
-# Usage for 'XML_parser.py'
+## Usage
+
 ```sh 
 git clone (git repo link)
 ```
@@ -46,12 +48,13 @@ pip install -r requirements.txt
 cd python app.py 
 ```
 
-# Usage for 'postgres_connect.py'
+# 'postgres_connect.py'
 
 ## Overview
 This utility script, facilitates seamless interaction with a PostgreSQL database. It leverages SQLAlchemy for database connection and operations, automating tasks such as table reflection, data retrieval, insertion, deletion, and more. The script is structured to enhance ease of use, with functionality encapsulated within a PostgresConnect class. Features include dynamic table access, data conversion to dictionaries for easy manipulation, and utility functions to simplify common database operations.
 
 ## Features
+- Dynamic Parameter Handling with **kwargs: Functions in the script use **kwargs to accept an arbitrary number of keyword arguments, making the utility highly adaptable to various database operations without needing method signature changes.
 - Automated Table Reflection: Dynamically reflects the database schema to access and interact with tables as Python objects.
 - Data Manipulation: Supports essential CRUD (Create, Read, Update, Delete) operations, making database management straightforward and efficient.
 - Mixin Utility: Includes a ToDictMixin mixin for converting SQLAlchemy model instances into dictionaries, facilitating easier data handling and manipulation.

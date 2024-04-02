@@ -103,6 +103,23 @@ class BaseXMLParser:
             print(f"Project '{project_name}' already exists with Project_ID {existing_project_id}.")
     
     @staticmethod
+    def projects_filter_method(project_name):
+        session = Session()
+        project_id = None
+        Base = initializer()
+        meta_data = Base.metadata
+        if "public.Project" in meta_data.tables:
+            project_table = getattr(Base.classes, 'Project')
+            query = session.query(project_table).filter(project_table.ProjectName == project_name)
+            result = query.first()
+            if result:
+                project_id = result.Project_ID
+        session.close()
+        return project_id
+
+
+
+    @staticmethod
     def delete_exist_tables():
         """
         Deletes all existing tables from the database before starting the script.
@@ -241,7 +258,7 @@ class EditorXMLParser(BaseXMLParser):
         root_names = ['DeadlineSettings', 'ChaosCloudSettings', 'OutputSettings', 'ProjectSettings']
         root_dataframes = {}
         for root_name in root_names:
-            root_dataframes.update(self.create_root_df(root_name, project_id))
+            root_dataframes.update(self.create_root_df(project_id, root_name))
         
         root_dataframes.update(self.create_jarvis_settings_table(project_id))
 
@@ -254,13 +271,15 @@ class EditorXMLParser(BaseXMLParser):
         :param root_name: The name of the root element.
         :return: A dictionary containing the DataFrame for the root element.
         """
+        root_df = pd.DataFrame()
         for record in self.root.findall(f'.//{root_name}'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
             record_data[f'{root_name}_ID'] = uuid.uuid4() if root_name != 'ChaosCloudSettings' else None
             record_data['Project_ID'] = project_id
             if root_name == 'ProjectSettings':
                 record_data['Type'] = 'Editor'
-            root_df = pd.DataFrame([record_data])
+            current_df = pd.DataFrame([record_data])
+            root_df = pd.concat([root_df, current_df], ignore_index=True)
 
         return {root_name: root_df}
 

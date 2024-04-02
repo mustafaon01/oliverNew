@@ -10,26 +10,53 @@ import uuid
 import os
 import traceback
 
+"""
+Load environment variables from the specific .env file.
+"""
 load_dotenv(override=True, dotenv_path='.prod-env')
+
+"""
+Retrieve database connection settings from environment variables.
+"""
 DB_HOST = os.getenv('DB_HOST')
 DB_NAME = os.getenv('DB_NAME')
 DB_USER = os.getenv('DB_USER')
 DB_PWD = os.getenv('DB_PWD')
 DB_PORT = os.getenv('DB_PORT')
 
+"""
+Construct the database engine URL and initialize the SQLAlchemy engine.
+"""
 engine_url = f'postgresql://{DB_USER}:{DB_PWD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 sql_engine = create_engine(engine_url, pool_size=10, max_overflow=20, pool_timeout=30)
 Session = sessionmaker(bind=sql_engine)
 
 
 def initializer():
+    """
+    Initializes and returns the automap base class for reflecting database tables.
+    """
     Base = automap_base()
     Base.prepare(autoload_with=sql_engine, schema='public')
     return Base
 
 
 class BaseXMLParser:
+    """
+    An abstract base class for XML parsing that provides methods for extracting data,
+    managing database operations, and handling project-specific logic.
+
+    This class is designed to be subclassed with implementations for the abstract methods
+    that define how XML data is extracted and processed.
+    """
+
     def __init__(self, new_root, path):
+        """
+        Initializes the XML parser with a given root and file path.
+        
+        :param new_root: The root element of the XML document.
+        :param path: The file path to the XML document.
+        """
         self.root = new_root
         self.path = path
         self.xml_data = []
@@ -47,6 +74,12 @@ class BaseXMLParser:
         pass
 
     def extract_all_data_to_df(self, project_id):
+        """
+        Extracts all relevant data for a given project ID into a collection of DataFrames.
+        
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary of DataFrames containing extracted data.
+        """
         dataframes = {}
         root_dataframes = self.extract_data_to_df(project_id)
         dataframes.update(root_dataframes)
@@ -55,6 +88,11 @@ class BaseXMLParser:
         return dataframes
     
     def create_project_df(self, project_name):
+        """
+        Creates a DataFrame for a new project and loads it into the database, if the project does not already exist.
+        
+        :param project_name: The name of the project to create.
+        """
         existing_project_id = self.projects_filter_method(project_name)
         if existing_project_id is None:
             project_id = uuid.uuid4()
@@ -65,24 +103,12 @@ class BaseXMLParser:
             print(f"Project '{project_name}' already exists with Project_ID {existing_project_id}.")
     
     @staticmethod
-    def projects_filter_method(project_name):
-        session = Session()
-        project_id = None
-        Base = initializer()
-        meta_data = Base.metadata
-        if "public.Project" in meta_data.tables:
-            project_table = getattr(Base.classes, 'Project')
-            query = session.query(project_table).filter(project_table.ProjectName == project_name)
-            result = query.first()
-            if result:
-                project_id = result.Project_ID
-        session.close()
-        return project_id
-    
-    @staticmethod
     def delete_exist_tables():
-        Base = initializer()
-        meta_data = Base.metadata
+        """
+        Deletes all existing tables from the database before starting the script.
+        """
+        Base = initializer() # Initialize the automap base class
+        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -97,8 +123,11 @@ class BaseXMLParser:
 
     @staticmethod
     def print_exist_tables():
-        Base = initializer()
-        meta_data = Base.metadata
+        """
+        Prints the names of all existing tables in the database.
+        """
+        Base = initializer() # Initialize the automap base class
+        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -111,8 +140,11 @@ class BaseXMLParser:
     
     @staticmethod
     def delete_state_and_zone_table():
-        Base = initializer()
-        meta_data = Base.metadata
+        """
+        Deletes the 'State', 'Zone' and 'StateSettings' tables from the database.
+        """
+        Base = initializer() # Initialize the automap base class
+        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -128,8 +160,11 @@ class BaseXMLParser:
     
     @staticmethod
     def modify_jarvis_settings_table():
-        Base = initializer()
-        meta_data = Base.metadata
+        """
+        Deletes the 'Description' column from the 'JarvisSettings' table using specific SQL query.
+        """
+        Base = initializer() # Initialize the automap base class
+        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -141,11 +176,12 @@ class BaseXMLParser:
                 trans.rollback()
 
     def load_to_db(self, dfs):
-        inspector = inspect(sql_engine)
+        """
+        Loads a collection of DataFrames into the database, creating tables if they do not already exist.
+        """
+        inspector = inspect(sql_engine) # Retrieve the inspector object for inspecting the database
 
         for table_name, df in dfs.items():
-            if table_name == 'Project':
-                print("Project is uploading..", datetime.now().strftime('%H:%M:%S'))
             if not df.empty:
                 try:
                     tables_in_db = inspector.get_table_names()
@@ -180,7 +216,15 @@ class BaseXMLParser:
     
 
 class EditorXMLParser(BaseXMLParser):
+    """
+    EditorXMLParser is a subclass of BaseXMLParser that provides methods for extracting 'Editor XML' data
+    """
     def __init__(self, new_root, path):
+        """
+        Initializes the EditorXMLParser with a given root and file path.
+        :param new_root: The root element of the XML document.
+        :param path: The file path to the XML document.
+        """
         super().__init__(new_root, path)
         self.editor_dataframes = {}
         self.linkinrecords_dicts = []
@@ -189,22 +233,52 @@ class EditorXMLParser(BaseXMLParser):
         self.records_dicts = []
 
     def extract_data_to_df(self, project_id):
+        """
+        Extracts data from the XML document to DataFrames for the 'Editor' specific subcategories.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary of DataFrames containing extracted data.
+        """
+        root_names = ['DeadlineSettings', 'ChaosCloudSettings', 'OutputSettings', 'ProjectSettings']
         root_dataframes = {}
-
+        for root_name in root_names:
+            root_dataframes.update(self.create_root_df(root_name, project_id))
+        
         root_dataframes.update(self.create_jarvis_settings_table(project_id))
-        root_dataframes.update(self.create_deadline_settings_table(project_id))
-        root_dataframes.update(self.create_chaos_cloud_settings_table(project_id))
-        root_dataframes.update(self.create_output_settings_table(project_id))
-        root_dataframes.update(self.crate_project_settings_table(project_id))
 
         return root_dataframes
+    
+    def create_root_df(self, project_id, root_name):
+        """
+        Creates a DataFrame for the root element of the XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :param root_name: The name of the root element.
+        :return: A dictionary containing the DataFrame for the root element.
+        """
+        for record in self.root.findall(f'.//{root_name}'):
+            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
+            record_data[f'{root_name}_ID'] = uuid.uuid4() if root_name != 'ChaosCloudSettings' else None
+            record_data['Project_ID'] = project_id
+            if root_name == 'ProjectSettings':
+                record_data['Type'] = 'Editor'
+            root_df = pd.DataFrame([record_data])
+
+        return {root_name: root_df}
 
     
     def to_get_descriptions_data_as_dict(self):
+        """ 
+        Extracts the 'FeatureCode' and 'Description' data from the XML document as a dictionary.
+        :return: A dictionary of 'FeatureCode' and 'Description' data.
+        """
         descriptions_dict = {desc.get('FeatureCode'): desc.get('Description') for desc in self.root.findall('.//Descriptions/Description')}
         return descriptions_dict
     
     def create_jarvis_settings_table(self, project_id):
+        """
+        Creates a DataFrame for the 'JarvisSettings' table from the XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary containing the 'JarvisSettings' DataFrame.
+        """
         descriptions_dict = self.to_get_descriptions_data_as_dict()
         data = []
         for category in ['Paints', 'Trims', 'Extras', 'Descriptions']:
@@ -222,51 +296,22 @@ class EditorXMLParser(BaseXMLParser):
         jarvis_settigs_df = pd.DataFrame(data)
 
         return {'JarvisSettings': jarvis_settigs_df}
-    
-    def create_deadline_settings_table(self, project_id):
-        for record in self.root.findall('.//DeadlineSettings'):
-            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data['DeadlineSettings_ID'] = uuid.uuid4()
-            ''' Take project name from DeadlineSettings '''
-            # record_data['Project_ID'] = project_id  
-            deadline_settings_df = pd.DataFrame([record_data])
-
-        return {'DeadlineSettings': deadline_settings_df}
-    
-    def create_chaos_cloud_settings_table(self, project_id):
-        for record in self.root.findall('.//ChaosCloudSettings'):
-            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            ''' ChaosCloudSettings is null in the xml files. '''
-            record_data['ChaosCloudSettings_ID'] = None # TODO: When it is not null add uuid.uuid4()
-            record_data['Project_ID'] = project_id
-            chaos_cloud_settings_df = pd.DataFrame([record_data])
-
-        return {'ChaosCloudSettings': chaos_cloud_settings_df}
-    
-    def create_output_settings_table(self, project_id):
-        for record in self.root.findall('.//OutputSettings'):
-            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data['OutputSettings_ID'] = uuid.uuid4()
-            record_data['Project_ID'] = project_id
-            output_settings_df = pd.DataFrame([record_data])
-
-        return {'OutputSettings': output_settings_df}
-    
-    def crate_project_settings_table(self, project_id):
-        for record in self.root.findall('.//ProjectSettings'):
-            record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data['ProjectSettings_ID'] = uuid.uuid4()
-            record_data['Project_ID'] = project_id
-            record_data['Type'] = 'Editor'
-            editor_project_settings_df = pd.DataFrame([record_data])
-
-        return {'ProjectSettings': editor_project_settings_df}
 
     def handle_additional_data(self, project_id):
+        """
+        Handles additional data extraction for the 'Editor' XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary of DataFrames containing extracted data.
+        """
         self.editor_dataframes = self.extract_passes_data_to_render_pass(project_id)
         return self.editor_dataframes
 
     def extract_passes_data_to_render_pass(self, project_id):
+        """
+        Extracts data for 'RenderPass' and 'LinkingRecords' from the XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary of DataFrames containing extracted data.
+        """
         for linking_record in self.root.findall('.//linkingrecord'):
             linking_record_data = {attr: linking_record.get(attr).replace('\n', '') for attr in linking_record.attrib}
             linking_record_id = uuid.uuid4()
@@ -287,25 +332,37 @@ class EditorXMLParser(BaseXMLParser):
                 'LinkingRecords': linking_record_df}
 
     def process_pass(self, pass_element, pass_type, pass_id, parent_id, project_id):
+        """
+        Processes a 'BasePass' or 'OptionPass' element from the XML document.
+        :param pass_element: The XML element representing the pass.
+        :param pass_type: The type of pass ('BasePass' or 'OptionPass').
+        :param pass_id: The ID of the pass.
+        :param parent_id: The ID of the parent pass.
+        :param project_id: The ID of the project.
+        """
         pass_data = {attr: pass_element.get(attr).replace('\n', ',') for attr in pass_element.attrib}
         fields_to_process = ['Layers', 'FeatureCodes', 'Lighting', 'Zones']
         for field in fields_to_process:
             if field in pass_data:
-                items_list = [item for item in pass_data[field].split(',') if item]
-                pass_data[field] = "(" + ', '.join(item for item in items_list) + ")"
+                items_list = [item for item in pass_data[field].split(',') if item] # Split string by comma
+                pass_data[field] = "(" + ', '.join(item for item in items_list) + ")" # Convert list to string
         pass_data['RenderPass_ID'] = str(pass_id)
         pass_data['PassType'] = pass_type
-        pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None
-        pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None
+        pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None # Set BasePass_ID if OptionPass
+        pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None # Set LinkingRecord_ID if BasePass
         pass_data['RenderedScenes'] = None
         pass_data['Project_ID'] = project_id
         ''' State_ID is added to pass_data ''' 
         # TODO: If this line in comment, it takes a lot of time to upload data to database.
         # pass_data['State_ID'] = self.state_filter_method(pass_data['State']) if 'State' in pass_data and pass_data['State'] else None
-        self.records_dicts.append(pass_data)
+        self.records_dicts.append(pass_data) # Append pass data to records_dicts list
     
     @staticmethod
     def state_filter_method(state_name):
+        """
+        Filters the 'State' table by name and returns the corresponding State_ID.
+        :param state_name: The name of the state to filter.
+        :return: The ID of the state if found, otherwise None."""
         session = Session()
         state_id = None
         Base = initializer()
@@ -321,7 +378,14 @@ class EditorXMLParser(BaseXMLParser):
 
 
 class StateXMLParser(BaseXMLParser):
+    """
+    StateXMLParser is a subclass of BaseXMLParser that provides methods for extracting 'State XML' data
+    """
     def __init__(self, new_root, path):
+        """
+        Initializes the StateXMLParser with a given root and file path.
+        :param new_root: The root element of the XML document.
+        :param path: The file path to the XML document."""
         super().__init__(new_root, path)
         self.state_dataframes = {}
         self.states_settings_dict = []
@@ -329,11 +393,21 @@ class StateXMLParser(BaseXMLParser):
         self.zone_dict = []
 
     def extract_data_to_df(self, project_id):
+        """
+        Extracts data from the XML document to DataFrames for the 'State' specific subcategories(StateSettings).
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary of DataFrames containing extracted data.
+        """
         root_dataframes = {}
         root_dataframes.update(self.crate_project_settings_table(project_id))
         return root_dataframes
 
     def crate_project_settings_table(self, project_id):
+        """
+        Creates a DataFrame for the 'ProjectSettings' table from the XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary containing the 'ProjectSettings' DataFrame.
+        """
         for record in self.root.findall('.//ProjectSettings'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
             record_data['ProjectSettings_ID'] = uuid.uuid4()
@@ -344,11 +418,21 @@ class StateXMLParser(BaseXMLParser):
         return {'ProjectSettings': state_project_settings_df}
 
     def handle_additional_data(self, project_id):
+        """
+        Handles additional data(State and StateSettings) extraction for the 'State' XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A dictionary of DataFrames containing extracted data.
+        """
         self.state_dataframes['StateSettings'], self.state_dataframes['State'], self.state_dataframes[
             'Zone'] = self.extract_root_data_to_df(project_id)
         return self.state_dataframes
 
     def extract_root_data_to_df(self, project_id):
+        """
+        Extracts data for 'StateSettings', 'State' and 'Zone' from the XML document.
+        :param project_id: The ID of the project for which data is being extracted.
+        :return: A tuple of DataFrames containing extracted data.
+        """
 
         for state_setting in self.root.findall('.//StatesSettings'):
             state_setting_data = {attr: state_setting.get(attr).replace('\n', '') for attr in state_setting.attrib}
@@ -395,7 +479,7 @@ class NormalizerUtils:
         self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
                                   self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields}
-        self.accumulated_new_rows = {field: [] for field in self.shared_fields}
+        self.accumulated_new_rows = {field: [] for field in self.shared_fields} 
 
     def extract_shared_fields(self):
         for field in self.shared_fields:

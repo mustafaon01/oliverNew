@@ -473,7 +473,14 @@ class StateXMLParser(BaseXMLParser):
 
 
 class NormalizerUtils:
+    """
+    A utility class for normalizing data extracted from XML documents.
+    """
     def __init__(self, render_pass_df):
+        """
+        Initializes the NormalizerUtils with a DataFrame containing extracted render pass data.
+        :param render_pass_df: The DataFrame containing render pass data to normalize.
+        """
         self.render_pass_df = render_pass_df
         self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedScenes', 'Exclude', 'Include']
         self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
@@ -482,6 +489,9 @@ class NormalizerUtils:
         self.accumulated_new_rows = {field: [] for field in self.shared_fields} 
 
     def extract_shared_fields(self):
+        """
+        Extracts shared fields from the render pass data and creates lookup tables.
+        """
         for field in self.shared_fields:
             if field in self.render_pass_df.columns:
                 unique_items = self.render_pass_df[field].dropna().unique().tolist()
@@ -499,6 +509,12 @@ class NormalizerUtils:
                         self.field_id_maps[field][str(item)] = field_ids[index]
 
     def make_lookup_tables(self, field, items_not_in_map, field_ids):
+        """
+        Creates lookup tables for shared fields that are not already in the database.
+        :param field: The name of the field to create a lookup table for.
+        :param items_not_in_map: A list of items not already in the database.
+        :param field_ids: A list of IDs for the items not already in the database.
+        """
         if field == 'Zones':
             lookup_rows = self.create_zones_lookup(field, items_not_in_map, field_ids)
         elif field == 'Layers':
@@ -529,6 +545,13 @@ class NormalizerUtils:
         self.accumulated_new_rows[field].extend(lookup_rows)
 
     def create_zones_lookup(self, field, items, field_ids):
+        """
+        Creates a lookup table for 'Zones' based on the extracted data.
+        :param field: The name of the field to create a lookup table for.
+        :param items: A list of items to create lookup rows for.
+        :param field_ids: A list of IDs for the items.
+        :return: A list of DataFrames containing lookup rows.
+        """
         zone_details = self.state_filter_method(items)
         lookup_rows = []
         for item, field_id in zip(items, field_ids):
@@ -547,6 +570,13 @@ class NormalizerUtils:
         return lookup_rows
 
     def create_layers_lookup(self, field, items, field_ids):
+        """
+        Creates a lookup table for 'Layers' based on the extracted data.
+        :param field: The name of the field to create a lookup table for.
+        :param items: A list of items to create lookup rows for.
+        :param field_ids: A list of IDs for the items.
+        :return: A list of DataFrames containing lookup rows.
+        """
         layer_details = self.layers_filter_method(items)
         lookup_rows = []
         for item, field_id in zip(items, field_ids):
@@ -564,6 +594,13 @@ class NormalizerUtils:
         return lookup_rows
 
     def create_feature_code_lookup(self, field, field_id, item):
+        """
+        Creates a lookup table for 'FeatureCodes' based on the extracted data.
+        :param field: The name of the field to create a lookup table for.
+        :param field_id: The ID of the field to create a lookup row for.
+        :param item: The item to create a lookup row for.
+        :return: A DataFrame containing the lookup row.
+        """
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
                 columns=[f'{field}_ID', f'{field}Names', 'JarvisFeed_ID', 'Version'])
@@ -604,6 +641,9 @@ class NormalizerUtils:
         return new_row
 
     def update_render_pass_table_with_references(self):
+        """
+        Updates the render pass table with references to shared fields.
+        """
         for field in self.shared_fields:
             if field in self.render_pass_df.columns:
                 def map_value_or_list(value):
@@ -620,6 +660,9 @@ class NormalizerUtils:
         self.clean_and_update_render_pass()
 
     def clean_and_update_render_pass(self):
+        """
+        Cleans and updates the render pass table by removing unnecessary columns and renaming others.
+        """
         columns = ['LightingState', 'OverrideFilename']
         for item in columns:
             if item in self.render_pass_df.columns:
@@ -636,6 +679,9 @@ class NormalizerUtils:
         self.render_pass_df['IncludeCurrent_ID'] = None
 
     def finalize_shared_fields_dfs(self):
+        """
+        Finalizes the shared fields DataFrames by concatenating accumulated rows.
+        """
         for field in self.shared_fields:
             valid_dfs = [df for df in self.accumulated_new_rows[field] if isinstance(df, pd.DataFrame)]
 
@@ -660,15 +706,27 @@ class NormalizerUtils:
                     self.shared_fields_dfs[field] = pd.DataFrame()
 
     def normalize_data(self):
+        """
+        Normalizes the extracted data by creating lookup tables and updating the render pass table.
+        """
         self.extract_shared_fields()
         self.update_render_pass_table_with_references()
         self.finalize_shared_fields_dfs()
 
     def get_normalized_dataframes(self):
+        """
+        Returns the normalized render pass DataFrame and shared fields DataFrames.
+        """
         return self.render_pass_df, self.shared_fields_dfs
 
     @staticmethod
     def filter_method(table_name, unique_values):
+        """
+        Filters a table by a given column and returns a dictionary mapping values to IDs.
+        :param table_name: The name of the table to filter.
+        :param unique_values: A list of unique values to filter by.
+        :return: A dictionary mapping values to IDs.
+        """
         Base = initializer()
         meta_data = Base.metadata
         table_name = f'public.{table_name}'

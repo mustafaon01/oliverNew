@@ -5,6 +5,12 @@ import time
 
 
 def process_xml_files(xml_paths, parser_class):
+    """
+    This function is used to process all xml files in the given directory.
+    :param xml_paths: list of xml file paths
+    :param parser_class: class of the parser
+    :return: None
+    """
     print(f"All parsing processes are started: {datetime.now().strftime('%H:%M:%S')}")
     for i, path in enumerate(xml_paths, start=1):
         print(f"PATH {i}->", path)
@@ -37,6 +43,11 @@ def process_xml_files(xml_paths, parser_class):
 
 
 def create_project_name(path):
+    """
+    This function is used to create project name from the given path.
+    :param path: path of the xml file
+    :return: project id
+    """
     index = path.find('/') + 1
     if len(path) > 20:
         index += 7
@@ -46,10 +57,19 @@ def create_project_name(path):
 
 # TODO: we can find paths according to included name.
 def get_xml_files_from_directory(directory):
+    """
+    This function is used to get all xml files from the given directory.
+    :param directory: directory path
+    :return: list of xml file paths
+    """
     return [os.path.join(directory, file) for file in os.listdir(directory) if file.endswith('.xml')]
 
 
 def main():
+    """
+    This function is used to start the parsing process.
+    :return: None
+    """
     editor_directory = 'EDITORS'
     state_directory = 'STATES'
 
@@ -74,5 +94,5 @@ if __name__ == '__main__':
     ''' Remove "State", "Zone", "StateSettings" tables from database '''
     BaseXMLParser.delete_state_and_zone_table()
     ''' Remove "Description" from jarvis_settings table '''
-    # BaseXMLParser.modify_jarvis_settings_table()
+    # BaseXMLParser.modify_jarvis_settings_table() # If you want to remove description column from jarvis_settings table
     

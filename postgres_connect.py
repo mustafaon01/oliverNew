@@ -73,6 +73,7 @@ class PostgresConnect:
             return [result.to_dict() for result in results]
         except Exception as e:
             print(f"Exception occurred while getting the table for {table_name}: {e}")
+            print(traceback.print_exc())
         finally:
             session.close()
     

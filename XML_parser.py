@@ -244,6 +244,10 @@ class BaseXMLParser:
                             print(f"Adding primary key to 'public'.'{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
+                        if table_name == 'ChaosCloudSettings':
+                            print(f"Adding primary key to 'public'.'{table_name}'")
+                            conn.execute(
+                                text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("Project_ID");'))
                         trans.commit()
                     except Exception as e:
                         print("Primary Key Error is:", e)
@@ -694,8 +698,10 @@ class NormalizerUtils:
                 mapped_series = self.render_pass_df[field].apply(map_value_or_list)
                 self.render_pass_df[f'{field}_ID'] = mapped_series
                 self.render_pass_df.drop(field, axis=1, inplace=True)
+                self.render_pass_df.rename(columns={'Include_ID': 'OptionInclude_ID', 'Exclude_ID': 'OptionExclude_ID'}, inplace=True)
             else:
                 self.render_pass_df[f'{field}_ID'] = [[] for _ in range(len(self.render_pass_df))]
+                self.render_pass_df.rename(columns={'Include_ID': 'OptionInclude_ID', 'Exclude_ID': 'OptionExclude_ID'}, inplace=True)
         self.clean_and_update_render_pass()
 
     def clean_and_update_render_pass(self):

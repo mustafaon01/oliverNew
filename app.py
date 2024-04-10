@@ -77,7 +77,7 @@ def main():
     print("Check If there are any existing tables:")
     BaseXMLParser.print_exist_tables()
     ''' Delete exist tables from database '''
-    BaseXMLParser.delete_exist_tables()
+    # BaseXMLParser.delete_exist_tables()
     state_paths = get_xml_files_from_directory(state_directory)
     editor_paths = get_xml_files_from_directory(editor_directory)
     start_time = time.time()
@@ -92,7 +92,7 @@ def main():
 if __name__ == '__main__':
     main()
     ''' Remove "State", "Zone", "StateSettings" tables from database '''
-    BaseXMLParser.delete_state_and_zone_table()
+    # BaseXMLParser.delete_state_and_zone_table()
     ''' Remove "Description" from jarvis_settings table '''
     # BaseXMLParser.modify_jarvis_settings_table() # If you want to remove description column from jarvis_settings table
 

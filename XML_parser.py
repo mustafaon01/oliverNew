@@ -244,7 +244,7 @@ class BaseXMLParser:
                             print(f"Adding primary key to 'public'.'{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
-                        if table_name == 'ChaosCloudSettings':
+                        if not pk_columns and table_name == 'ChaosCloudSettings':
                             print(f"Adding primary key to 'public'.'{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("Project_ID");'))
@@ -384,11 +384,12 @@ class EditorXMLParser(BaseXMLParser):
         :param project_id: The ID of the project.
         """
         pass_data = {attr: pass_element.get(attr).replace('\n', ',') for attr in pass_element.attrib}
+        # TODO: fields_to_process = ['Layers', 'FeatureCodes', 'Lighting', 'Zones']
         fields_to_process = ['Layers', 'FeatureCodes', 'Lighting', 'Zones']
         for field in fields_to_process:
             if field in pass_data:
                 items_list = [item for item in pass_data[field].split(',') if item] # Split string by comma
-                pass_data[field] = "(" + ', '.join(item for item in items_list) + ")" # Convert list to string
+                pass_data[field] = "(" + ','.join(item for item in items_list) + ")" # Convert list to string
         pass_data['RenderPass_ID'] = str(pass_id)
         pass_data['PassType'] = pass_type
         pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None # Set BasePass_ID if OptionPass
@@ -485,10 +486,12 @@ class StateXMLParser(BaseXMLParser):
 
             for state in state_setting.findall('.//State'):
                 state_data = {attr: state.get(attr).replace('\n', '') for attr in state.attrib}
-                if 'Layers' in state_data:
+                '''if 'Layers' in state_data:
                     layers_data = [item for item in state_data['Layers'].split(',') if item]
-                    layers_str = ", ".join(layers_data)
-                    state_data['Layers'] = f"({layers_str})"
+                    # layers_str = ", ".join(layers_data)
+                    # TODO: state_data['Layers'] = f"({layers_str})"
+                    state_data['Layers'] = layers_data
+                    print("Layers:", layers_data)'''
                 state_data['State_ID'] = uuid.uuid4()
                 state_data['StateSettings_ID'] = state_setting_data['StateSettings_ID']
                 state_data['Project_id'] = project_id
@@ -508,7 +511,7 @@ class StateXMLParser(BaseXMLParser):
 
                 fields = ['Assignments', 'MaterialNames', 'ZonesNames']
                 for field in fields:
-                    zones_str = "(" + ', '.join(zone_name for zone_name in state_data[field]) + ")"
+                    zones_str = "(" + ','.join(zone_name for zone_name in state_data[field]) + ")"
                     state_data[field] = zones_str
                 self.state_dict.append(state_data)
 
@@ -525,7 +528,8 @@ class NormalizerUtils:
         :param render_pass_df: The DataFrame containing render pass data to normalize.
         """
         self.render_pass_df = render_pass_df
-        self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedScenes', 'Exclude', 'Include']
+        # TODO: self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedScenes', 'Exclude', 'Include']
+        self.shared_fields = ['FeatureCodes', 'Lighting', 'RenderedScenes', 'Exclude', 'Include']
         self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
                                   self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields}

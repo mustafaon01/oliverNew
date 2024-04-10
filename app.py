@@ -23,7 +23,6 @@ def process_xml_files(xml_paths, parser_class):
             xml_parser.create_project_df(project_name)
             project_id = BaseXMLParser.projects_filter_method(project_name)
         dfs = xml_parser.extract_all_data_to_df(project_id)
-        print("All DFs are uploaded", datetime.now().strftime('%H:%M:%S'))
         if 'EDITOR' in path:
             xml_normalizer = NormalizerUtils(dfs['RenderPass'])
             print("Normalize Start", datetime.now().strftime('%H:%M:%S'))
@@ -31,15 +30,10 @@ def process_xml_files(xml_paths, parser_class):
             print("Normalize end", datetime.now().strftime('%H:%M:%S'))
             normalized_render_pass_df, normalized_common_fields_df = xml_normalizer.get_normalized_dataframes()
             render_pass_dict = {'RenderPass': normalized_render_pass_df}
-            print("RenderPass is uploading..", datetime.now().strftime('%H:%M:%S'))
             xml_parser.load_to_db(render_pass_dict)
-            print("RenderPass was uploaded and common fields are uploading", datetime.now().strftime('%H:%M:%S'))
             xml_parser.load_to_db(normalized_common_fields_df)
-            print("Common fields are uploaded", datetime.now().strftime('%H:%M:%S'))
             dfs = {key: value for key, value in dfs.items() if key != 'RenderPass'}
-        print("Common roots are uploading", datetime.now().strftime('%H:%M:%S'))
         xml_parser.load_to_db(dfs)
-        print("Common roots are uploaded", datetime.now().strftime('%H:%M:%S'))
 
 
 def create_project_name(path):

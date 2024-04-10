@@ -15,7 +15,7 @@ Load environment variables from the specific .env file.
 """
 load_dotenv(override=True, dotenv_path='.env')
 
-"""
+"""g
 Retrieve database connection settings from environment variables.
 """
 DB_HOST = os.getenv('DB_HOST')
@@ -241,11 +241,11 @@ class BaseXMLParser:
                         pk_columns = primary_keys.get('constrained_columns', [])
 
                         if not pk_columns and table_name != 'ChaosCloudSettings':
-                            print(f"Adding primary key to 'public'.'{table_name}'")
+                            print(f"Adding primary key to 'public.{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("{table_name}_ID");'))
-                        if table_name == 'ChaosCloudSettings':
-                            print(f"Adding primary key to 'public'.'{table_name}'")
+                        if not pk_columns and table_name == 'ChaosCloudSettings':
+                            print(f"Adding primary key to 'public.{table_name}'")
                             conn.execute(
                                 text(f'ALTER TABLE "public"."{table_name}" ADD PRIMARY KEY ("Project_ID");'))
                         trans.commit()
@@ -817,14 +817,24 @@ class NormalizerUtils:
             ).filter(states_table.Assignments.in_(assignments_list))
 
             results = query.all()
-            for result in results:
-                state_details_dict[result.Assignments] = {
-                    'StateName': result.Name,
-                    'State_ID': result.State_ID,
-                    'ZoneNames': result.ZonesNames,
-                    'MaterialNames': result.MaterialNames,
-                    'Assignments': result.Assignments,
-                }
+            if not results:
+                for assignment in assignments_list:
+                    state_details_dict[assignment] = {
+                        'StateName': None,
+                        'State_ID': None,
+                        'ZoneNames': None,
+                        'MaterialNames': None,
+                        'Assignments': assignment
+                    }
+            else:
+                for result in results:
+                    state_details_dict[result.Assignments] = {
+                        'StateName': result.Name,
+                        'State_ID': result.State_ID,
+                        'ZoneNames': result.ZonesNames,
+                        'MaterialNames': result.MaterialNames,
+                        'Assignments': result.Assignments
+                    }
         finally:
             session.close()
 
@@ -844,14 +854,21 @@ class NormalizerUtils:
             ).filter(states_table.Layers.in_(layers_list))
 
             results = query.all()
-            for result in results:
-                if result.Name not in layers_details_dict:
-                    layers_details_dict[result.Layers] = {
-                        'StateName': [],
-                        'State_ID': [],
+            if not results:
+                for layer in layers_list:
+                    layers_details_dict[layer] = {
+                        'StateName': [None],
+                        'State_ID': [None]
                     }
-                layers_details_dict[result.Layers]['StateName'].append(result.Name)
-                layers_details_dict[result.Layers]['State_ID'].append(result.State_ID)
+            else:
+                for result in results:
+                    if result.Layers not in layers_details_dict:
+                        layers_details_dict[result.Layers] = {
+                            'StateName': [],
+                            'State_ID': [],
+                        }
+                    layers_details_dict[result.Layers]['StateName'].append(result.Name)
+                    layers_details_dict[result.Layers]['State_ID'].append(result.State_ID)
         finally:
             session.close()
 

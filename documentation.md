@@ -238,7 +238,7 @@ same method in Editor XML Parser.
     def get_normalized_dataframes(self):
         return self.render_pass_df, self.shared_fields_dfs
 ```
-### ORM Architecture
+## ORM Architecture
 - Object-Relational Mapping helps to get efficient, changeable, dynamic queries
 - ORM used sqlalchemy and psycopg2 libraries to connect database and to get query
 - All filter methods written by ORM architecture

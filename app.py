@@ -19,6 +19,7 @@ def process_xml_files(xml_paths, parser_class):
         root = tree.getroot()
         xml_parser = parser_class(root, path)
         project_id = BaseXMLParser.projects_filter_method(project_name)
+        """ If project name doesn't exist, create it """
         if project_id is None:
             xml_parser.create_project_df(project_name)
             project_id = BaseXMLParser.projects_filter_method(project_name)
@@ -49,7 +50,6 @@ def create_project_name(path):
     return project_id
 
 
-# TODO: we can find paths according to included name.
 def get_xml_files_from_directory(directory):
     """
     This function is used to get all xml files from the given directory.
@@ -72,23 +72,26 @@ def main():
     BaseXMLParser.print_exist_tables()
     ''' Delete exist tables from database '''
     BaseXMLParser.delete_exist_tables()
+    """ Get all xml files from given directory """
     state_paths = get_xml_files_from_directory(state_directory)
     editor_paths = get_xml_files_from_directory(editor_directory)
     start_time = time.time()
+    """ Process xml files """
     process_xml_files(state_paths, StateXMLParser)
     process_xml_files(editor_paths, EditorXMLParser)
     end_time = time.time()
     total_time = end_time - start_time
     print(f"All parsing processes are done time: {datetime.now().strftime('%H:%M:%S')}.")
     print(f"Total Time: {total_time / 60} min")
-
-
-if __name__ == '__main__':
-    main()
     ''' Remove "State", "Zone", "StateSettings" tables from database '''
     BaseXMLParser.delete_state_and_zone_table()
     ''' Remove "Description" from jarvis_settings table '''
     # BaseXMLParser.modify_jarvis_settings_table() # If you want to remove description column from jarvis_settings table
-
+    """ Update Project Names table from database """
     BaseXMLParser.update_project_names_with_deadline_outputs()
+
+
+if __name__ == '__main__':
+    main()
+
     

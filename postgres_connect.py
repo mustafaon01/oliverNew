@@ -29,7 +29,7 @@ class ToDictMixin:
         Convert the attributes of the model instance to a dictionary.
         """
         return {c.key: getattr(self, c.key) for c in self.__table__.columns}
-    
+
 
 class PostgresConnect:
     def __init__(self, engine_url=engine_url):
@@ -40,31 +40,35 @@ class PostgresConnect:
     ''' 
     initialize the base object to use in the code 
     '''
+
     def initialize_base(self):
         Base = automap_base()
         Base.prepare(autoload_with=self.sql_engine, schema='public')
         self.apply_mixin(Base)
         return Base
-    
+
     ''' 
     Apply the ToDictMixin to the classes in the Base object, so that we can use the to_dict method for each class(=table)
     '''
+
     def apply_mixin(self, Base):
         for class_ in Base.classes:
             class_.__bases__ = (ToDictMixin,) + class_.__bases__
-    
+
     '''
     Print existing tables from the database
     '''
+
     def print_exist_tables(self):
         print(self.Base.classes.keys())
-    
+
     '''
     Get selected table from the database as dict in a list
     param: session: a session object
     param: table_name: the name of the table to query
     return: a list of dictionaries, each dictionary represents a row in the table
     '''
+
     def get_selected_table(self, table_name):
         try:
             session = self.Session()
@@ -76,11 +80,12 @@ class PostgresConnect:
             print(traceback.print_exc())
         finally:
             session.close()
-    
+
     ''' 
     Get filtered data from the selected table as dict in a list
     retrun: a list of dictionaries, each dictionary represents a row in the table
     '''
+
     def get_filtered_data_from_selected_table(self, **kwargs):
         try:
             session = self.Session()
@@ -92,10 +97,11 @@ class PostgresConnect:
             print(f"Exception occurred while getting the table for {table_name}: {e}")
         finally:
             session.close()
-    
+
     '''
     Insert data into a table that is selected from the database    
     '''
+
     def insert_data_to_selected_table(self, **kwargs):
         try:
             session = self.Session()
@@ -109,10 +115,11 @@ class PostgresConnect:
             print(f"Exception occurred while inserting data to the table for {table_name}: {e}")
         finally:
             session.close()
-    
+
     '''
     Delete data from a table that is selected from the database
     '''
+
     def delete_data_from_selected_table(self, **kwargs):
         try:
             session = self.Session()
@@ -139,13 +146,18 @@ if __name__ == '__main__':
     '''
 
     print(postgres_connect.get_selected_table('Project'))
-    postgres_connect.insert_data_to_selected_table(table_name='Project', Project_ID='python_test_project', ProjectName='python_test_name')
+    postgres_connect.insert_data_to_selected_table(table_name='Project', Project_ID='python_test_project',
+                                                   ProjectName='python_test_name')
 
     '''
     We don't delete this data for testing purposes. However, we need to delete it after testing to get back to the initial state.
     '''
-    postgres_connect.insert_data_to_selected_table(table_name='Project', Project_ID='python_test_project_2', ProjectName='python_test_name_2')
-    postgres_connect.delete_data_from_selected_table(table_name='Project', Project_ID='python_test_project', ProjectName='python_test_name')
+    postgres_connect.insert_data_to_selected_table(table_name='Project', Project_ID='python_test_project_2',
+                                                   ProjectName='python_test_name_2')
+    postgres_connect.delete_data_from_selected_table(table_name='Project', Project_ID='python_test_project',
+                                                     ProjectName='python_test_name')
     print(postgres_connect.get_selected_table('Project'))
-    print(postgres_connect.get_filtered_data_from_selected_table(table_name='Project', Project_ID='python_test_project_2'))
-    print(postgres_connect.get_filtered_data_from_selected_table(table_name='Project', ProjectName='python_test_name_2'))
+    print(postgres_connect.get_filtered_data_from_selected_table(table_name='Project',
+                                                                 Project_ID='python_test_project_2'))
+    print(
+        postgres_connect.get_filtered_data_from_selected_table(table_name='Project', ProjectName='python_test_name_2'))

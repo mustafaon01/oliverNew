@@ -13,9 +13,9 @@ import traceback
 """
 Load environment variables from the specific .env file.
 """
-load_dotenv(override=True, dotenv_path='.env')
+load_dotenv(override=True, dotenv_path='.prod-env')
 
-"""g
+"""
 Retrieve database connection settings from environment variables.
 """
 DB_HOST = os.getenv('DB_HOST')
@@ -62,7 +62,7 @@ class BaseXMLParser:
         self.xml_data = []
 
     @abstractmethod
-    def extract_data_to_df(self, tag_name, project_id):
+    def extract_data_to_df(self, project_id):
         pass
 
     @abstractmethod
@@ -86,7 +86,7 @@ class BaseXMLParser:
         specific_dataframes = self.handle_additional_data(project_id)
         dataframes.update(specific_dataframes)
         return dataframes
-    
+
     def create_project_df(self, project_name):
         """
         Creates a DataFrame for a new project and loads it into the database, if the project does not already exist.
@@ -101,7 +101,7 @@ class BaseXMLParser:
             self.load_to_db(project_dict)
         else:
             print(f"Project '{project_name}' already exists with Project_ID {existing_project_id}.")
-    
+
     @staticmethod
     def projects_filter_method(project_name):
         session = Session()
@@ -116,7 +116,7 @@ class BaseXMLParser:
                 project_id = result.Project_ID
         session.close()
         return project_id
-    
+
     @staticmethod
     def update_project_names_with_deadline_outputs():
         Base = initializer()
@@ -124,7 +124,8 @@ class BaseXMLParser:
 
         Project = Base.classes.Project
         DeadlineSettings = Base.classes.DeadlineSettings
-        projects_with_deadlines = session.query(Project, DeadlineSettings).join(DeadlineSettings, Project.Project_ID == DeadlineSettings.Project_ID).all()
+        projects_with_deadlines = session.query(Project, DeadlineSettings).join(DeadlineSettings,
+                                                                                Project.Project_ID == DeadlineSettings.Project_ID).all()
 
         for project, deadline in projects_with_deadlines:
             project.ProjectName = deadline.Output
@@ -136,16 +137,13 @@ class BaseXMLParser:
         finally:
             session.close()
 
-
-
-
     @staticmethod
     def delete_exist_tables():
         """
         Deletes all existing tables from the database before starting the script.
         """
-        Base = initializer() # Initialize the automap base class
-        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
+        Base = initializer()  # Initialize the automap base class
+        meta_data = Base.metadata  # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -163,8 +161,8 @@ class BaseXMLParser:
         """
         Prints the names of all existing tables in the database.
         """
-        Base = initializer() # Initialize the automap base class
-        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
+        Base = initializer()  # Initialize the automap base class
+        meta_data = Base.metadata  # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -174,14 +172,14 @@ class BaseXMLParser:
                 trans.commit()
             except Exception as e:
                 trans.rollback()
-    
+
     @staticmethod
     def delete_state_and_zone_table():
         """
         Deletes the 'State', 'Zone' and 'StateSettings' tables from the database.
         """
-        Base = initializer() # Initialize the automap base class
-        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
+        Base = initializer()  # Initialize the automap base class
+        meta_data = Base.metadata  # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
@@ -194,20 +192,21 @@ class BaseXMLParser:
                 print("State and Zone tables have been removed.")
             except Exception as e:
                 trans.rollback()
-    
+
     @staticmethod
     def modify_jarvis_settings_table():
         """
         Deletes the 'Description' column from the 'JarvisSettings' table using specific SQL query.
         """
-        Base = initializer() # Initialize the automap base class
-        meta_data = Base.metadata # Retrieve the metadata from the base class for getting table names
+        Base = initializer()  # Initialize the automap base class
+        meta_data = Base.metadata  # Retrieve the metadata from the base class for getting table names
 
         with sql_engine.connect() as conn:
             trans = conn.begin()
             try:
                 if 'public.JarvisSettings' in meta_data.tables:
-                    conn.execute(text('DELETE From public."JarvisSettings" where "JarvisSettings_ID" in ( with a as (select "JarvisSettings_ID", row_number() over(partition by "Project_ID","FeatureCode" order by "Type" desc) queue from public."JarvisSettings")select "JarvisSettings_ID" from a where queue <> 1)'))
+                    conn.execute(text(
+                        'DELETE From public."JarvisSettings" where "JarvisSettings_ID" in ( with a as (select "JarvisSettings_ID", row_number() over(partition by "Project_ID","FeatureCode" order by "Type" desc) queue from public."JarvisSettings")select "JarvisSettings_ID" from a where queue <> 1)'))
                     trans.commit()
             except Exception as e:
                 trans.rollback()
@@ -216,7 +215,7 @@ class BaseXMLParser:
         """
         Loads a collection of DataFrames into the database, creating tables if they do not already exist.
         """
-        inspector = inspect(sql_engine) # Retrieve the inspector object for inspecting the database
+        inspector = inspect(sql_engine)  # Retrieve the inspector object for inspecting the database
 
         for table_name, df in dfs.items():
             if not df.empty:
@@ -254,12 +253,13 @@ class BaseXMLParser:
                         trans.rollback()
             else:
                 continue
-    
+
 
 class EditorXMLParser(BaseXMLParser):
     """
     EditorXMLParser is a subclass of BaseXMLParser that provides methods for extracting 'Editor XML' data
     """
+
     def __init__(self, new_root, path):
         """
         Initializes the EditorXMLParser with a given root and file path.
@@ -283,11 +283,11 @@ class EditorXMLParser(BaseXMLParser):
         root_dataframes = {}
         for root_name in root_names:
             root_dataframes.update(self.create_root_df(project_id, root_name))
-        
+
         root_dataframes.update(self.create_jarvis_settings_table(project_id))
 
         return root_dataframes
-    
+
     def create_root_df(self, project_id, root_name):
         """
         Creates a DataFrame for the root element of the XML document.
@@ -307,15 +307,15 @@ class EditorXMLParser(BaseXMLParser):
 
         return {root_name: root_df}
 
-    
     def to_get_descriptions_data_as_dict(self):
         """ 
         Extracts the 'FeatureCode' and 'Description' data from the XML document as a dictionary.
         :return: A dictionary of 'FeatureCode' and 'Description' data.
         """
-        descriptions_dict = {desc.get('FeatureCode'): desc.get('Description') for desc in self.root.findall('.//Descriptions/Description')}
+        descriptions_dict = {desc.get('FeatureCode'): desc.get('Description') for desc in
+                             self.root.findall('.//Descriptions/Description')}
         return descriptions_dict
-    
+
     def create_jarvis_settings_table(self, project_id):
         """
         Creates a DataFrame for the 'JarvisSettings' table from the XML document.
@@ -387,19 +387,21 @@ class EditorXMLParser(BaseXMLParser):
         fields_to_process = ['Layers', 'FeatureCodes', 'Lighting', 'Zones']
         for field in fields_to_process:
             if field in pass_data:
-                items_list = [item for item in pass_data[field].split(',') if item] # Split string by comma
-                pass_data[field] = "(" + ', '.join(item for item in items_list) + ")" # Convert list to string
+                items_list = [item for item in pass_data[field].split(',') if item]  # Split string by comma
+                pass_data[field] = "(" + ', '.join(item for item in items_list) + ")"  # Convert list to string
         pass_data['RenderPass_ID'] = str(pass_id)
         pass_data['PassType'] = pass_type
-        pass_data['BasePass_ID'] = str(parent_id) if pass_type == 'OptionPass' else None # Set BasePass_ID if OptionPass
-        pass_data['LinkingRecord_ID'] = str(parent_id) if pass_type == 'BasePass' else None # Set LinkingRecord_ID if BasePass
+        pass_data['BasePass_ID'] = str(
+            parent_id) if pass_type == 'OptionPass' else None  # Set BasePass_ID if OptionPass
+        pass_data['LinkingRecord_ID'] = str(
+            parent_id) if pass_type == 'BasePass' else None  # Set LinkingRecord_ID if BasePass
         pass_data['RenderedScenes'] = None
         pass_data['Project_ID'] = project_id
-        ''' State_ID is added to pass_data ''' 
+        ''' State_ID is added to pass_data '''
         # TODO: If this line in comment, it takes a lot of time to upload data to database.
         # pass_data['State_ID'] = self.state_filter_method(pass_data['State']) if 'State' in pass_data and pass_data['State'] else None
-        self.records_dicts.append(pass_data) # Append pass data to records_dicts list
-    
+        self.records_dicts.append(pass_data)  # Append pass data to records_dicts list
+
     @staticmethod
     def state_filter_method(state_name):
         """
@@ -424,6 +426,7 @@ class StateXMLParser(BaseXMLParser):
     """
     StateXMLParser is a subclass of BaseXMLParser that provides methods for extracting 'State XML' data
     """
+
     def __init__(self, new_root, path):
         """
         Initializes the StateXMLParser with a given root and file path.
@@ -526,10 +529,11 @@ class NormalizerUtils:
         """
         self.render_pass_df = render_pass_df
         self.shared_fields = ['FeatureCodes', 'Layers', 'Lighting', 'Zones', 'RenderedScenes', 'Exclude', 'Include']
-        self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'version']) for field in
+        self.shared_fields_dfs = {field: pd.DataFrame(columns=[f'{field}_ID', f'{field}Names', 'Version', 'User']) for
+                                  field in
                                   self.shared_fields}
         self.field_id_maps = {field: {} for field in self.shared_fields}
-        self.accumulated_new_rows = {field: [] for field in self.shared_fields} 
+        self.accumulated_new_rows = {field: [] for field in self.shared_fields}
 
     def extract_shared_fields(self):
         """
@@ -583,7 +587,7 @@ class NormalizerUtils:
                 lookup_rows = [self.create_rendered_scenes_lookup(field, field_id, item) for item, field_id in
                                zip(items_not_in_map, field_ids)]
         else:
-            lookup_rows = [pd.DataFrame({f'{field}_ID': [field_id], f'{field}Names': [item], 'version': 1})
+            lookup_rows = [pd.DataFrame({f'{field}_ID': [field_id], f'{field}Names': [item], 'Version': 1, 'User': ''})
                            for item, field_id in zip(items_not_in_map, field_ids)]
         self.accumulated_new_rows[field].extend(lookup_rows)
 
@@ -607,7 +611,8 @@ class NormalizerUtils:
                     'ZonesNames': [details['ZoneNames']],
                     'MaterialNames': [details['MaterialNames']],
                     'Assignments': [details['Assignments']],
-                    'Version': [1]
+                    'Version': [1],
+                    'User': ''
                 })
                 lookup_rows.append(new_row)
         return lookup_rows
@@ -631,7 +636,8 @@ class NormalizerUtils:
                     'State_ID': state_info['State_ID'],
                     'LayersNames': [item],
                     'Scene_ID': [None],
-                    'Version': [1]
+                    'Version': [1],
+                    'User': ''
                 })
                 lookup_rows.append(new_row)
         return lookup_rows
@@ -646,41 +652,41 @@ class NormalizerUtils:
         """
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'JarvisFeed_ID', 'Version'])
+                columns=[f'{field}_ID', f'{field}Names', 'JarvisFeed_ID', 'Version', 'User'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'JarvisFeed_ID': 1, 'Version': 1})
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'JarvisFeed_ID': 1, 'Version': 1, 'User': ''})
         return new_row
 
     def create_lighting_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version'])
+                columns=[f'{field}_ID', f'{field}Names', 'Scene_ID', 'Version', 'User'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], f'{field}Names': [item], 'Scene_ID': [None], 'Version': 1, 'User': ''})
         return new_row
 
     def create_exclude_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'Option{field}_ID', f'{field}Name', 'Scene_ID', 'Version'])
+                columns=[f'Option{field}_ID', f'{field}Name', 'Scene_ID', 'Version', 'User'])
         new_row = pd.DataFrame(
-            {f'Option{field}_ID': [field_id], f'{field}Name': [item], 'Scene_ID': [None], 'Version': 1})
+            {f'Option{field}_ID': [field_id], f'{field}Name': [item], 'Scene_ID': [None], 'Version': 1, 'User': ''})
         return new_row
 
     def create_include_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'Option{field}_ID', f'{field}Name', 'Scene_ID', 'Version'])
+                columns=[f'Option{field}_ID', f'{field}Name', 'Scene_ID', 'Version', 'User'])
         new_row = pd.DataFrame(
-            {f'Option{field}_ID': [field_id], f'{field}Name': [item], 'Scene_ID': [None], 'Version': 1})
+            {f'Option{field}_ID': [field_id], f'{field}Name': [item], 'Scene_ID': [None], 'Version': 1, 'User': ''})
         return new_row
 
     def create_rendered_scenes_lookup(self, field, field_id, item):
         if field not in self.shared_fields_dfs[field]:
             self.shared_fields_dfs[field] = pd.DataFrame(
-                columns=[f'{field}_ID', 'Department', 'Scene_ID', 'Version'])
+                columns=[f'{field}_ID', 'Department', 'Scene_ID', 'Version', 'User'])
         new_row = pd.DataFrame(
-            {f'{field}_ID': [field_id], 'Department': [item], 'Scene_ID': [None], 'Version': 1})
+            {f'{field}_ID': [field_id], 'Department': [item], 'Scene_ID': [None], 'Version': 1, 'User': ''})
         return new_row
 
     def update_render_pass_table_with_references(self):
@@ -698,10 +704,12 @@ class NormalizerUtils:
                 mapped_series = self.render_pass_df[field].apply(map_value_or_list)
                 self.render_pass_df[f'{field}_ID'] = mapped_series
                 self.render_pass_df.drop(field, axis=1, inplace=True)
-                self.render_pass_df.rename(columns={'Include_ID': 'OptionInclude_ID', 'Exclude_ID': 'OptionExclude_ID'}, inplace=True)
+                self.render_pass_df.rename(columns={'Include_ID': 'OptionInclude_ID', 'Exclude_ID': 'OptionExclude_ID'},
+                                           inplace=True)
             else:
                 self.render_pass_df[f'{field}_ID'] = [[] for _ in range(len(self.render_pass_df))]
-                self.render_pass_df.rename(columns={'Include_ID': 'OptionInclude_ID', 'Exclude_ID': 'OptionExclude_ID'}, inplace=True)
+                self.render_pass_df.rename(columns={'Include_ID': 'OptionInclude_ID', 'Exclude_ID': 'OptionExclude_ID'},
+                                           inplace=True)
         self.clean_and_update_render_pass()
 
     def clean_and_update_render_pass(self):
@@ -712,7 +720,7 @@ class NormalizerUtils:
         for item in columns:
             if item in self.render_pass_df.columns:
                 self.render_pass_df.drop(item, axis=1, inplace=True)
-                
+
         ''' Change the column name from State to BaseState in the RenderPass Table '''
         self.render_pass_df.rename(columns={'State': 'BaseState'}, inplace=True)
         self.render_pass_df['FeatureCodeCurrent_ID'] = None
@@ -734,11 +742,12 @@ class NormalizerUtils:
                 accumulated_df = pd.concat(valid_dfs, ignore_index=True)
                 if field in self.shared_fields_dfs and not self.shared_fields_dfs[field].empty:
                     if field in ['Exclude', 'Include']:
-                        self.shared_fields_dfs[f'Option{field}'] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
-                                                              ignore_index=True)
+                        self.shared_fields_dfs[f'Option{field}'] = pd.concat(
+                            [self.shared_fields_dfs[field], accumulated_df],
+                            ignore_index=True)
                     else:
                         self.shared_fields_dfs[field] = pd.concat([self.shared_fields_dfs[field], accumulated_df],
-                                                              ignore_index=True)
+                                                                  ignore_index=True)
                 else:
                     if field in ['Exclude', 'Include']:
                         self.shared_fields_dfs[f'Option{field}'] = accumulated_df
@@ -747,7 +756,7 @@ class NormalizerUtils:
             else:
                 if field not in self.shared_fields_dfs or self.shared_fields_dfs[field].empty:
                     if field in ['Exclude', 'Include']:
-                        self.shared_fields_dfs[f'Option{field}'] = pd.DataFrame()    
+                        self.shared_fields_dfs[f'Option{field}'] = pd.DataFrame()
                     self.shared_fields_dfs[field] = pd.DataFrame()
 
     def normalize_data(self):
@@ -800,7 +809,7 @@ class NormalizerUtils:
             print(f"Exception occurred: {e}")
             # traceback.print_exc()
             return {}
-    
+
     @staticmethod
     def state_filter_method(assignments_list):
         session = Session()

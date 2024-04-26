@@ -7,10 +7,7 @@
 - ------
 - Root names are
 ```python 
-['DeadlineSettings', 'ChaosCloudSettings', 'OutputSettings', 'ProjectSettings', 'JarvisSettings'] 
-
-
-
+['DeadlineSettings', 'ChaosCloudSettings', 'OutputSettings', 'ProjectSettings', 'JarvisSettings']
 ```
 ## Base XML Parser
 - This class is a parent class which contains abstract methods for polymorphism. 

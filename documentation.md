@@ -1,5 +1,5 @@
 # XML Parser Automation
-- If you have any questions please don't hesitate to contact me: abdullahon@gmail.com
+- If you have any questions please don't hesitate to contact me: mustafaoncu815@gmail.com
 - ----
 - Your directory must have 'EDITOR' and 'STATE' folders that contains corresponding XML files
 - .env file also should be exist and file should has database credentials
@@ -300,7 +300,7 @@ database.
                 continue
 ```
 
-## If you have any questions please don't hesitate to contact me: abdullahon@gmail.com
+## If you have any questions please don't hesitate to contact me: mustafaoncu815@gmail.com
 
 
 

@@ -13,7 +13,7 @@ import traceback
 """
 Load environment variables from the specific .env file.
 """
-load_dotenv(override=True, dotenv_path='.prod-env')
+load_dotenv(override=True, dotenv_path='.env')
 
 """
 Retrieve database connection settings from environment variables.
@@ -298,10 +298,19 @@ class EditorXMLParser(BaseXMLParser):
         root_df = pd.DataFrame()
         for record in self.root.findall(f'.//{root_name}'):
             record_data = {attr: record.get(attr).replace('\n', '') for attr in record.attrib}
-            record_data[f'{root_name}_ID'] = uuid.uuid4() if root_name != 'ChaosCloudSettings' else None
+            if root_name != 'ChaosCloudSettings':
+                record_data[f'{root_name}_ID'] = uuid.uuid4()
             record_data['Project_ID'] = project_id
             if root_name == 'ProjectSettings':
                 record_data['Type'] = 'Editor'
+            if root_name == 'ChaosCloudSettings':
+                vr_scene = record.get('VrScene')
+                record_data['VrScene'] = vr_scene.replace('\n', '') if vr_scene is not None else None
+
+            for key, value in record_data.items():
+                if value is None:
+                    record_data[key] = ''
+
             current_df = pd.DataFrame([record_data])
             root_df = pd.concat([root_df, current_df], ignore_index=True)
 
